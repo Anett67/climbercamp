@@ -1,0 +1,13 @@
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~font-awesome';
+@import '~./helper/variables';
+@import '~./layout/header';
+
+body {
+    background-image: url('../images/climbercamp_bg.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    h1{
+        color: $yellow;
+    }
+}
