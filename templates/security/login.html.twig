@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+
+{% for message in app.flashes('success') %}
+<div>
+    {{ message }}
+</div>
+    
+{% endfor %}
+
+<h1>Login</h1>
+
+<form action="{{ path('login') }}" method="POST">
+    <div>
+        <label for="">Email</label>
+        <input placeholder="Adress mail" type="text" name="_username" required>
+    </div>
+    <div>
+        <label for="">Mot de passe</label>
+        <input type="password" name="_password" required>
+    </div>
+    
+
+    <input type="submit">
+</form>
+
+<a href="{{ path('inscription') }}">Inscription</a>
+
+{% endblock %}
