@@ -1,4 +1,157 @@
-nav{
-    color: $yellow;
-    background-color: $black;
+header{
+    font-family: OpenRegular;
+    nav{
+        color: $yellow;
+        background-color: $black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        #logo{
+            height: 60px;
+        }
+        .menu-block{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin: 0 20px 0 0;
+            .navbar-nav{
+                .nav-link{
+                    color: $yellow;
+                    &:hover{
+                        color: $orange;
+                    }
+                }
+                .dropdown-menu{
+                    background-color: $black;
+                    .dropdown-item{
+                        color: $yellow;
+                        font-family: OpenLight;
+                        &:hover{
+                            background-color: $black;
+                            color: $green;
+                        }
+                    }
+                    .dropdown-divider{
+                        color: $yellow;
+                        border-color: $yellow;
+                    }
+                    
+                }
+            }
+            .burger{
+                font-size: 30px;
+                &:hover{
+                    color: $green;
+                    cursor: pointer;
+                }
+            }
+            .menu-list{
+                display: flex;
+                margin: 0;
+                .menu-item{ 
+                    list-style: none;
+                    padding-left: 30px;
+                    &:last-of-type a{
+                        color: $green;
+                    }
+                    .menu-link{
+                        text-decoration: none;
+                        color: $yellow;
+                        font-size: 30px;
+                        display: flex;
+                        align-content: flex-start;
+                        &:hover{
+                            text-decoration: none;
+                            color: $orange;
+                        }
+                        i{
+                            color: $yellow;
+                        }
+                        .club-icon{
+                            width: 30px;
+                            &:hover{
+                                color: $orange;
+                            }
+                        }
+                    }
+                }
+            }
+        } 
+    }
+    .header{
+        background-color: rgba(39,39,39,0.89);
+        padding-top: 60px;
+        height: auto;
+        min-height: 200px;
+        .card{
+            background-color: $green;
+            border-radius: 0;
+            position: absolute;
+            padding: 0;
+            top: 100px;
+            left: 5%;
+            border: none;
+            img{
+                width: 50%;
+                border-radius: 100px;
+                margin: 30px 0;
+            }
+            .card-title{
+                a{
+                    font-family: OpenBold;
+                    color: $yellow;
+                    &:hover{
+                        text-decoration: none;
+                        color: $orange;
+                    }
+                }
+            }
+            .card-text{
+                color: white;
+                .level,
+                .club-link{
+                    color: $yellow;
+                    font-family: OpenLightItalic;
+                }
+            }
+            .badge{
+                color: orange;
+                border: 1px solid $orange;
+                background-color: $black;
+                padding: 5px 10x;
+                border-radius: 0;
+                margin: 10px;
+            }
+            .buttons{
+                width: 100%;
+                background-color: $black;
+                padding: 20px;
+                .btn{
+                    margin: 10px;
+                }
+                .event-button{
+                    @include buttons($orange);
+                }
+                .grimpeur-button{
+                    @include buttons($yellow);
+                }
+                .club-button{
+                    @include buttons($green);
+                }
+            }
+        }
+        .image-block{
+            img{
+                max-width: 100%;
+                border-radius: 200px;
+            }
+        }
+        h1{
+            font-family: OpenRegular;
+            color: $orange;
+        }
+    }
 }
