@@ -24,7 +24,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
-    //.addEntry('page1', './assets/js/page1.js')
+    .addEntry('site_entry', './assets/js/site_entry.js')
     //.addEntry('page2', './assets/js/page2.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
@@ -60,6 +60,11 @@ Encore
     .copyFiles({
         from: './assets/images',
         to: 'images/[path][name].[hash:8].[ext]' 
+    })
+
+    .copyFiles({
+        from: './assets/fonts',
+        to: 'fonts/[path][name].[hash:8].[ext]' 
     })
 
     // uncomment if you use TypeScript

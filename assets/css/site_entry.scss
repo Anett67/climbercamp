@@ -1,0 +1,86 @@
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~font-awesome';
+@import '~./helper/variables';
+@import '~./helper/fonts'; 
+@import '~./helper/media-queries';
+
+body{
+    background-image: url('../images/backgrounds/man-doing-outdoor-rock-climbing-1_dark.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: OpenRegular;
+    .container-fluid{
+        height: 100vh;
+        .row{
+            height: 80%;
+            .title-block-haut{
+                display: none;
+            }
+            .block-formulaire{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                background-color: $black;
+                color: $yellow;
+                height: auto;
+                padding: 100px 50px;
+                min-width: 400px;
+                h2{
+                    font-family: OpenBold;
+                }
+                form{
+                    width: 100%;
+                    padding: 60px 0 60px 0;
+                    .input, .form-control{
+                        border: 2px solid $yellow;
+                        background-color: $black;
+                        border-radius: 0;
+
+                    }
+                    .submit-button{
+                        color: $yellow;
+                        background-color: $black;
+                        border: 2px solid $yellow;
+                        padding: 5px 20px;
+                        &:hover{
+                            color: $black;
+                            background-color: $yellow;
+                            transition: 0.2s;
+                        }
+                    }
+                }
+                .forgot-password-block{
+                    padding: 1.5rem 0;
+                    a{
+                        color: $orange;
+                    }
+                }
+                .link-block{
+                    color: $green;
+                    a{
+                        color: $green;
+                        text-decoration: underline;
+                    }
+                }
+            }
+            h1{
+                color: white;
+                font-family: Lobster;
+                font-size: 4rem;
+            }
+            .sous-titre{
+                color: $green;
+                font-size: 1.5rem;
+                font-family: OpenItalic;
+
+            }
+            .logo-icon{
+                width: 100%;
+            }
+        }
+        
+    }
+    
+}

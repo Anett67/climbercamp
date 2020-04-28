@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostController extends AbstractController
 {
     /**
-     * @Route("/", name="dashboard")
+     * @Route("/", name="publications")
      */
     public function index()
     {

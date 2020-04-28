@@ -1,0 +1,10 @@
+@import "font-face";
+
+@include font-face("OpenRegular", "../../fonts/OpenSans-Regular");
+@include font-face("OpenBold", "../../fonts/OpenSans-Bold");
+@include font-face("OpenLight", "../../fonts/OpenSans-Light");
+@include font-face("OpenLightItalic", "../../fonts/OpenSans-LightItalic");
+@include font-face("OpenSemiBold", "../../fonts/OpenSans-SemiBold");
+@include font-face("OpenSemiBoldItalic", "../../fonts/OpenSans-SemiBoldItalic");
+@include font-face("OpenItalic", "../../fonts/OpenSans-Italic");
+@include font-face("lobster", "../../fonts/Lobster-Regular");
