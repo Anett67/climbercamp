@@ -2,18 +2,23 @@
 
 namespace App\Controller;
 
+use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PostController extends AbstractController
 {
     /**
-     * @Route("/", name="publications")
+     * @Route("/", name="local-posts")
      */
-    public function index()
-    {
-        return $this->render('post/index.html.twig', [
-            'controller_name' => 'PostController',
+    public function localPosts(PostRepository $repository)
+    {   
+        $ville = $this->getUser()->getVille();
+
+        $posts = $repository->findLocalPosts($ville);
+
+        return $this->render('post/localPosts.html.twig', [
+            'posts' => $posts
         ]);
     }
 }

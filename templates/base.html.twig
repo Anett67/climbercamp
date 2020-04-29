@@ -10,7 +10,7 @@
         <header>
             <nav>
                 <div class="logo">
-                    <a href="{{ path('publications') }}"><img id="logo" src="{{ asset('build/images/icons/Logo.png') }}" alt=""></a> 
+                    <a href="{{ path('local-posts') }}"><img id="logo" src="{{ asset('build/images/icons/Logo.png') }}" alt=""></a> 
                 </div>
                 <div class="menu-block">
                     <ul class="navbar-nav">
@@ -19,13 +19,13 @@
                                 <i class="fas fa-bars burger"></i>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item text-right" href="{{ path('publications') }}">Accueil</a>
+                                <a class="dropdown-item text-right" href="{{ path('local-posts') }}">Accueil</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-right" href="{{path('profil') }}">Mon Profile</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-right" href="{{path('friends') }}">Mes amis</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-right" href="{{ path('clubs') }}">Salles d'escalade</a>
+                                <a class="dropdown-item text-right" href="{{ path('saved-clubs') }}">Salles d'escalade</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-right" href="{{ path('messages') }}">Messages</a>
                                 <div class="dropdown-divider"></div>
@@ -36,10 +36,10 @@
                         </li>
                     </ul>
                     <ul class="menu-list d-none d-md-flex">
-                        <li class="menu-item"><a class="menu-link" href="{{ path('publications') }}" title="Accueil"><i class="fas fa-home d-none d-md-block"></i></a></li>
+                        <li class="menu-item"><a class="menu-link" href="{{ path('local-posts') }}" title="Accueil"><i class="fas fa-home d-none d-md-block"></i></a></li>
                         <li class="menu-item"><a class="menu-link" href="{{path('profil') }}" title="Mon Profil"><i class="fas fa-user d-none d-md-block"></i></a></li>
                         <li class="menu-item"><a class="menu-link" href="{{path('friends') }}" title="Mes amis"><i class="fas fa-users d-none d-md-block"></i></a></li>
-                        <li class="menu-item"><a class="menu-link" href="{{path('clubs') }}" title="Salles d'escalade préférées"><i class="fas fa-trophy"></i></a></li>
+                        <li class="menu-item"><a class="menu-link" href="{{path('saved-clubs') }}" title="Salles d'escalade préférées"><i class="fas fa-trophy"></i></a></li>
                         <li class="menu-item"><a class="menu-link" href="{{ path('messages') }}" title="Messages"><i class="far fa-envelope d-none d-md-block"></i></a></li>
                         <li class="menu-item"><a class="menu-link" href="{{ path('saved-events') }}" title="Évènements enregistrés"><i class="far d-none fa-calendar-alt d-md-block"></i></a></li>
                         <li class="menu-item"><a class="menu-link" href="{{ path('logout') }}" title="Déconnexion"><i class="fas fa-sign-out-alt d-none d-md-block"></i></li></a>
@@ -80,7 +80,9 @@
                 </div>
             {% endblock %}
         </header>
+        <div class="container">
         {% block body %}{% endblock %}
+        </div>
         {% block javascripts %}{% endblock %}
         {{ encore_entry_script_tags('app') }}
     </body>

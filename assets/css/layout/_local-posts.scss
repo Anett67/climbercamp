@@ -1,0 +1,84 @@
+
+.button-block{
+    background-color: rgba(39,39,39,0.89);
+    width: 100%;
+    .btn{
+        margin: 10px;
+    }
+    .event-button{
+        @include buttons($orange);
+    }
+    .grimpeur-button{
+        @include buttons($yellow);
+    }
+    .club-button{
+        @include buttons($green);
+    }
+    .post-button{
+        @include buttons($grey);
+    }
+}
+
+.post-form-block{
+    background-color: rgba(39,39,39,0.89);
+    width: 100%;
+    color: $orange;
+}
+
+.posts-header{
+    background-color: rgba(39,39,39,0.89);
+    color: $orange;
+}
+
+.post-block{
+    background-color: rgba(39,39,39,0.89);
+    color: $orange;
+    .postedByProfil{
+        border-radius: 500px;
+    }
+    .postImage{
+        width: 100%;
+        margin: 20px 20px 20px 0;
+    }
+    .postBody{
+       margin: 20px;
+       color: $green; 
+    }
+
+    .like-button{
+        background-color: $orange;
+        padding: 5px 20px;
+        border-radius: 0;
+        transition: 0.2s;
+        width: 100%;
+        &:hover{
+            background-color: transparent;
+            color: $orange;
+            border: 1px solid $orange;
+        }
+    }
+
+    .comment-button{
+        background-color: transparent;
+        color: $orange;
+        border: 1px solid $orange;
+        padding: 5px 20px;
+        border-radius: 0;
+        transition: 0.2s;
+        width: 100%;
+        &:hover{
+            background-color: $orange;
+            color: $black;
+        }
+    }
+    .comments-link,
+    .likes-link{
+        color: $orange;
+    }
+}
+
+
+
+
+
+

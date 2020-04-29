@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bonjour {{ app.user.firstName }}!{% endblock %}
+
+{% block pageTitle %}Accueil{% endblock %}
+
+{% block body %}
+
+    <div class="row justify-content-center justify-content-lg-end">
+        <div class="button-block col-10 col-lg-9 mt-3 p-2 ">
+            <div class="row justify-content-center">
+                <a class="col-10 col-lg-3 btn event-button" href="{{ path('local-events') }}">Évènements à {{ app.user.ville.nom }}</a>
+                <a class="col-10 col-lg-3 btn grimpeur-button" href="{{ path('local-users') }}">Grimpeurs à {{ app.user.ville.nom }}</a>
+                <a class="col-10 col-lg-3 btn club-button" href="{{ path('local-clubs') }}">Salles d'escalade à {{ app.user.ville.nom }}</a>
+            </div>
+        </div>    
+    </div>
+
+    <div class="row justify-content-center justify-content-lg-end">
+        <div class="post-form-block col-10 col-lg-9 mt-3 p-2 ">
+            <p class="text-center">Bloc du nouveau formulaire</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center justify-content-lg-end">
+        <div class="posts-header col-10 col-lg-9 mt-3 pl-5 pr-5 pt-3 pb-2 text-center">
+            <h4>Voilà ce que les utilisateurs de votre ville ont publié</h4>
+        </div>
+     </div>        
+     
+        {% for post in posts %}
+            <div class="row justify-content-center justify-content-lg-end">
+                <div class="post-block col-10 col-lg-9 mt-3 p-5 ">
+                    <div class="row postedByAt-block align-items-center">
+                        <div class="col-8 col-lg-6">
+                            <div class="row align-items-center">
+                                <div class="col-5 col-md-4 col-lg-3">
+                                    <img class="postedByProfil img-fluid" src="{{ asset('build/images/' ~ post.postedBy.image) }}" alt="Photo de profile">
+                                </div>
+                                <div class="col-7 col-md-8 col-lg-9">
+                                    {{ post.postedBy.firstName }} {{ post.postedBy.lastName }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 col-lg-6 text-right">
+                            {{ post.createdAt|ago }}
+                        </div>
+                    </div>
+                    <div class="row content-block">
+                        {% if post.image %}
+                            <div class="col-12 col-lg-6">
+                                <img class="postImage" src="{{ asset('build/images/posts/' ~ post.image) }}" alt="">
+                            </div>
+                        {% endif %}
+                        <div class="col-12 {% if post.image %}col-lg-6{% endif %} ">
+                            <div class="row">
+                                <p class="postBody">{{ post.body }}</p>
+                            </div>
+                            <div class="row justify-content-end align-items-end">
+                                <div class="col-12 {% if post.image %}col-md-6{% else %}col-md-6 col-lg-3 {% endif %}  m-2 mt-lg-5">
+                                    <a class="btn like-button" href="">J'AIME</a>
+                                </div>
+                                <div class="col-12 {% if post.image %}col-md-6{% else %}col-md-6 col-lg-3 {% endif %} m-2">
+                                    <a class="btn comment-button" href="">COMMENTER</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="commentsLikes-block row">
+                        <div class="col-4 col-md-3 col-lg-2 m-1"><a class="likes-link" href="">{{ post.postLikes|length }} J'aimes</a></div>
+                        <div class="col-6 col-lg-3 m-1"><a class="comments-link" href="">{{ post.postComments|length }} Commentaires</a></div>
+                    </div>
+                    <div class="comments-section"></div>
+                </div>
+            </div>       
+        {% endfor %}
+
+        
+   
+
+
+
+{% endblock %}

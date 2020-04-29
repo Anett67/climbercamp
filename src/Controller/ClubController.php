@@ -8,11 +8,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class ClubController extends AbstractController
 {
     /**
-     * @Route("/clubs", name="clubs")
+     * @Route("/local-clubs", name="local-clubs")
      */
-    public function index()
+    public function localClubs()
     {
-        return $this->render('club/clubs.html.twig', [
+        return $this->render('club/localClubs.html.twig', [
+            
+        ]);
+    }
+
+    /**
+     * @Route("/club/saved-clubs", name="saved-clubs")
+     */
+    public function savedClubs()
+    {
+        return $this->render('club/savedClubs.html.twig', [
             
         ]);
     }

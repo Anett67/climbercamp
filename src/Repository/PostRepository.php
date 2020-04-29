@@ -19,6 +19,19 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
+    public function findLocalPosts($ville){
+
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.postedBy', 'pb')
+            ->andWhere('pb.ville = :val')
+            ->setParameter('val', $ville)
+            ->orderBy('p.createdAt', 'DESC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Post[] Returns an array of Post objects
     //  */
