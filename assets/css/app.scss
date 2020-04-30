@@ -3,8 +3,11 @@
 @import '~./helper/mixins';
 @import '~./helper/fonts'; 
 @import '~./layout/header';
-@import '~./layout/local-posts';
-@import '~./layout/local-events';
+@import '~./layout/posts';
+@import '~./layout/events';
+@import '~./layout/single-event';
+@import '~./layout/users';
+@import '~./layout/clubs';
 @import '~./helper/media-queries';
 
 body {

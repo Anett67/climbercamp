@@ -23,7 +23,12 @@ class PostRepository extends ServiceEntityRepository
 
         return $this->createQueryBuilder('p')
             ->innerJoin('p.postedBy', 'pb')
+            ->addSelect('pb')
             ->andWhere('pb.ville = :val')
+            ->leftJoin('p.postLikes', 'pl')
+            ->addSelect('pl')
+            ->leftJoin('p.postComments', 'pc')
+            ->addSelect('pc')
             ->setParameter('val', $ville)
             ->orderBy('p.createdAt', 'DESC')
             //->setMaxResults(10)

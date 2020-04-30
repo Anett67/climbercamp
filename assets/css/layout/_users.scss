@@ -1,0 +1,43 @@
+.cardd{
+    background-color: $blackrgba;
+    border-radius: 0;
+    .card-image{
+        width: 50%;
+        border-radius: 500px;   
+    }
+    .card-title{
+        a{
+            color: $yellow;
+            font-family: OpenSemiBold;
+            font-size: 1.2rem;
+        } 
+    }
+    .card-text{
+        color: $green;
+        font-family: OpenLight;
+        font-size: 0.8rem;
+    }
+    .salles{
+        color: $green;
+        font-family: OpenLight;
+        font-size: 0.8rem;
+        .club-link{
+            color: $green;
+        }
+    }
+    .presentation{
+        font-size: 0.9rem;
+        color: $orange;
+        font-family: OpenLight;
+    }
+    .buttons{
+        background-color: $greyrgba;
+        width: 100%;
+        border: none;
+        .profil-button,
+        .invitation-button,
+        .message-button{
+            @include buttons-colored($green);
+        }
+    }
+}

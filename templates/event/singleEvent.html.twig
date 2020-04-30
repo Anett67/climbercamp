@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ event.title }}{% endblock %}
+
+{% block pageTitle %}{{ event.title }}{% endblock %}
+
+{% block body %}
+
+<div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
+    <div class=" event-block col-10 col-lg-9 justify-content-center">
+
+        <div class="row event-header justify-content-center">
+            <div class="col-10 col-md-6">
+                <img src="{{ asset('build/images/events/' ~ event.image) }}" alt="" class="event-image p-3">
+            </div>
+            <div class="col-10 col-md-6 d-flex flex-column justify-content-around p-5">
+                <h5>{{ event.ville.nom }}</h5>
+                <h6>{{ event.location }}</h6>
+                <span class="date" >le {{ event.eventDate|date("d/m/Y à H:i") }}</span>
+                <h6>Partagé par: <a class="postedBy-link" href="">{{ event.postedBy.firstName }} {{ event.postedBy.LastName }} </a></h6>
+                <a class="btn save-button" href="">Enregistrer cet évènement</a>
+            </div>
+        </div>
+
+        <div class="row justify-content-center justify-content-lg-start">
+            <div class="col-10">
+                <a class="interested-persons p-3" href="">{{ event.interestedUsers|length }} personnes sont intéressées </a>
+            </div>
+        </div>
+
+        <div class="row description">
+            <div class="col-12 p-5">
+               <h3>Détails</h3> 
+            </div>
+            <div class="col-12 pl-5 pr-5">
+                <p>{{ event.description }}</p>
+            </div>
+        </div>
+
+        <div class="row interested-friends">
+            <div class="col-12 p-5">
+                <h4>Amis qui sont intéressés par l'évènement</h4>
+                <div class="row justify-content-center">
+                    <div class="col-10 text-center text-white">
+                        Block amis
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row comment-section pb-5">
+            <div class="col-12">
+                <h4 class="pl-4">Commentaires ({{ comments|length }})</h4>
+                {% for comment in comments %}
+                    <div class="row justify-content-center mb-3">
+                        <div class="col-11 comment-block">
+                            <div class="row justify-content-center align-items-center p-2">
+                                <div class="col-1">
+                                    <img src="{{ asset('build/images/' ~ comment.postedBy.image) }}" alt="" class="postedByImage">
+                                </div>
+                                <div class="col-7 col-md-8 name">
+                                    <a class="name" href="">{{ comment.postedBy.firstName }} {{ comment.postedBy.lastName }}</a>
+                                </div>
+                                <div class="col-3 text-right p-2">
+                                    <span class="date">{{ comment.postedAt|ago }}</span>
+                                </div>   
+                            </div>
+                            <div class="row">
+                                <div class="col-11">
+                                    <p class="commentBody">{{ comment.body }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                    <div class="row justify-content-center">
+
+                        <div class="col text-center text-white">New comment</div>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

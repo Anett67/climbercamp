@@ -1,0 +1,26 @@
+.club-block{
+    background-color: $blackrgba;
+    h4{
+        a{
+            font-family: OpenRegular;
+            color: $green;
+        }
+        
+    }
+    .club-image{
+        width: 100%;
+    }
+    p{
+        color: $yellow;
+    }
+    .badge{
+        background-color: $orange;
+    }
+    .info-button{
+        @include buttons-colored($green);
+    }
+    .users-link{
+        color: $green;
+    }
+}
+

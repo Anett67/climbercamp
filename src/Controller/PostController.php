@@ -17,7 +17,7 @@ class PostController extends AbstractController
 
         $posts = $repository->findLocalPosts($ville);
 
-        return $this->render('post/localPosts.html.twig', [
+        return $this->render('post/posts.html.twig', [
             'posts' => $posts
         ]);
     }

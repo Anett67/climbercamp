@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ClimbingClubRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -10,10 +11,15 @@ class ClubController extends AbstractController
     /**
      * @Route("/local-clubs", name="local-clubs")
      */
-    public function localClubs()
+    public function localClubs(ClimbingClubRepository $repository)
     {
-        return $this->render('club/localClubs.html.twig', [
-            
+
+        $ville = $this->getUser()->getVille();
+
+        $clubs = $repository->findByVille($ville);
+
+        return $this->render('club/clubs.html.twig', [
+            'clubs' => $clubs
         ]);
     }
 
@@ -22,7 +28,7 @@ class ClubController extends AbstractController
      */
     public function savedClubs()
     {
-        return $this->render('club/savedClubs.html.twig', [
+        return $this->render('club/clubs.html.twig', [
             
         ]);
     }
@@ -32,7 +38,7 @@ class ClubController extends AbstractController
      */
     public function clubSearch()
     {
-        return $this->render('club/clubSearch.html.twig', [
+        return $this->render('club/clubs.html.twig', [
             
         ]);
     }

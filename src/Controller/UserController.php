@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -10,10 +11,14 @@ class UserController extends AbstractController
     /**
      * @Route("/local-users", name="local-users")
      */
-    public function localUsers()
+    public function localUsers(UserRepository $repsitory)
     {
-        return $this->render('user/localUsers.html.twig', [
-            
+        $ville = $this->getUser()->getVille();
+
+        $users = $repsitory->findByVille($ville);
+
+        return $this->render('user/users.html.twig', [
+            'users' => $users
         ]);
     }
 
@@ -22,7 +27,7 @@ class UserController extends AbstractController
      */
     public function userSearch()
     {
-        return $this->render('user/userSearch.html.twig', [
+        return $this->render('user/users.html.twig', [
             
         ]);
     }
