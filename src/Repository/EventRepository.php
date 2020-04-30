@@ -19,6 +19,27 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+    public function findByVille($ville){
+
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.eventComments', 'ec')
+            ->addSelect('ec')
+            ->innerJoin('e.ville', 'v')
+            ->addSelect('v')
+            ->leftJoin('e.interestedUsers', 'u')
+            ->addSelect('u')
+            ->innerJoin('e.postedBy', 'pb')
+            ->addSelect('pb')
+            ->andWhere('e.ville = :val')
+            ->setParameter('val', $ville)
+            ->orderBy('e.eventDate', 'DESC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+
+    }
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */

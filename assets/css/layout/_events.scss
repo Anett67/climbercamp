@@ -1,0 +1,75 @@
+.events-block{
+    background-color: $blackrgba;
+    color: $orange;
+    hr{
+        border-color: $orange;
+    }
+    .event-block{
+        background-color: $greyrgba;
+        .event-image{
+            width: 100%;
+        }
+        a{
+            &:hover{
+                text-decoration: none;
+            }
+            h4{
+                color: $green!important;
+                font-family: OpenSemiBold;
+                &:hover{
+                    text-decoration: none;
+                }
+            }
+        }
+        
+        .postedByImage{
+            border-radius: 500px;
+            width: 100%;
+        }
+        .postedByName{
+            font-size: 0.7rem;
+            div{
+                a{
+                    color: $orange;
+                }
+            }
+        }
+        .save-button{
+            color: $orange;
+            border: 1px solid $orange;
+            background-color: transparent;
+            border-radius: 0;
+            transition: 0.2s;
+            width: 100%;
+            &:hover{
+                background-color: $orange;
+                color: $black;
+            }
+        }
+        .info-button{
+            color: $green;
+            border: 1px solid $green;
+            background-color: transparent;
+            border-radius: 0;
+            transition: 0.2s;
+            width: 100%;
+            &:hover{
+                background-color: $green;
+                color: $black;
+            }
+        }
+        .event-details{
+            color: $yellow;   
+        }
+        .date{
+            font-size: 0.9rem;
+            font-family: OpenItalic;
+            color: $yellow;
+        }
+        .commentsAndUsers{
+            font-size: 0.9rem;
+            font-family: OpenItalic;
+            color: $orange;
+        }
+    }
+}

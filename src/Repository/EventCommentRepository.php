@@ -19,6 +19,20 @@ class EventCommentRepository extends ServiceEntityRepository
         parent::__construct($registry, EventComment::class);
     }
 
+    public function findComments($event){
+        
+        return $this->createQueryBuilder('e')
+            ->innerJoin('e.postedBy', 'pb')
+            ->addSelect('pb')
+            ->andWhere('e.event = :val')
+            ->setParameter('val', $event)
+            ->orderBy('e.postedAt', 'DESC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return EventComment[] Returns an array of EventComment objects
     //  */

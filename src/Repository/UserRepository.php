@@ -19,6 +19,20 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    public function findByVille($ville){
+
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.ville', 'v')
+            ->addSelect('v')
+            ->andWhere('u.ville = :val')
+            ->setParameter('val', $ville)
+            ->orderBy('u.lastName', 'ASC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

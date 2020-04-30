@@ -19,6 +19,23 @@ class ClimbingClubRepository extends ServiceEntityRepository
         parent::__construct($registry, ClimbingClub::class);
     }
 
+    public function findByVille($ville){
+
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.ville', 'v')
+            ->addSelect('v')
+            ->leftJoin('c.climbingCategories', 'cc')
+            ->addSelect('cc')
+            ->andWhere('c.ville = :val')
+            ->setParameter('val', $ville)
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+
+    }
+
     // /**
     //  * @return ClimbingClub[] Returns an array of ClimbingClub objects
     //  */

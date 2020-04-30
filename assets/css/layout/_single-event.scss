@@ -1,0 +1,64 @@
+.event-block{
+    background-color: $blackrgba;
+    .event-header{
+        color: yellow;
+        .event-image{
+            width: 100%;
+        }
+        .postedBy-link{
+            color: $green;
+        }
+        .save-button{
+            @include buttons-colored($orange);
+        }
+    }
+    .interested-persons{
+        color: $green;
+    }
+    
+    .description{
+        h3{
+            color: $orange;
+            font-family: OpenSemiBold;
+        }
+        p{
+            color: $green;
+        }
+    }
+
+    .interested-friends{
+        h4{
+            color: $orange;
+            font-family: OpenSemiBold;
+        }
+    }
+
+    .comment-section{
+        h4{
+            color: $yellow;
+        }
+        .comment-block{
+            background-color: $greyrgba;
+            .date{
+                font-size: 0.9rem;
+                font-family: OpenLightItalic;
+                color: $yellow;
+            }
+            .postedByImage{
+                width: 100%;
+                min-width: 25px;
+                border-radius: 500px;
+            }
+            .name{
+                color: $yellow;
+                &:hover{
+                    text-decoration: none;
+                } 
+            }
+            .commentBody{
+                color: $green;
+                font-family: OpenLight;
+            }
+        }
+    }
+}

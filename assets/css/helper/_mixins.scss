@@ -10,3 +10,16 @@
         transition: 0.2s;
     }
 }
+
+@mixin buttons-colored($color){
+    color: $black;
+    background-color: $color;
+    border-radius: 0;
+    &:hover{
+        color: $color;
+        background-color: $black;
+        transition: 0.2s;
+        border: 1px solid $color;
+    }
+}
+

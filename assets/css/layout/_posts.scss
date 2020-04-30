@@ -1,6 +1,6 @@
 
 .button-block{
-    background-color: rgba(39,39,39,0.89);
+    background-color: $blackrgba;
     width: 100%;
     .btn{
         margin: 10px;
@@ -11,27 +11,27 @@
     .grimpeur-button{
         @include buttons($yellow);
     }
-    .club-button{
-        @include buttons($green);
-    }
     .post-button{
         @include buttons($grey);
+    }
+    .club-button{
+        @include buttons($green);
     }
 }
 
 .post-form-block{
-    background-color: rgba(39,39,39,0.89);
+    background-color: $blackrgba;
     width: 100%;
     color: $orange;
 }
 
 .posts-header{
-    background-color: rgba(39,39,39,0.89);
+    background-color: $blackrgba;
     color: $orange;
 }
 
 .post-block{
-    background-color: rgba(39,39,39,0.89);
+    background-color: $blackrgba;
     color: $orange;
     .postedByProfil{
         border-radius: 500px;

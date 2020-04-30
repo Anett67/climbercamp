@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Salles d'escalade{% endblock %}
+
+{% block pageTitle %}Salles d'escalade à {{ app.user.ville.nom }}{% endblock %}
+
+{% block body %}
+
+    <div class="row justify-content-center">
+        <div class="button-block col-8 mt-3 ml-lg-5 p-2 ">
+            <div class="row justify-content-center">
+                <a class="col-10 col-lg-3 btn event-button" href="{{ path('local-events') }}">Évènements à {{ app.user.ville.nom }}</a>
+                <a class="col-10 col-lg-3 btn post-button" href="{{ path('local-posts') }}">Publications de {{ app.user.ville.nom }}</a>
+                <a class="col-10 col-lg-3 btn grimpeur-button" href="{{ path('local-users') }}">Grimpeurs à {{ app.user.ville.nom }}</a>
+            </div>
+        </div>    
+    </div>
+
+    {% for club in clubs %}
+        <div class="row justify-content-center">
+            <div class="club-block row col-8 mt-3 ml-lg-5 p-3 ">
+                {% if club.image %}
+                    <div class="col-lg-4">
+                        <img class="club-image" src="{{ asset('build/images/' ~  club.image) }}" alt="">
+                    </div>
+                {% endif %}
+                <div class="col-lg-8">
+                    <h4><a href="">{{ club.nom }}</a></h4>
+                    <p>{{ club.ville.nom }}</p>
+                    <div class="categories">
+                        {% for category in club.climbingCategories %}
+                            <div class="badge ">{{ category.label }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="row club-block row col-8 ml-lg-5 pl-3 pr-3 pb-3 pt-0 align-items-center">
+                <div class="col-6">
+                    <a class="users-link" href="">{{ club.users|length }} Personnes aiment cette salle</a>
+                </div>
+                <div class="col-6 text-right">
+                    <a class="btn info-button" href="">Plus d'info</a>
+                </div>
+            </div>
+        </div>
+
+        
+    {% endfor %}
+
+    
+
+
+{% endblock %}

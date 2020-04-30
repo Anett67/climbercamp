@@ -148,6 +148,11 @@ class User implements UserInterface
      */
     private $postCommentReplies;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $presentation;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -745,6 +750,18 @@ class User implements UserInterface
     public function getUsername()
     {
         return true;
+    }
+
+    public function getPresentation(): ?string
+    {
+        return $this->presentation;
+    }
+
+    public function setPresentation(?string $presentation): self
+    {
+        $this->presentation = $presentation;
+
+        return $this;
     }
 
 }

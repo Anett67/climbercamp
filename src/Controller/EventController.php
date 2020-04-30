@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
+use App\Repository\EventCommentRepository;
+use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,7 +15,7 @@ class EventController extends AbstractController
      */
     public function savedEvents()
     {
-        return $this->render('event/savedEvents.html.twig', [
+        return $this->render('event/events.html.twig', [
             
         ]);
     }
@@ -20,10 +23,14 @@ class EventController extends AbstractController
     /**
      * @Route("/local-events", name="local-events")
      */
-    public function localEvents()
+    public function localEvents(EventRepository $repository)
     {
-        return $this->render('event/localEvents.html.twig', [
-            
+        $ville = $this->getUser()->getVille();
+
+        $events =$repository->findByVille($ville);
+
+        return $this->render('event/events.html.twig', [
+            'events' => $events
         ]);
     }
 
@@ -32,8 +39,21 @@ class EventController extends AbstractController
      */
     public function eventSearch()
     {
-        return $this->render('event/eventSearch.html.twig', [
+        return $this->render('event/events.html.twig', [
             
+        ]);
+    }
+
+    /**
+     * @Route("/event/{id}", name="single-event")
+     */
+    public function singleEvent(Event $event, EventCommentRepository $repo)
+    {     
+        $comments = $repo->findComments($event);
+
+        return $this->render('event/singleEvent.html.twig', [
+            'event' => $event,
+            'comments' => $comments
         ]);
     }
 }
