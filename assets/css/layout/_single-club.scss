@@ -1,0 +1,20 @@
+.club-block{
+    color: $yellow;
+    .club-image{
+        width: 100%;
+    }
+    .badge{
+        color: white;
+        font-size: 1rem;
+    }
+    .save-button{
+        @include buttons-colored($green);
+    }
+    .friends-block,
+    .users-block{
+        color: $orange;
+        a{
+            color: $orange;
+        }
+    }
+}

@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block image %}{% endblock %}
+
+{% block pageTitle %}
+    {{ user.firstName }} {{ user.lastName }}
+{% endblock %}
+
+{% block body %}
+
+<div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
+    <div class=" events-block col-10 col-lg-9 justify-content-center pb-5">
+
+        <div class="row justify-content-center align-items-center">
+            <div class="col-6 col-lg-3 m-5">
+                <img src="{{ asset('build/images/' ~ user.image) }}" alt="" class="user-image">
+            </div>
+            <div class="col-lg-6 presentation user-data m-5">
+                <p>{{ user.presentation }}</p>
+            </div>
+        </div> 
+        
+        <div class="row justify-content-center user-data m-2">
+            <div class="col text-center ville">
+                <h4>Ville</h4>
+                <h5>{{ user.ville.nom }}</h5>
+            </div>
+            <div class="col text-center">
+                <h4 class="niveau">Niveau</h4>
+                <h5>{{ user.level.label }}</h5>
+            </div>
+        </div>
+        <div class="row justify-content-center user-data m-2">
+            <div class="col text-center climbing-categorie">
+                <h4>Types d'escalade</h4>
+                {% for category in user.climbingCategorie %}
+                    <h5>{{ category.label }}</h5> 
+                {% endfor %}
+            </div>
+            <div class="col text-center">
+                <h4 class="salles">Salles d'escalade préférées</h4>
+                {% for club in user.climbingClub %}
+                    <h5>{{ club.nom }}</h5>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row justify-content-center user-data m-2">
+            <div class="col-lg-6 text-center">
+                <a class="friends-link" href="">{{ user.firstName }} a ??? amis sur ClimberCamp</a>
+            </div>
+            <div class="col-lg-6 text-center">
+                <p class="friends-link">Vous avez ??? amis en commun</p>
+            </div>
+        </div>
+
+        <div class="row justify-content-around user-data m-3">
+            <div class="col-lg-4 text-center">
+                <a href="" class="btn contact-button">
+                    Envoyer un message
+                </a>
+            </div>
+            <div class="col-lg-4 text-center">
+                <a href="{{ path('saved-events', {'id': user.id} ) }}" class="btn check-button">
+                    Voir les évènement qui l'intéressent
+                </a>
+            </div>
+        </div>
+        <div class="row justify-content-around user-data m-3">
+            <div class="col-lg-4 text-center">
+                <a href="" class="btn contact-button">
+                    Envoyer une invitation
+                </a>
+            </div>
+            <div class="col-lg-4 text-center">
+                <a href="{{ path('user-posts', {'id': user.id}) }}" class="btn check-button">
+                    Voir ses publications
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

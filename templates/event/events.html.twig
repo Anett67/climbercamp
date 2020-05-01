@@ -56,7 +56,7 @@
                                     <div class="col-9 col-md-10 col-lg-8 text-right pr-0">
                                         <div class="postedByName">Partagé par 
                                             <div>
-                                                <a href="" class="m-0">{{ event.postedBy.firstName }} {{ event.postedBy.lastName }}</a>
+                                                <a href="{{ path('single-user',{'id' : event.postedBy.id}) }}" class="m-0">{{ event.postedBy.firstName }} {{ event.postedBy.lastName }}</a>
                                             </div>
                                         </div>
                                     </div>

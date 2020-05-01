@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ClimbingClub;
 use App\Repository\ClimbingClubRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,6 +35,19 @@ class ClubController extends AbstractController
     }
 
     /**
+     * @Route("/club/{id}", name="single-club")
+     */
+    public function singleClub(ClimbingClub $club)
+    {
+        $users = $club->getUsers();
+
+        return $this->render('club/singleClub.html.twig', [
+            'users' => $users,
+            'club' => $club
+        ]);
+    }
+
+    /**
      * @Route("/club/search", name="club-search")
      */
     public function clubSearch()
@@ -42,4 +56,5 @@ class ClubController extends AbstractController
             
         ]);
     }
+
 }
