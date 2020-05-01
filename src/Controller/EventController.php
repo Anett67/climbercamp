@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\User;
 use App\Repository\EventCommentRepository;
 use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,12 +12,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class EventController extends AbstractController
 {
     /**
-     * @Route("/saved-events", name="saved-events")
+     * @Route("/user/events/{id}", name="saved-events")
      */
-    public function savedEvents()
+    public function savedEvents(User $user)
     {
+
+        $events = $user->getSavedEvents();
+
         return $this->render('event/events.html.twig', [
-            
+            'events' => $events,
+            'user' => $user
         ]);
     }
 

@@ -9,15 +9,19 @@
 <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
     <div class=" event-block col-10 col-lg-9 justify-content-center">
 
-        <div class="row event-header justify-content-center">
-            <div class="col-10 col-md-6">
-                <img src="{{ asset('build/images/events/' ~ event.image) }}" alt="" class="event-image p-3">
-            </div>
+        <div class="row event-header {% if event.image %} justify-content-center {% endif %}">
+            
+            {% if event.image %}
+                <div class="col-10 col-md-6">
+                    <img src="{{ asset('build/images/events/' ~ event.image) }}" alt="" class="event-image p-3">
+                </div>
+            {% endif %}
+
             <div class="col-10 col-md-6 d-flex flex-column justify-content-around p-5">
                 <h5>{{ event.ville.nom }}</h5>
                 <h6>{{ event.location }}</h6>
                 <span class="date" >le {{ event.eventDate|date("d/m/Y à H:i") }}</span>
-                <h6>Partagé par: <a class="postedBy-link" href="">{{ event.postedBy.firstName }} {{ event.postedBy.LastName }} </a></h6>
+                <h6>Partagé par: <a class="postedBy-link" href="{{ path('single-user', {'id': event.postedBy.id}) }}">{{ event.postedBy.firstName }} {{ event.postedBy.LastName }} </a></h6>
                 <a class="btn save-button" href="">Enregistrer cet évènement</a>
             </div>
         </div>

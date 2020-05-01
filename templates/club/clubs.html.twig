@@ -6,7 +6,7 @@
 
 {% block body %}
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center ml-lg-5">
         <div class="button-block col-8 mt-3 ml-lg-5 p-2 ">
             <div class="row justify-content-center">
                 <a class="col-10 col-lg-3 btn event-button" href="{{ path('local-events') }}">Évènements à {{ app.user.ville.nom }}</a>
@@ -17,7 +17,7 @@
     </div>
 
     {% for club in clubs %}
-        <div class="row justify-content-center">
+        <div class="row justify-content-center ml-lg-5">
             <div class="club-block row col-8 mt-3 ml-lg-5 p-3 ">
                 {% if club.image %}
                     <div class="col-lg-4">
@@ -25,7 +25,7 @@
                     </div>
                 {% endif %}
                 <div class="col-lg-8">
-                    <h4><a href="">{{ club.nom }}</a></h4>
+                    <h4><a href="{{ path('single-club', {'id': club.id}) }}">{{ club.nom }}</a></h4>
                     <p>{{ club.ville.nom }}</p>
                     <div class="categories">
                         {% for category in club.climbingCategories %}
@@ -39,7 +39,7 @@
                     <a class="users-link" href="">{{ club.users|length }} Personnes aiment cette salle</a>
                 </div>
                 <div class="col-6 text-right">
-                    <a class="btn info-button" href="">Plus d'info</a>
+                    <a class="btn info-button" href="{{ path('single-club', {'id': club.id}) }}">Plus d'info</a>
                 </div>
             </div>
         </div>

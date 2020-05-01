@@ -1,0 +1,24 @@
+.user-image{
+    width: 100%;
+    border-radius: 500px;
+}
+
+.user-data{
+    color: $green;
+    font-family: OpenLight;
+    h4{
+        color: $yellow;
+    }
+    .friends-link{
+        color: $orange;
+    }
+    .btn{
+        width: 100%;
+    }
+    .check-button{
+        @include buttons($green);
+    }
+    .contact-button{
+        @include buttons($green);
+    } 
+}

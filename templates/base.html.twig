@@ -29,7 +29,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-right" href="{{ path('messages') }}">Messages</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-right" href="{{ path('saved-events') }}">Évènements enregistrés</a>
+                                <a class="dropdown-item text-right" href="{{ path('saved-events', {'id' : app.user.id}) }}">Évènements enregistrés</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-right" href="{{ path('logout') }}">Déconnexion</a>
                             </div>
@@ -41,7 +41,7 @@
                         <li class="menu-item"><a class="menu-link" href="{{path('friends') }}" title="Mes amis"><i class="fas fa-users d-none d-md-block"></i></a></li>
                         <li class="menu-item"><a class="menu-link" href="{{path('saved-clubs') }}" title="Salles d'escalade préférées"><i class="fas fa-trophy"></i></a></li>
                         <li class="menu-item"><a class="menu-link" href="{{ path('messages') }}" title="Messages"><i class="far fa-envelope d-none d-md-block"></i></a></li>
-                        <li class="menu-item"><a class="menu-link" href="{{ path('saved-events') }}" title="Évènements enregistrés"><i class="far d-none fa-calendar-alt d-md-block"></i></a></li>
+                        <li class="menu-item"><a class="menu-link" href="{{ path('saved-events', {'id' : app.user.id}) }}" title="Évènements enregistrés"><i class="far d-none fa-calendar-alt d-md-block"></i></a></li>
                         <li class="menu-item"><a class="menu-link" href="{{ path('logout') }}" title="Déconnexion"><i class="fas fa-sign-out-alt d-none d-md-block"></i></li></a>
                     </ul>
                 </div>
@@ -71,6 +71,7 @@
                             <a href="{{ path('club-search') }}" class="btn club-button">Chercher des clubs</a>
                         </div>
                     </div>
+                    
                     <div class="image-block d-none d-md-block d-lg-none col-2">
                         {% block image %}
                             <img class="profilPicture" src="{{ asset('build/images/' ~ app.user.image) }}" alt="">
