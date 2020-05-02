@@ -1,8 +1,19 @@
 .events-block{
     background-color: $blackrgba;
     color: $orange;
+    .new-event-button{
+        @include buttons-colored($orange);
+    }
     hr{
         border-color: $orange;
+    }
+    .search-form-block{
+        select{
+            background-color: $blackrgba;
+            color: $orange;
+            border: 1px solid $orange;
+            border-radius: 0;
+        }
     }
     .event-block{
         background-color: $greyrgba;

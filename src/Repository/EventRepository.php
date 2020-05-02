@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Event;
+use App\Entity\EventSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +18,33 @@ class EventRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Event::class);
+    }
+
+    public function findWithSearch(EventSearch $eventSearch){
+        $req =  $this->createQueryBuilder('e')
+            ->leftJoin('e.eventComments', 'ec')
+            ->addSelect('ec')
+            ->innerJoin('e.ville', 'v')
+            ->addSelect('v')
+            ->leftJoin('e.interestedUsers', 'u')
+            ->addSelect('u')
+            ->innerJoin('e.postedBy', 'pb')
+            ->addSelect('pb')
+            ->orderBy('e.eventDate', 'ASC');
+
+            if($eventSearch->getTitle()){
+                $req = $req->andWhere('e.title LIKE :title')
+                            ->setParameter(':title', '%' . $eventSearch->getTitle() . '%'); 
+            }
+
+            if($eventSearch->getVille()){
+                $req = $req->andWhere('v.nom LIKE :ville')
+                            ->setParameter(':ville', '%' . $eventSearch->getVille() . '%'); 
+            }
+
+            return $req->getQuery()
+                        ->getResult()
+        ;
     }
 
     public function findByVille($ville){
