@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\ClimbingClub;
+use App\Entity\ClubSearch;
+use App\Form\ClubSearchType;
 use App\Repository\ClimbingClubRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ClubController extends AbstractController
 {
@@ -21,12 +24,12 @@ class ClubController extends AbstractController
 
         return $this->render('club/clubs.html.twig', [
             'clubs' => $clubs,
-            'hideClubButton' => true
+            'search' => false
         ]);
     }
 
     /**
-     * @Route("/club/saved-clubs", name="saved-clubs")
+     * @Route("/clubs/saved-clubs", name="saved-clubs")
      */
     public function savedClubs()
     {
@@ -49,17 +52,27 @@ class ClubController extends AbstractController
     }
 
     /**
-     * @Route("/club/search", name="club-search")
+     * @Route("/clubs/search", name="club-search")
      */
-    public function clubSearch()
+    public function clubSearch(ClimbingClubRepository $repository, Request $request)
     {
+        $clubSearch = new ClubSearch();
+
+        $form = $this->createForm(ClubSearchType::class, $clubSearch);
+
+        $form->handleRequest($request);
+
+        $clubs = $repository->findWithSearch($clubSearch);
+
         return $this->render('club/clubs.html.twig', [
+            'clubs' => $clubs,
+            'form' => $form->createView(),
             'search' => true
         ]);
     }
 
     /**
-     * @Route("/club/users/{id}", name="club-users")
+     * @Route("/clubs/users/{id}", name="club-users")
      */
     public function clubUsers(ClimbingClub $club)
     {

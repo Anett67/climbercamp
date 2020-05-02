@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\UserSearch;
+use App\Form\UserSearchType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
@@ -25,11 +28,21 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/search", name="user-search")
+     * @Route("/users/search", name="user-search")
      */
-    public function userSearch()
+    public function userSearch(UserRepository $repository, Request $request)
     {
+        $userSearch = new UserSearch();
+
+        $form = $this->createForm(UserSearchType::class, $userSearch);
+
+        $form->handleRequest($request);
+
+        $users = $repository->findWithSearch($userSearch);
+
         return $this->render('user/users.html.twig', [
+            'form' => $form->createView(),
+            'users' => $users,
             'search' => true 
         ]);
     }

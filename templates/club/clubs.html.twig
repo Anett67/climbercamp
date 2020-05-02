@@ -2,7 +2,15 @@
 
 {% block title %}Salles d'escalade{% endblock %}
 
-{% block pageTitle %}Salles d'escalade à {{ app.user.ville.nom }}{% endblock %}
+{% block pageTitle %}
+    
+    {% if search %}
+        Chercher de salles d'escalade
+    {% else %}
+        Salles d'escalade à {{ app.user.ville.nom }}
+    {% endif %}
+        
+{% endblock %}
 
 {% block body %}
 
@@ -15,6 +23,24 @@
             </div>
         </div>    
     </div>
+
+    {% if search %}
+    
+    <div class="row justify-content-center ml-lg-5">
+        <div class="search-form-block col-8 mt-3 ml-lg-5 p-2">
+            <div class="row justify-content-center">
+                <div class="col-10 p-2">
+                    {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                        <input type="submit" class="btn submit-button">
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>    
+    </div>
+    
+    
+    {% endif %}
 
     {% for club in clubs %}
         <div class="row justify-content-center ml-lg-5">
