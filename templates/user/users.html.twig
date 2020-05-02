@@ -27,6 +27,38 @@
     </div>    
 </div>
 
+{% if search %}
+
+<div class="row justify-content-center justify-content-lg-end">
+    <div class="search-form-block col-10 mt-3 ml-lg-5 p-2 ">
+        <div class="row justify-content-center p-2">
+            {{ form_start(form) }}
+            <div class="col-12">
+                
+                <div class="row justify-content-center">
+                    <div class="col-10">
+                        {{ form_row(form.firstName) }}
+                    </div>
+                    <div class="col-10">
+                        {{ form_row(form.lastName) }}
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-10">
+                        {{ form_row(form.ville) }}
+                    </div>
+                    <div class="col-10 text-center">
+                         <input type="submit" class="btn submit-button" value="Rechercher">
+                    </div>
+                </div>
+            </div>
+             {{ form_end(form) }}
+        </div>
+    </div>    
+</div>
+
+{% endif %}
+
 <div class="row justify-content-center justify-content-lg-end">
     <div class="col-10 mt-3 ml-lg-5 p-2 ">
         <div class="row justify-content-center">

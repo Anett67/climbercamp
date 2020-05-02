@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ClimbingClub;
+use App\Entity\ClubSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +18,32 @@ class ClimbingClubRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ClimbingClub::class);
+    }
+
+    public function findWithSearch(ClubSearch $clubSearch){
+
+        $req = $this->createQueryBuilder('c')
+            ->innerJoin('c.ville', 'v')
+            ->addSelect('v')
+            ->leftJoin('c.climbingCategories', 'cc')
+            ->addSelect('cc')
+            ->orderBy('c.id', 'ASC')
+        ;
+
+        if($clubSearch->getName()){
+            $req = $req->andWhere('c.nom LIKE :nom')
+            ->setParameter(':nom', '%' . $clubSearch->getName() . '%');
+        }
+
+        if($clubSearch->getVille()){
+            $req = $req->andWhere('v.nom LIKE :ville')
+            ->setParameter(':ville', '%' . $clubSearch->getVille() . '%');
+        }
+
+        return $req->getQuery()
+                    ->getResult()
+    ;
+
     }
 
     public function findByVille($ville){
