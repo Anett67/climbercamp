@@ -143,6 +143,9 @@ header{
                 .club-button{
                     @include buttons($green);
                 }
+                .post-button{
+                    @include buttons($grey);
+                }
             }
         }
         .image-block{

@@ -35,17 +35,18 @@ class EventController extends AbstractController
         $events =$repository->findByVille($ville);
 
         return $this->render('event/events.html.twig', [
-            'events' => $events
+            'events' => $events,
+            'ville' => $ville
         ]);
     }
 
     /**
-     * @Route("/event-search", name="event-search")
+     * @Route("/event/search", name="event-search")
      */
     public function eventSearch()
     {
         return $this->render('event/events.html.twig', [
-            
+            'search' => true
         ]);
     }
 
@@ -59,6 +60,20 @@ class EventController extends AbstractController
         return $this->render('event/singleEvent.html.twig', [
             'event' => $event,
             'comments' => $comments
+        ]);
+    }
+
+    /**
+     * @Route("/event/users/{id}", name="event-users")
+     */
+    public function eventUsers(Event $event)
+    {
+        $users = $event->getInterestedUsers();
+        dump($users);
+        return $this->render('user/users.html.twig', [
+            'users' => $users,
+            'event' => true,
+            'search' => false
         ]);
     }
 }

@@ -57,24 +57,24 @@
         </div>
 
         <div class="row justify-content-around user-data m-3">
-            <div class="col-lg-4 text-center">
+            <div class="col-lg-4 text-center m-2">
                 <a href="" class="btn contact-button">
                     Envoyer un message
                 </a>
             </div>
-            <div class="col-lg-4 text-center">
+            <div class="col-lg-4 text-center m-2">
                 <a href="{{ path('saved-events', {'id': user.id} ) }}" class="btn check-button">
                     Voir les évènement qui l'intéressent
                 </a>
             </div>
         </div>
         <div class="row justify-content-around user-data m-3">
-            <div class="col-lg-4 text-center">
+            <div class="col-lg-4 text-center m-2">
                 <a href="" class="btn contact-button">
                     Envoyer une invitation
                 </a>
             </div>
-            <div class="col-lg-4 text-center">
+            <div class="col-lg-4 text-center m-2">
                 <a href="{{ path('user-posts', {'id': user.id}) }}" class="btn check-button">
                     Voir ses publications
                 </a>

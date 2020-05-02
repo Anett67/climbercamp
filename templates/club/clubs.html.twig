@@ -9,9 +9,9 @@
     <div class="row justify-content-center ml-lg-5">
         <div class="button-block col-8 mt-3 ml-lg-5 p-2 ">
             <div class="row justify-content-center">
-                <a class="col-10 col-lg-3 btn event-button" href="{{ path('local-events') }}">Évènements à {{ app.user.ville.nom }}</a>
-                <a class="col-10 col-lg-3 btn post-button" href="{{ path('local-posts') }}">Publications de {{ app.user.ville.nom }}</a>
-                <a class="col-10 col-lg-3 btn grimpeur-button" href="{{ path('local-users') }}">Grimpeurs à {{ app.user.ville.nom }}</a>
+                <a class="col-10 col-lg-3 btn event-button" href="{{ path('event-search') }}">Chercher des évènements</a>
+                <a class="col-10 col-lg-3 btn post-button" href="{{ path('post-search') }}">Chercher des publications</a>
+                <a class="col-10 col-lg-3 btn grimpeur-button" href="{{ path('user-search') }}">Chercher des grimpeurs</a>
             </div>
         </div>    
     </div>
@@ -36,7 +36,7 @@
             </div>
             <div class="row club-block row col-8 ml-lg-5 pl-3 pr-3 pb-3 pt-0 align-items-center">
                 <div class="col-6">
-                    <a class="users-link" href="">{{ club.users|length }} Personnes aiment cette salle</a>
+                    <a class="users-link" href="{{ path('club-users', {'id': club.id}) }}">{{ club.users|length }} Personnes aiment cette salle</a>
                 </div>
                 <div class="col-6 text-right">
                     <a class="btn info-button" href="{{ path('single-club', {'id': club.id}) }}">Plus d'info</a>

@@ -1,40 +1,67 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bonjour {{ app.user.firstName }}!{% endblock %}
+{% block title %}Publications{% endblock %}
 
-{% block pageTitle %}Accueil{% endblock %}
+{% block pageTitle %}
+
+    {% if ville is defined %}
+    
+    Les publications de {{ ville.nom }}
+
+    {% elseif user is defined %}    
+    
+    Les publications de {{ user.firstName }}
+    
+    {% endif %}
+
+{% endblock %}
 
 {% block body %}
 
     <div class="row justify-content-center justify-content-lg-end">
         <div class="button-block col-10 col-lg-9 mt-3 p-2 ">
             <div class="row justify-content-center">
-                <a class="col-10 col-lg-3 btn event-button" href="{{ path('local-events') }}">Évènements à {{ app.user.ville.nom }}</a>
-                <a class="col-10 col-lg-3 btn grimpeur-button" href="{{ path('local-users') }}">Grimpeurs à {{ app.user.ville.nom }}</a>
-                <a class="col-10 col-lg-3 btn club-button" href="{{ path('local-clubs') }}">Salles d'escalade à {{ app.user.ville.nom }}</a>
+                <a class="col-10 col-lg-3 btn event-button" href="{{ path('event-search') }}">Chercher des évènements</a>
+                <a class="col-10 col-lg-3 btn grimpeur-button" href="{{ path('user-search') }}">Chercher des grimpeurs</a>
+                <a class="col-10 col-lg-3 btn club-button" href="{{ path('club-search') }}">Chercher des salles d'escalade</a>
             </div>
         </div>    
     </div>
 
-    {% if user is defined %}
+    {% if search %}
+
         <div class="row justify-content-center justify-content-lg-end">
-            <div class="posts-header col-10 col-lg-9 mt-3 pl-5 pr-5 pt-3 pb-2 text-center">
-                <h4>Les publication de {{ user.firstName }}</h4>
+            <div class="search-form-block col-10 col-lg-9 mt-3 p-2 ">
+                {{ form_start(form) }}
+                <div class="row justify-content-around align-items-center">
+                    <div class="col-10 col-md-4 m-2 text-center">
+                        {{ form_row(form.firstName) }}
+                    </div>
+                    <div class="col-10 col-md-4 m-2 text-center">
+                        {{ form_row(form.lastName) }}
+                    </div>
+                    <div class="col-10 col-md-4 m-2 text-center">
+                        {{ form_row(form.keyword) }}
+                    </div>
+                    <div class="col-10 col-md-4 text-right">
+                        <input type="submit" class="submit-button m-2" value="Rechercher">
+                    </div>
+                </div>
+                {{ form_end(form) }}               
             </div>
-        </div>       
-    {% else %}
+        </div>
+
+    
+    {% endif %}
+
+    {% if user is not defined %}
 
         <div class="row justify-content-center justify-content-lg-end">
             <div class="post-form-block col-10 col-lg-9 mt-3 p-2 ">
                 <p class="text-center">Bloc du nouveau formulaire</p>
             </div>
         </div>
-
-        <div class="row justify-content-center justify-content-lg-end">
-            <div class="posts-header col-10 col-lg-9 mt-3 pl-5 pr-5 pt-3 pb-2 text-center">
-                <h4>Voilà ce que les utilisateurs de votre ville ont publié</h4>
-            </div>
-        </div>        
+               
      {% endif %}
 
      {% if posts|length > 0 %}
@@ -78,7 +105,7 @@
                         </div>
                     </div>
                     <div class="commentsLikes-block row">
-                        <div class="col-4 col-md-3 col-lg-2 m-1"><a class="likes-link" href="">{{ post.postLikes|length }} J'aimes</a></div>
+                        <div class="col-4 col-md-3 col-lg-2 m-1"><a class="likes-link" href="{{ path('post-likes', {'id': post.id}) }}">{{ post.postLikes|length }} J'aimes</a></div>
                         <div class="col-6 col-lg-3 m-1"><a class="comments-link" href="">{{ post.postComments|length }} Commentaires</a></div>
                     </div>
                     <div class="comments-section"></div>
