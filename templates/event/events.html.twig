@@ -2,30 +2,45 @@
 
 {% block title %}Évènements{% endblock %}
 
-{% block pageTitle %}Évènements à {{ app.user.ville.nom }}{% endblock %}
+{% block pageTitle %}
+
+    {% if user is defined %}
+        Évènements qui intéressent {{ user.firstName }}
+    {% elseif ville is defined %}
+        Évènements organisés à {{ ville.nom }}
+    {% endif %}
+
+
+{% endblock %}
 
 {% block body %}
 
     <div class="row justify-content-center justify-content-lg-end">
         <div class="button-block col-10 col-lg-9 mt-3 p-2 ">
             <div class="row justify-content-center">
-                <a class="col-10 col-lg-3 btn grimpeur-button" href="{{ path('local-users') }}">Grimpeurs à {{ app.user.ville.nom }}</a>
-                <a class="col-10 col-lg-3 btn post-button" href="{{ path('local-posts') }}">Publications de {{ app.user.ville.nom }}</a>
-                <a class="col-10 col-lg-3 btn club-button" href="{{ path('local-clubs') }}">Salles d'escalade à {{ app.user.ville.nom }}</a>
+                <a class="col-10 col-lg-3 btn grimpeur-button" href="{{ path('user-search') }}">Chercher des grimpeurs</a>
+                <a class="col-10 col-lg-3 btn post-button" href="{{ path('post-search') }}">Chercher des publications</a>
+                <a class="col-10 col-lg-3 btn club-button" href="{{ path('club-search') }}">Chercher des salles d'escalade</a>
             </div>
         </div>    
     </div>
      
     <div class="row justify-content-center justify-content-lg-end mt-5">
         <div class=" events-block col-10 col-lg-9 justify-content-center">
-            <div class="row justify-content-center">
-                <div class="col-10 mt-3 p-2 ">
-                    <p class="text-center">Bloc du nouveau formulaire</p>
+            {% if user is not defined %}    
+                <div class="row justify-content-center">
+                    <div class="col-10 mt-3 p-2 ">
+                        <p class="text-center">Bloc du nouveau formulaire</p>
+                    </div>
+                    <div class="col-10">
+                        <hr>
+                    </div>
                 </div>
-                <div class="col-10">
-                    <hr>
+            {% else %}
+                <div class="col-10 mt-3 p-2">
+                     {{ user.firstName }} n'a aucun évènement enregistré
                 </div>
-            </div>
+            {% endif %}
             <div class="row justify-content-center pb-5">
                 {% for event in events %}
                     <div class="event-block col-10 mt-3 p-3 mb-3">
@@ -70,7 +85,7 @@
                                 <div class="col-12 col-lg-6 ">
                                     <div class="row justify-content-center justify-content-md-start">
                                         <div class=" col-11">
-                                            <a class="commentsAndUsers" href="">{{ event.interestedUsers|length }} Personnes sont intéressées</a>
+                                            <a class="commentsAndUsers" href="{{ path('event-users', {'id': event.id}) }}">{{ event.interestedUsers|length }} Personnes sont intéressées</a>
                                         </div>
                                         <div class=" col-11">
                                             <a class="commentsAndUsers" href="">{{ event.eventComments|length }} Commentaires</a>

@@ -1,17 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Grimpeurs à {{ app.user.ville.nom }}{% endblock %}
+{% block title %}Grimpeurs{% endblock %}
 
-{% block pageTitle %}Grimpeurs à {{ app.user.ville.nom }}{% endblock %}
+{% block pageTitle %}
+
+    {% if ville is defined %}
+        Grimpeurs à {{ ville.nom }}
+    {% elseif likes is defined and likes %}
+        Ceux qui aiment cette publication
+    {% elseif event is defined and event %}
+        Utilisateur intéressés
+    {% endif %}
+
+
+{% endblock %}
 
 {% block body %}
 
 <div class="row justify-content-center justify-content-lg-end">
     <div class="button-block col-10 mt-3 ml-lg-5 p-2 ">
         <div class="row justify-content-center">
-            <a class="col-10 col-lg-3 btn event-button" href="{{ path('local-events') }}">Évènements à {{ app.user.ville.nom }}</a>
-            <a class="col-10 col-lg-3 btn post-button" href="{{ path('local-posts') }}">Publications de {{ app.user.ville.nom }}</a>
-            <a class="col-10 col-lg-3 btn club-button" href="{{ path('local-clubs') }}">Salles d'escalade à {{ app.user.ville.nom }}</a>
+            <a class="col-10 col-lg-3 btn event-button" href="{{ path('event-search') }}">Chercher des évènements</a>
+            <a class="col-10 col-lg-3 btn post-button" href="{{ path('post-search') }}">Chercher des publications</a>
+            <a class="col-10 col-lg-3 btn club-button" href="{{ path('club-search') }}">Chercher des salles d'escalade</a>
         </div>
     </div>    
 </div>

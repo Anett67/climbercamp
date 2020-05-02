@@ -48,15 +48,16 @@
             </nav>
             {% block header %}
                 <div class="header row justify-content-center align-items-center">
+                    
                     <div class="card d-none d-lg-block col-2 text-center">
                         <img class="card-image" src="{{ asset('build/images/' ~ app.user.image) }}" alt="">
-                        <div class="card-title"><a href="{{path('profil') }}">{{ app.user.firstName }} {{ app.user.lastName }}</a></div>
+                        <div class="card-title"><a href="{{path('profil') }}">{{ app.user.firstName }} {{ app.user.lastName }}</a></div>    
                         <div class="card-text">
                             <div>{{ app.user.ville.nom }}</div>
                             <div>Niveau: <span class="level">{{ app.user.level.label }}</span></div>
                             <div>Salles d'escalade:
                                 {% for salle in app.user.climbingClub %}
-                                    <div><a class="club-link" href="">{{ salle.nom }}</a></div>
+                                    <div><a class="club-link" href="{{ path('single-club', {'id': salle.id}) }}">{{ salle.nom }}</a></div>
                                 {% endfor %}
                             </div>
                             <div class="row justify-content-center">
@@ -65,10 +66,20 @@
                                 {% endfor %}
                             </div> 
                         </div>
+
                         <div class="buttons">
-                            <a href="{{ path('event-search') }}" class="btn event-button">Chercher des évenements</a>
-                            <a href="{{ path('user-search') }}" class="btn grimpeur-button">Chercher des grimpeur</a>
-                            <a href="{{ path('club-search') }}" class="btn club-button">Chercher des clubs</a>
+                            {% if events is not defined %}
+                                <a href="{{ path('local-events') }}" class="btn event-button">Évènements à {{ app.user.ville.nom }}</a>
+                            {% endif %}
+                            {% if users is not defined %}
+                                <a href="{{ path('local-users') }}" class="btn grimpeur-button">Grimpeurs à {{ app.user.ville.nom }}</a>
+                            {% endif %}
+                            {% if clubs is not defined %}
+                                <a href="{{ path('local-clubs') }}" class="btn club-button">Salles d'escalade à {{ app.user.ville.nom }}</a>
+                            {% endif %}
+                            {% if posts is not defined %}
+                                <a href="{{ path('local-posts') }}" class="btn post-button">Publications de {{ app.user.ville.nom }}</a>
+                            {% endif %}
                         </div>
                     </div>
                     
@@ -77,7 +88,9 @@
                             <img class="profilPicture" src="{{ asset('build/images/' ~ app.user.image) }}" alt="">
                         {% endblock %}
                     </div>
+
                     <h1 class="col-8 text-center ml-lg-5 pl-lg-5">{% block pageTitle %}{% endblock %}</h1>
+                
                 </div>
             {% endblock %}
         </header>

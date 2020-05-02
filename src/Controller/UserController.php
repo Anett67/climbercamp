@@ -19,17 +19,18 @@ class UserController extends AbstractController
         $users = $repsitory->findByVille($ville);
 
         return $this->render('user/users.html.twig', [
-            'users' => $users
+            'users' => $users,
+            'search' => false
         ]);
     }
 
     /**
-     * @Route("/user-search", name="user-search")
+     * @Route("/user/search", name="user-search")
      */
     public function userSearch()
     {
         return $this->render('user/users.html.twig', [
-            
+            'search' => true 
         ]);
     }
 
