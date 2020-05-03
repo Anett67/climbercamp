@@ -6,6 +6,8 @@
     
     {% if search %}
         Chercher de salles d'escalade
+    {% elseif saved is defined and saved %}    
+        Vos salles préférées
     {% else %}
         Salles d'escalade à {{ app.user.ville.nom }}
     {% endif %}
@@ -41,6 +43,14 @@
     
     
     {% endif %}
+
+    {% for message in app.flashes('success') %}
+        <div class="row justify-content-center ml-lg-5">
+            <div class="button-block flash-success ml-lg-5 col-8 mt-3 p-2 ">
+                <div>{{ message }}</div>
+            </div>    
+        </div>
+    {% endfor %}
 
     {% for club in clubs %}
         <div class="row justify-content-center ml-lg-5">

@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Entity\SearchPost;
 use App\Entity\User;
+use App\Form\PostType;
 use App\Form\SearchPostType;
 use App\Repository\PostRepository;
+use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,15 +19,30 @@ class PostController extends AbstractController
     /**
      * @Route("/", name="local-posts")
      */
-    public function localPosts(PostRepository $repository)
+    public function localPosts(PostRepository $repository, Request $request, EntityManagerInterface $manager)
     {   
         $ville = $this->getUser()->getVille();
 
         $posts = $repository->findLocalPosts($ville);
 
+        $post = new Post();
+
+        $form = $this->createForm(PostType::class, $post);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $post->setPostedBy($this->getUser())->setCreatedAt(new DateTime('now'));
+            $manager->persist($post);
+            $manager->flush();
+
+            return $this->redirectToRoute('local-posts');
+        }
+
         return $this->render('post/posts.html.twig', [
             'posts' => $posts,
             'ville' => $ville,
+            'form' => $form->createView(),
             'search' => false
         ]);
     }

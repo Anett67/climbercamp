@@ -21,6 +21,11 @@ body {
     h1{
         color: $yellow;
     }
+    .flash-success{
+        background-color: $green;
+        color: $black;
+        padding: 5px;
+    }
 
 
 }

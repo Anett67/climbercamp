@@ -6,8 +6,10 @@ use App\Entity\Event;
 use App\Entity\EventSearch;
 use App\Entity\User;
 use App\Form\EventSearchType;
+use App\Form\EventType;
 use App\Repository\EventCommentRepository;
 use App\Repository\EventRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +19,7 @@ class EventController extends AbstractController
     /**
      * @Route("/user/events/{id}", name="saved-events")
      */
-    public function savedEvents(User $user)
+    public function savedEvents(User $user, EventRepository $repository)
     {
 
         $events = $user->getSavedEvents();
@@ -46,7 +48,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/search", name="event-search")
+     * @Route("/events/search", name="event-search")
      */
     public function eventSearch(EventRepository $repository, Request $request)
     {   
@@ -64,6 +66,70 @@ class EventController extends AbstractController
             'search' => true
         ]);
     }
+
+    /**
+     * @Route("/event/new", name="event-new")
+     */
+
+    public function newEvent(Request $request, EntityManagerInterface $manager){
+
+        $event = new Event();
+
+        $form =  $this->createForm(EventType::class, $event);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $event->setPostedBy($this->getUser);
+            $manager->persist($event);
+            $manager->flush;
+
+            $this->addFlash('success', 'L\'évènement a bien été enregistré');
+
+            return $this->redirectToRoute('local-events');
+
+        }
+
+        return $this->render('event/newEvent.html.twig' , [
+            'form' => $form->createView()
+        ]);
+
+    }
+
+    /**
+     * @Route("/event/save/{id}", name="event-save")
+     */
+
+    public function saveEvent(Event $event, EntityManagerInterface $manager){
+
+        $event->addInterestedUser($this->getUser());
+
+        $manager->persist($event);
+        $manager->flush();
+
+        $this->addFlash('success', 'Vous avez bien enregistré cet évènement');
+
+        return $this->redirectToRoute('local-events');
+
+    }
+
+    /**
+     * @Route("/event/remove/{id}", name="event-remove")
+     */
+
+    public function removeEvent(Event $event, EntityManagerInterface $manager){
+
+        $event->removeInterestedUser($this->getUser());
+
+        $manager->persist($event);
+        $manager->flush();
+
+        $this->addFlash('success', "L'évènement a été supprimé de votre liste");
+
+        return $this->redirectToRoute('local-events');
+
+    }
+
 
     /**
      * @Route("/event/{id}", name="single-event")

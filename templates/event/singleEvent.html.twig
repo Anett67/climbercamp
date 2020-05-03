@@ -22,7 +22,12 @@
                 <h6>{{ event.location }}</h6>
                 <span class="date" >le {{ event.eventDate|date("d/m/Y à H:i") }}</span>
                 <h6>Partagé par: <a class="postedBy-link" href="{{ path('single-user', {'id': event.postedBy.id}) }}">{{ event.postedBy.firstName }} {{ event.postedBy.LastName }} </a></h6>
-                <a class="btn save-button" href="">Enregistrer cet évènement</a>
+                {% if event in app.user.savedEvents %}
+                    <span>Vous avez sauvegardé cet évènement</span> 
+                    <a class="btn save-button" href="{{ path('event-remove', {'id': event.id}) }}">SUPPRIMER DE MA LISTE</a>
+                {% else %}
+                    <a class="btn save-button" href="{{ path('event-save', {'id': event.id}) }}">ENREGISTRER</a>
+                {% endif %}
             </div>
         </div>
 

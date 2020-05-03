@@ -34,7 +34,11 @@
             {% endfor %}
         </div>
         <div class="row justify-content-center m-2">
-            <a class="btn save-button" href="">Enregistrer cette salle</a>
+            {% if club in app.user.climbingClub %} 
+                <a class="btn save-button" href="{{ path('club-remove', {'id': club.id}) }}">SUPPRIMER DE MA LISTE</a>
+            {% else %}
+                <a class="btn save-button" href="{{ path('club-save', {'id': club.id}) }}">ENREGISTRER</a>
+            {% endif %}
         </div>
         <div class="row justify-content-center users-block">
             <div class="col-12 text-center">

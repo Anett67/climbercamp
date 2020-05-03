@@ -28,12 +28,20 @@
             </div>
         </div>    
     </div>
+
+    {% for message in app.flashes('success') %}
+    <div class="row justify-content-center justify-content-lg-end">
+        <div class="button-block flash-success col-10 col-lg-9 mt-3 p-2 ">
+            <div>{{ message }}</div>
+        </div>    
+    </div>
+    {% endfor %}
     
     <div class="row justify-content-center justify-content-lg-end mt-5">
         <div class=" events-block col-10 col-lg-9 justify-content-center">
             <div class="row justify-content-center">
                 <div class="col-10 mt-3 p-2 text-center">
-                    <a class="new-event-button btn" href="">Créer un évènement</a>
+                    <a class="new-event-button btn" href="{{ path('event-new') }}">Créer un évènement</a>
                 </div>
                 <div class="col-10">
                     <hr>
@@ -84,7 +92,7 @@
                                 
                             </div>
                             <div class="col-12 col-lg-4">
-                                <div class="row align-items-center">
+                                <div class="row align-items-center mb-5 mt-5 mt-lg-0">
                                     <div class="col-9 col-md-10 col-lg-8 text-right pr-0">
                                         <div class="postedByName">Partagé par 
                                             <div>
@@ -92,7 +100,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-3 col-sm-2 col-md-2 col-lg-4">
+                                    <div class="img-cadre ml-2">
                                         <img class="postedByImage" src="{{ asset('build/images/' ~ event.postedBy.image ) }}" alt="">
                                     </div>
                                 </div>
@@ -111,8 +119,13 @@
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="row justify-content-end">
-                                        <div class="col-11 col-md-6 col-lg-6 m-2 m-2">
-                                            <a class="btn save-button" href="">ENREGISTRER</a>
+                                        <div class="col-11 col-md-6 col-lg-6 m-2 m-2 text-right">
+                                            {% if event in app.user.savedEvents %}
+                                                <span>évènement sauvegardé</span> 
+                                                <a class="btn save-button" href="{{ path('event-remove', {'id': event.id}) }}">SUPPRIMER DE MA LISTE</a>
+                                            {% else %}
+                                                <a class="btn save-button" href="{{ path('event-save', {'id': event.id}) }}">ENREGISTRER</a>
+                                            {% endif %}
                                         </div>
                                         <div class="col-11 col-md-6 col-lg-6 m-2">
                                             <a class="btn info-button" href="{{ path('single-event', {'id': event.id}) }}">INFO</a>

@@ -53,6 +53,8 @@ class User implements UserInterface
      */
     private $firstName;
 
+    private $username;
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -749,7 +751,7 @@ class User implements UserInterface
 
     public function getUsername()
     {
-        return true;
+        return $this->getFirstName() . ' ' . $this->getLastName();
     }
 
     public function getPresentation(): ?string
