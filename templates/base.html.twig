@@ -50,7 +50,11 @@
                 <div class="header row justify-content-center align-items-center">
                     
                     <div class="card d-none d-lg-block col-2 text-center">
-                        <img class="card-image" src="{{ asset('build/images/' ~ app.user.image) }}" alt="">
+                        <div class="row justify-content-center">
+                            <div class="img-cadre m-3">
+                                <img class="card-image" src="{{ asset('build/images/' ~ app.user.image) }}" alt="">
+                            </div>
+                        </div>
                         <div class="card-title"><a href="{{path('profil') }}">{{ app.user.firstName }} {{ app.user.lastName }}</a></div>    
                         <div class="card-text">
                             <div>{{ app.user.ville.nom }}</div>
@@ -68,24 +72,20 @@
                         </div>
 
                         <div class="buttons">
-                            {% if events is not defined %}
-                                <a href="{{ path('local-events') }}" class="btn event-button">Évènements à {{ app.user.ville.nom }}</a>
-                            {% endif %}
-                            {% if users is not defined %}
-                                <a href="{{ path('local-users') }}" class="btn grimpeur-button">Grimpeurs à {{ app.user.ville.nom }}</a>
-                            {% endif %}
-                            {% if clubs is not defined %}
-                                <a href="{{ path('local-clubs') }}" class="btn club-button">Salles d'escalade à {{ app.user.ville.nom }}</a>
-                            {% endif %}
-                            {% if posts is not defined %}
-                                <a href="{{ path('local-posts') }}" class="btn post-button">Publications de {{ app.user.ville.nom }}</a>
-                            {% endif %}
+                            <a href="{{ path('local-events') }}" class="btn event-button">Évènements à {{ app.user.ville.nom }}</a>
+                            <a href="{{ path('local-users') }}" class="btn grimpeur-button">Grimpeurs à {{ app.user.ville.nom }}</a>
+                            <a href="{{ path('local-clubs') }}" class="btn club-button">Salles d'escalade à {{ app.user.ville.nom }}</a>
+                            <a href="{{ path('local-posts') }}" class="btn post-button">Publications de {{ app.user.ville.nom }}</a>
                         </div>
                     </div>
                     
                     <div class="image-block d-none d-md-block d-lg-none col-2">
                         {% block image %}
-                            <img class="profilPicture" src="{{ asset('build/images/' ~ app.user.image) }}" alt="">
+                            <div class="row justify-content-center">
+                                <div class="img-cadre m-3">
+                                    <img class="profilPicture" src="{{ asset('build/images/' ~ app.user.image) }}" alt="">
+                                </div>
+                            </div> 
                         {% endblock %}
                     </div>
 

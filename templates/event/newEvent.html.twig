@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un évènement{% endblock %}
+
+{% block pageTitle %}Créer un évènement{% endblock %}
+
+{% block body %}
+
+<div class="row justify-content-center">
+    <div class="new-form-block col-11 col-md-10 col-lg-7 mt-3 p-2 ">
+        <div class="row justify-content-center p-3 pb-3">
+            <div class="col-8 col-md-10">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <input type="submit" class="btn btn-block submit-button mt-4 mb-3" value="Enregistrer">
+            {{ form_start(form) }}
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %}
