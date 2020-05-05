@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Event;
 use App\Entity\EventSearch;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -60,7 +61,7 @@ class EventRepository extends ServiceEntityRepository
             ->addSelect('pb')
             ->andWhere('e.ville = :val')
             ->setParameter('val', $ville)
-            ->orderBy('e.eventDate', 'DESC')
+            ->orderBy('e.eventDate', 'ASC')
             //->setMaxResults(10)
             ->getQuery()
             ->getResult()

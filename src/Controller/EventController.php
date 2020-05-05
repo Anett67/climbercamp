@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\EventInsert;
 use App\Entity\EventSearch;
 use App\Entity\User;
+use App\Form\EventInsertType;
 use App\Form\EventSearchType;
 use App\Form\EventType;
 use App\Repository\EventCommentRepository;
 use App\Repository\EventRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -73,16 +76,25 @@ class EventController extends AbstractController
 
     public function newEvent(Request $request, EntityManagerInterface $manager){
 
-        $event = new Event();
+        $eventInsert = new EventInsert();
 
-        $form =  $this->createForm(EventType::class, $event);
+        $form = $this->createForm(EventInsertType::class, $eventInsert);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
-            $event->setPostedBy($this->getUser);
+        $event = new Event();
+
+        if($form->isSubmitted()  && $form->isValid()){
+            
+            $event->setTitle($eventInsert->getTitle())
+                ->setDescription($eventInsert->getDescription())
+                ->setEventDate($eventInsert->getEventDate())
+                ->setVille($eventInsert->getVille())
+                ->setPostedBy($this->getUser())
+                ->setLocation($eventInsert->getLocation());
+
             $manager->persist($event);
-            $manager->flush;
+            $manager->flush();
 
             $this->addFlash('success', 'L\'évènement a bien été enregistré');
 
