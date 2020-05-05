@@ -19,6 +19,20 @@ class PostCommentRepository extends ServiceEntityRepository
         parent::__construct($registry, PostComment::class);
     }
 
+    public function findByPost($post)
+    {
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.postedBy', 'pb')
+            ->addSelect()
+            ->andWhere('p.post = :val')
+            ->setParameter('val', $post)
+            ->orderBy('p.postedAt', 'DESC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return PostComment[] Returns an array of PostComment objects
     //  */
