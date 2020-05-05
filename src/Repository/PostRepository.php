@@ -27,7 +27,7 @@ class PostRepository extends ServiceEntityRepository
             ->addSelect('pb')
             ->leftJoin('p.postLikes', 'pl')
             ->addSelect('pl')
-            ->leftJoin('p.postComments', 'pc')
+            ->innerJoin('pc.postedBy', 'pcpb')
             ->addSelect('pc')
             ->orderBy('p.createdAt', 'DESC');
 
@@ -65,7 +65,6 @@ class PostRepository extends ServiceEntityRepository
             ->leftJoin('p.postLikes', 'pl')
             ->addSelect('pl')
             ->leftJoin('p.postComments', 'pc')
-            ->addSelect('pc')
             ->setParameter('val', $ville)
             ->orderBy('p.createdAt', 'DESC')
             //->setMaxResults(10)

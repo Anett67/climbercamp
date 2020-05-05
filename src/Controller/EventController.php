@@ -169,4 +169,5 @@ class EventController extends AbstractController
             'search' => false
         ]);
     }
+    
 }

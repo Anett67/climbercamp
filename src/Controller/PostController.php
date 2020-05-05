@@ -2,17 +2,21 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Post;
-use App\Entity\SearchPost;
+use App\Entity\PostLike;
 use App\Entity\User;
 use App\Form\PostType;
+use App\Entity\SearchPost;
 use App\Form\SearchPostType;
 use App\Repository\PostRepository;
-use DateTime;
+use App\Repository\PostLikeRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class PostController extends AbstractController
 {
@@ -101,4 +105,43 @@ class PostController extends AbstractController
             'search' => false
         ]);
     }
+
+    /**
+     * @Route("/post/like/{id}", name="post-like")
+     */
+
+    public function like(Post $post, EntityManagerInterface $manager, PostLikeRepository $repository): Response
+    {
+        $user = $this->getUser();
+        
+        if($post->isLikedByUser($user)){
+            $like = $repository->findOneBy(['postedBy' => $user, 'post' => $post]);
+            
+            $manager->remove($like);
+            $manager->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => 'Like supprimé',
+                'likes' =>$repository->count(['post' => $post]) 
+            ], 200);
+
+        }
+
+        $like = new PostLike();
+        $like->setPostedBy($user)
+            ->setPost($post);
+
+        $manager->persist($like);
+        $manager->flush();
+        
+        return $this->json([
+            'code' => 200,
+            'message' => 'Like ajouté',
+            'likes' => $repository->count(['post' => $post]) 
+        ], 200);
+    
+    }
+
+
 }
