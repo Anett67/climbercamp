@@ -116,7 +116,7 @@
                                     </a>
                                 </div>
                                 <div class="col-12 {% if post.image %}col-md-6{% else %}col-md-6 col-lg-3 {% endif %} m-2">
-                                    <a class="btn comment-button" href="">COMMENTER</a>
+                                    <a class="btn comment-button" href="{{ path('single-post', {'id': post.id}) }}">Commentaires</a>
                                 </div>
                             </div>
                         </div>  
@@ -129,10 +129,7 @@
                             </a>
                             </div>
                         <div class="col-6 col-lg-3 m-1">
-                            <a class="comments-link comments{{post.id}}" href="">
-                                <span class="js-postComments">{{ post.postComments|length }}</span>
-                                 Commentaires
-                            </a>
+                            <span class="js-postComments">{{ post.postComments|length }} Commentaires</span>
                         </div>
                     </div>
                 </div>
@@ -148,8 +145,4 @@
     
     {% endif %}
         
-   
-
-
-
 {% endblock %}

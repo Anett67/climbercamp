@@ -4,19 +4,21 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Post;
-use App\Entity\PostLike;
 use App\Entity\User;
 use App\Form\PostType;
+use App\Entity\PostLike;
 use App\Entity\SearchPost;
+use App\Entity\PostComment;
 use App\Form\SearchPostType;
+use App\Form\PostCommentType;
 use App\Repository\PostRepository;
 use App\Repository\PostLikeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\PostCommentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class PostController extends AbstractController
 {
@@ -49,6 +51,39 @@ class PostController extends AbstractController
             'form' => $form->createView(),
             'search' => false
         ]);
+    }
+
+    /**
+     * @Route("/post/{id}", name="single-post")
+     */
+    
+    public function singlePost(Post $post, PostCommentRepository $repository, Request $request, EntityManagerInterface $manager)
+    {   
+        $comments = $repository->findByPost($post);
+
+        $postComment = new PostComment();
+
+        $form = $this->createForm(PostCommentType::class, $postComment);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $postComment->setPostedBy($this->getUser())
+                        ->setPost($post)
+                        ->setPostedAt(new DateTime('now'));
+            $manager->persist($postComment);
+            $manager->flush();
+
+            return $this->redirectToRoute('single-post', ['id' => $post->getId()]);
+
+        }
+
+        return $this->render('post/singlePost.html.twig', [
+            'post' => $post,
+            'form' => $form->createView(),
+            'comments' => $comments
+        ]);
+
     }
 
     /**

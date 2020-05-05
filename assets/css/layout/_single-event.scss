@@ -31,11 +31,18 @@
             color: $orange;
             font-family: OpenSemiBold;
         }
-    }
+    }  
+}
 
-    .comment-section{
+.comment-section{
         h4{
             color: $yellow;
+        }
+        h5{
+            color: $yellow;
+        }
+        label{
+            color: $orange;
         }
         .comment-block{
             background-color: $greyrgba;
@@ -59,6 +66,19 @@
                 color: $green;
                 font-family: OpenLight;
             }
+            .commentLike{
+                color: $yellow;
+            } 
+        }
+        .form-block{
+            textarea{
+                background-color: $greyrgba;
+                color: $green;
+                border-radius: 0;
+                border: none;
+            }
+            .submit-button{
+                @include buttons-colored($orange);
+            }
         }
     }
-}

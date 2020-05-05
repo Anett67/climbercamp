@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <div class="row description">
+        <div class="row description mb-5">
             <div class="col-12 p-5">
                <h3>Détails</h3> 
             </div>
@@ -46,20 +46,21 @@
             </div>
         </div>
 
-        <div class="row interested-friends">
-            <div class="col-12 p-5">
-                <h4>Amis qui sont intéressés par l'évènement</h4>
-                <div class="row justify-content-center">
-                    <div class="col-10 text-center text-white">
-                        Block amis
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="row comment-section pb-5">
             <div class="col-12">
-                <h4 class="pl-4">Commentaires ({{ comments|length }})</h4>
+                <div class="row justify-content-center form-block">
+                    <div class="col-11">
+                        {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                    </div>
+                    <div class="col-11 text-right p-2">
+                            <input type="submit" value="Envoyer" class="btn submit-button" >
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+                
+                <h5 class="pl-4 mb-2">Commentaires ({{ comments|length }})</h5>
+
                 {% for comment in comments %}
                     <div class="row justify-content-center mb-3">
                         <div class="col-11 comment-block">
@@ -75,20 +76,20 @@
                                 </div>   
                             </div>
                             <div class="row">
-                                <div class="col-11">
+                                <div class="col-11 p-3">
                                     <p class="commentBody">{{ comment.body }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
-                    <div class="row justify-content-center">
-
-                        <div class="col text-center text-white">New comment</div>
-
-                    </div>
+                    
+                </div>
             </div>
         </div>
+
+       
+        
     </div>
 </div>
 

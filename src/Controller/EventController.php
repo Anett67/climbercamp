@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\EventComment;
 use App\Entity\EventInsert;
 use App\Entity\EventSearch;
 use App\Entity\User;
+use App\Form\EventCommentType;
 use App\Form\EventInsertType;
 use App\Form\EventSearchType;
 use App\Form\EventType;
@@ -146,13 +148,31 @@ class EventController extends AbstractController
     /**
      * @Route("/event/{id}", name="single-event")
      */
-    public function singleEvent(Event $event, EventCommentRepository $repo)
+    public function singleEvent(Event $event, EventCommentRepository $repo, Request $request, EntityManagerInterface $manager)
     {     
         $comments = $repo->findComments($event);
 
+        $eventComment = new EventComment();
+
+        $form = $this->createForm(EventCommentType::class, $eventComment);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $eventComment->setEvent($event)
+                        ->setPostedBy($this->getUser())
+                        ->setPostedAt(new DateTime('now'));
+            $manager->persist($eventComment);
+            $manager->flush();
+
+            return $this->redirectToRoute('single-event', ['id' => $event->getId()]);
+
+        }
+
         return $this->render('event/singleEvent.html.twig', [
             'event' => $event,
-            'comments' => $comments
+            'comments' => $comments,
+            'form' => $form->createView()
         ]);
     }
 

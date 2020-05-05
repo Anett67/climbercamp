@@ -33,25 +33,6 @@ $(function(){
 
         });
 
-    // $('.comment-button').click(function(e){
-
-    //     e.preventDefault();
-
-    //     var url = $(this).attr('href');
-
-    //     $.post(
-    //         url,
-    //         {},
-    //         function(response){
-    //             $('.comments-section').html(response);
-    //         }
-    //     )
-
-    // });
-
-    
-    
-
 });
 
     
