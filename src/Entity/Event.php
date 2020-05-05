@@ -61,6 +61,7 @@ class Event
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="savedEvents")
      */
+
     private $interestedUsers;
 
     /**
