@@ -76,8 +76,25 @@
                                 </div>   
                             </div>
                             <div class="row">
-                                <div class="col-11 p-3">
+                                <div class="col-11 m-3">
                                     <p class="commentBody">{{ comment.body }}</p>
+                                </div>
+                            </div>
+                            <div class="row justify-content-around align-items-center p-3">
+                                <div class="col-6 commentLike-count">
+                                    <span class="like-count">{{ comment.eventCommentLikes|length }}</span>
+                                    J'aimes
+                                </div>
+                                <div class="col-6 text-right">
+                                    <a class="btn commentLike-button" href="{{ path('event-comment-like', {'id': comment.id}) }}">
+                                        <span class="{% if comment.isLikedByUser(app.user) %}liked{% endif %}">
+                                            {% if comment.isLikedByUser(app.user) %}
+                                                Je n'aime plus
+                                            {% else %}
+                                                J'aime
+                                            {% endif %}
+                                        </span>  
+                                    </a>
                                 </div>
                             </div>
                         </div>
