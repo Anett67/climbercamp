@@ -92,4 +92,41 @@
             @include buttons($yellow);
             width: 100%;
         }
+
+        .comment-replies{
+            .new-reply-button{
+                @include buttons($green);
+                font-size: 0.8rem;
+                padding: 5px 10px;
+            }
+            .reply-body{
+                color: $green;
+                font-size: 0.8rem;
+            }
+            .img-cadre{
+                width: 30px;
+                height: 30px;
+                overflow: hidden;
+                border-radius: 500px;
+                .postedByImage{
+                    border-radius: 0;
+                    object-fit: cover;
+                    object-position: center;
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+            .postedByUsername{
+                color: $orange;
+            }
+            .ago{
+                margin: 0;
+                font-size: 0.8rem;
+                color: $yellow;
+            }
+            .hide-replies-button{
+                font-size: 0.8rem;
+                color: $yellow;
+            }
+        }
     }

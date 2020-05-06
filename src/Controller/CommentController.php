@@ -12,6 +12,7 @@ use App\Repository\PostCommentLikeRepository;
 use App\Repository\EventCommentLikeRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CommentController extends AbstractController
 {
@@ -90,6 +91,42 @@ class CommentController extends AbstractController
             'message' => 'Like ajouté',
             'likes' => $repository->count(['eventComment' => $comment]) 
         ], 200);
+
+    }
+
+    /**
+     * @Route("post/comment/replies/{id}", name="comment-replies")
+     */
+
+    public function commentReplies(PostComment $comment)
+    {   
+        
+        $replies = $comment->getPostCommentReplies();
+
+        $response = array(
+            "code" => 200,
+            "response" => $this->render('comment/commentReplies.html.twig', ['replies' => $replies ])->getContent()
+        );
+
+        return new JsonResponse($response);
+
+    }
+
+    /**
+     * @Route("event/comment/replies/{id}", name="event-comment-replies")
+     */
+
+    public function eventCommentReplies(EventComment $comment)
+    {   
+        
+        $replies = $comment->getEventCommentReplies();
+
+        $response = array(
+            "code" => 200,
+            "response" => $this->render('comment/commentReplies.html.twig', ['replies' => $replies ])->getContent()
+        );
+
+        return new JsonResponse($response);
 
     }
 }
