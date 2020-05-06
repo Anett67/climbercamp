@@ -61,6 +61,33 @@ $(function(){
 
 
     });
+
+    $('.reply-button').click(function(e){
+
+        e.preventDefault();
+
+        var button = $(this);
+        var replyBlock = button.parent().parent().next();
+        var url = button.attr('href');
+        
+        $.post(
+            url,
+            {},
+            function(response){
+                replyBlock.html(response.response);
+
+                $('.hide-replies-button').click(function(e){
+                    e.preventDefault();
+                    var hideLink = $(this);
+                    var block = hideLink.closest('.comment-replies').html('');
+
+                });
+            }
+
+        );
+
+        
+    });
     
 });
 

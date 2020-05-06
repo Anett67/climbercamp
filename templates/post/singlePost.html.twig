@@ -95,7 +95,8 @@
                                 <div class="row justify-content-md-around justify-content-center align-items-center p-3">
                                     <div class="col-12 col-md-6 commentLike-count">
                                         <span class="like-count">{{ comment.postCommentLikes|length }}</span>
-                                        J'aimes
+                                        J'aimes | 
+                                        <span>{{ comment.postCommentReplies|length }} Réponses</span>
                                     </div>
                                     <div class="col-12 col-md-3 text-right mt-2">
                                         <a class="btn commentLike-button" href="{{ path('comment-like', {'id': comment.id}) }}">
@@ -109,10 +110,10 @@
                                         </a>
                                     </div>
                                     <div class="col-12 col-md-3 text-right mt-2">
-                                        <a href="" class="btn reply-button">Je réponds</a>
+                                        <a href="{{ path('comment-replies', {'id': comment.id}) }}" class="btn reply-button">Réponses</a>
                                     </div>
                                 </div>
-                                <div class="comment-replies"></div>
+                                <div class="comment-replies row"></div>
                             </div>
                         </div>
                     {% endfor %}
