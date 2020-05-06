@@ -169,4 +169,16 @@ class PostComment
 
         return $this;
     }
+
+    public function isLikedByUser(User $user) : bool
+    {
+        foreach($this->postCommentLikes as $like){
+            if($like->getPostedBy() === $user ){
+                return true;
+            } 
+        }
+
+        return false;
+
+    }
 }

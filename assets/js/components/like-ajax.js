@@ -33,6 +33,35 @@ $(function(){
 
         });
 
+    $('.commentLike-button').click(function(e){
+
+        e.preventDefault();
+
+        var button = $(this);
+        var label = button.children('span');
+        var url = $(this).attr('href');
+        var count = button.parent().prev().children('.like-count');
+
+        if(label.hasClass('liked')){
+            label.removeClass('liked');
+            label.text('J\'aime');
+        }else{
+            label.addClass('liked');
+            label.text('Je n\'aime plus');
+        }
+
+        $.post(
+            url,
+            {},
+            function(response){
+                count.html(response.likes);
+            }
+
+        );
+
+
+    });
+    
 });
 
     

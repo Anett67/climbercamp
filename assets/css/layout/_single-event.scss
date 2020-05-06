@@ -81,4 +81,15 @@
                 @include buttons-colored($orange);
             }
         }
+        .commentLike-count{
+            color: $yellow;
+        }
+        .commentLike-button{
+            @include buttons-colored($green);
+            width: 100%;
+        }
+        .reply-button{
+            @include buttons($yellow);
+            width: 100%;
+        }
     }
