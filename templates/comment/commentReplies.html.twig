@@ -17,7 +17,19 @@
                     <a class="hide-replies-button" href="">Cacher les réponses</a>
                 </div>
             </div>
-            
+        </div>
+    </div>
+
+    <div class="new-reply-form row justify-content-center mb-5">
+        <div class="col-10">
+            {{form_start(form)}}
+                {{form_widget(form)}}
+                <div class="row">
+                    <div class="col-12 text-right">
+                        <input type="submit" value="Envoyer" class="btn new-reply-submit-button">
+                    </div>
+                </div>
+            {{ form_end(form) }}
         </div>
     </div>
     

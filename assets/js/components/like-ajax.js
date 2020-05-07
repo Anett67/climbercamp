@@ -1,6 +1,7 @@
 import $ from 'jquery';
 
 $(function(){
+    
 
     $('.like-button').click(function(e){
 
@@ -76,18 +77,49 @@ $(function(){
             function(response){
                 replyBlock.html(response.response);
 
+                $('.new-reply-form').hide();
+                
+                $('.new-reply-button').click(function(e){
+                    e.preventDefault();
+                    $('.new-reply-form').slideToggle();
+                });
+
                 $('.hide-replies-button').click(function(e){
                     e.preventDefault();
                     var hideLink = $(this);
                     var block = hideLink.closest('.comment-replies').html('');
+                });
 
+                $('.new-reply-submit-button').click(function(e){
+                    e.preventDefault();
+
+                    var button = $(this);
+                    var url = button.closest('form').attr('action');
+                    var form = button.closest('form');
+                    var replyBlock = button.closest('.comment-replies');
+                    var form_data = form.serialize();
+
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        dataType: 'json',
+                        data: form_data,
+                        success: function(data){
+                            replyBlock.html(data.response);
+                        }
+                    })
+                    
                 });
             }
 
         );
 
-        
     });
+
+    
+
+
+    
     
 });
 

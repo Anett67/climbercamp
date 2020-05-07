@@ -2,17 +2,22 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\PostComment;
 use App\Entity\EventComment;
 use App\Entity\PostCommentLike;
 use App\Entity\EventCommentLike;
+use App\Entity\PostCommentReply;
+use App\Form\PostCommentReplyType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\PostCommentRepository;
 use App\Repository\PostCommentLikeRepository;
+use Symfony\Component\HttpFoundation\Request;
 use App\Repository\EventCommentLikeRepository;
+use App\Repository\PostCommentReplyRepository;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CommentController extends AbstractController
 {
@@ -98,14 +103,32 @@ class CommentController extends AbstractController
      * @Route("post/comment/replies/{id}", name="comment-replies")
      */
 
-    public function commentReplies(PostComment $comment)
+    public function commentReplies(PostComment $comment, Request $request, EntityManagerInterface $manager, PostCommentReplyRepository $repository)
     {   
-        
-        $replies = $comment->getPostCommentReplies();
+        $post = $comment->getPost();
+
+        $postCommentReply = new PostCommentReply();
+
+        $form = $this->createForm(PostCommentReplyType::class, $postCommentReply, [
+            'action' => $this->generateUrl('comment-replies', [ 'id'=>$comment->getId()])
+        ]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $postCommentReply->setPostedBy($this->getUser())
+                            ->setPostedAt(new DateTime('now'))
+                            ->setPostComment($comment);
+            $manager->persist($postCommentReply);
+            $manager->flush();
+
+        }
+
+        $replies = $repository->findBy(['postComment' => $comment], ['postedAt' => 'DESC' ]);
 
         $response = array(
             "code" => 200,
-            "response" => $this->render('comment/commentReplies.html.twig', ['replies' => $replies ])->getContent()
+            "response" => $this->render('comment/commentReplies.html.twig', ['replies' => $replies, 'form' => $form->createView() ])->getContent()
         );
 
         return new JsonResponse($response);
@@ -123,10 +146,11 @@ class CommentController extends AbstractController
 
         $response = array(
             "code" => 200,
-            "response" => $this->render('comment/commentReplies.html.twig', ['replies' => $replies ])->getContent()
+            "response" => $this->render('comment/commentReplies.html.twig', ['replies' => $replies, 'comment' => $comment ])->getContent()
         );
 
         return new JsonResponse($response);
 
     }
+
 }
