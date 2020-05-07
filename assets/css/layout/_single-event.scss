@@ -88,14 +88,30 @@
             @include buttons-colored($green);
             width: 100%;
         }
-        .reply-button{
+        .open-form-button{
             @include buttons($yellow);
             width: 100%;
+        }
+
+        .reply-button{
+            @include buttons($yellow);
         }
 
         .comment-replies{
             .new-reply-button{
                 @include buttons($green);
+                font-size: 0.8rem;
+                padding: 5px 10px;
+            }
+            textarea{
+                border-radius: 0;
+                background-color: $grey;
+                border: none;
+                color: $green;
+                width: 100%;
+            }
+            .new-reply-submit-button{
+                @include buttons-colored($green);
                 font-size: 0.8rem;
                 padding: 5px 10px;
             }
