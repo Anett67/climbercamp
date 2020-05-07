@@ -7,13 +7,16 @@ use App\Entity\PostComment;
 use App\Entity\EventComment;
 use App\Entity\PostCommentLike;
 use App\Entity\EventCommentLike;
+use App\Entity\EventCommentReply;
 use App\Entity\PostCommentReply;
+use App\Form\EventCommentReplyType;
 use App\Form\PostCommentReplyType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\PostCommentRepository;
 use App\Repository\PostCommentLikeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\EventCommentLikeRepository;
+use App\Repository\EventCommentReplyRepository;
 use App\Repository\PostCommentReplyRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -139,14 +142,29 @@ class CommentController extends AbstractController
      * @Route("event/comment/replies/{id}", name="event-comment-replies")
      */
 
-    public function eventCommentReplies(EventComment $comment)
+    public function eventCommentReplies(EventComment $comment, EventCommentReplyRepository $repository, EntityManagerInterface $manager, Request $request)
     {   
-        
-        $replies = $comment->getEventCommentReplies();
+        $eventCommentReply = new EventCommentReply();
+
+        $form = $this->createForm(EventCommentReplyType::class, $eventCommentReply,  [
+            'action' => $this->generateUrl('event-comment-replies', [ 'id'=>$comment->getId()])
+        ]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $eventCommentReply->setPostedAt(new DateTime('now'))
+                            ->setPostedBy($this->getUser())
+                            ->setEventComment($comment);
+            $manager->persist($eventCommentReply);
+            $manager->flush();
+        }
+
+        $replies = $repository->findBy(['eventComment' => $comment], ['postedAt' => 'DESC' ]);
 
         $response = array(
             "code" => 200,
-            "response" => $this->render('comment/commentReplies.html.twig', ['replies' => $replies, 'comment' => $comment ])->getContent()
+            "response" => $this->render('comment/commentReplies.html.twig', ['replies' => $replies, 'comment' => $comment, 'form' =>$form->createView() ])->getContent()
         );
 
         return new JsonResponse($response);
