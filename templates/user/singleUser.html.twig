@@ -14,31 +14,37 @@
     <div class=" events-block col-10 col-lg-9 justify-content-center pb-5">
 
         <div class="row justify-content-center align-items-center">
+            <!-- Photo de profil -->
             <div class="img-cadre mt-lg-0 mt-5">
-                <img src="{{ asset('build/images/' ~ user.image) }}" alt="" class="user-image">
+                <img src="{{ asset('upload/' ~ user.image) }}" alt="" class="user-image">
             </div>
+            <!-- Présentation -->
             <div class="col-lg-6 presentation user-data m-5">
                 <p>{{ user.presentation }}</p>
             </div>
         </div> 
         
         <div class="row justify-content-center user-data m-2">
+            <!-- Ville -->
             <div class="col text-center ville">
                 <h4>Ville</h4>
                 <h5>{{ user.ville.nom }}</h5>
             </div>
+            <!-- Niveau -->
             <div class="col text-center">
                 <h4 class="niveau">Niveau</h4>
                 <h5>{{ user.level.label }}</h5>
             </div>
         </div>
         <div class="row justify-content-center user-data m-2">
+            <!-- Type d'escalade -->
             <div class="col text-center climbing-categorie">
                 <h4>Types d'escalade</h4>
                 {% for category in user.climbingCategorie %}
                     <h5>{{ category.label }}</h5> 
                 {% endfor %}
             </div>
+            <!-- Salles d'escalade -->
             <div class="col text-center">
                 <h4 class="salles">Salles d'escalade préférées</h4>
                 {% for club in user.climbingClub %}

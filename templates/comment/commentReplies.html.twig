@@ -1,3 +1,5 @@
+<!-- C'est le template qui affiche les réponses à une commentaire et sera chargé en AJAX quand on clique sur le bouton 'Réponses' -->
+
 
 <div class="col-12 mt-2 mb-3">
     <div class="row justify-content-center">
@@ -20,6 +22,7 @@
         </div>
     </div>
 
+    <!-- Formulaire pour répondre à un commentaire -->
     <div class="new-reply-form row justify-content-center mb-5">
         <div class="col-10">
             {{form_start(form)}}
@@ -33,17 +36,20 @@
         </div>
     </div>
     
+    <!-- La liste des réponses -->
     {% for reply in replies %}
         
         <div class="row justify-content-around align-items-center">
             <div class="col-8">
+                <!-- La photo et le nom de l'auteur -->
                 <div class="row align-items-center">
                     <div class="img-cadre">
-                        <img class="postedByImage" src="{{ asset('build/images/' ~ reply.postedBy.image) }}" alt="">
+                        <img class="postedByImage" src="{{ asset('upload/' ~ reply.postedBy.image) }}" alt="">
                     </div>
                     <div class="col">
                         <a class="postedByUsername" href="{{ path('single-user', {'id': reply.postedBy.id}) }}">{{ reply.postedBy.username }}</a>
                     </div>
+                    <!-- Le temps passé depuis la publication -->
                     <div class="col text-right">
                         <p class="ago">{{ reply.postedAt|ago }}</p>
                     </div>
@@ -51,6 +57,7 @@
             </div>
         </div>
 
+        <!-- Texte de la réponse -->
         <div class="row justify-content-center">
             <div class="col-7 mb-2 mt-2">
                 <p class="reply-body">{{ reply.body }}</p>

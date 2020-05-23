@@ -17,6 +17,7 @@
 
 {% block body %}
 
+<!-- Liens vers les pages de rechereche -->
 <div class="row justify-content-center justify-content-lg-end">
     <div class="button-block col-10 mt-3 ml-lg-5 p-2 ">
         <div class="row justify-content-center">
@@ -29,7 +30,7 @@
 
 {% if search %}
 
-<div class="row justify-content-center justify-content-lg-end">
+<!-- Formulaire pour chercher des utilisateurs -->
     <div class="search-form-block col-10 mt-3 ml-lg-5 p-2 ">
         <div class="row justify-content-center p-2">
             {{ form_start(form) }}
@@ -62,23 +63,26 @@
 <div class="row justify-content-center justify-content-lg-end">
     <div class="col-10 mt-3 ml-lg-5 p-2 ">
         <div class="row justify-content-center">
+            <!-- La liste des utilisateur -->
             {% for user in users %}
-                
                     <div class="cardd p-0 col-md-5 col-lg-3 m-2 text-center">
+                        <!-- Photo de profil -->
                         <div class="row justify-content-center">
                             <div class="img-cadre m-5">
-                                <img class="card-image" src="{{ asset('build/images/' ~ user.image) }}" alt="">
+                                <img class="card-image" src="{{ asset('upload/' ~ user.image) }}" alt="">
                             </div>
                         </div>
-                        
+                        <!-- Nom -->
                         <div class="card-title"><a href="{{ path('single-user',{'id' : user.id}) }}">{{ user.firstName }} {{ user.lastName }}</a></div>
+                        <!-- Ville -->
                         <div class="card-text">
                             <div>{{ user.ville.nom }}</div>
                         </div>
+                        <!-- Présentation -->
                         <div class="presentation m-2">
                             <p>{{ user.presentation }}</p>
                         </div>
-
+                        <!-- Liens -->
                         <div class="col-12 p-0">
                             <div class="row buttons justify-content-center no-gutters p-2">
                                 <a class="col-10 m-2 btn profil-button" href="{{ path('single-user',{'id' : user.id}) }}">Voir profile</a>
