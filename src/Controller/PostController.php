@@ -18,6 +18,7 @@ use App\Repository\PostCommentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PostController extends AbstractController
@@ -179,5 +180,22 @@ class PostController extends AbstractController
     
     }
 
+    /**
+     * @Route("/profil/posts", name="my-posts")
+     */
+
+    public function myPosts(PostRepository $repository):Response
+    {
+
+        $user = $this->getUser();
+
+        $posts = $repository->findCurrentUserPosts($user);
+
+        return $this->render('post/myPosts.html.twig', [
+            'posts' => $posts
+        ]);
+
+
+    }
 
 }

@@ -6,4 +6,65 @@
 
 {% block body %}
 
+{% for message in app.flashes('success') %}
+    <div class="row justify-content-center justify-content-lg-end mt-5 mb-1">
+        <div class="flash-message col-10 col-lg-9 justify-content-center p-1">
+            <div>{{ message }}</div>
+        </div>
+    </div>
+{% endfor %}
+
+
+
+<div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
+    <div class="profil-block col-10 col-lg-9 justify-content-center p-3 p-md-5">
+
+        <div class="row justify-content-center">
+            <div class="col-10 col-md-4 profile-picture">
+                <img src="{{ asset('build/images/' ~ app.user.image ) }}" alt="">
+            </div>
+            <div class="col-md-6">
+                {{ form_start(form) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.firstName) }}
+                {{ form_row(form.lastName) }}
+                    
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                {{ form_row(form.image) }}
+                {{ form_row(form.presentation) }}
+                {{ form_row(form.ville) }}
+                {{ form_row(form.climbingCategorie) }}
+                {{ form_row(form.level) }}  
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-10 text-right">
+                <input type="submit" class="btn submit-button" value="Enregistrer">
+                {{ form_end(form) }}
+                <hr class="mt-5">
+            </div>
+        </div> 
+
+        <div class="row justify-content-center">
+            <div class="col-10 text-center">
+                <a href="{{ path('my-posts') }}" class="btn buttons my-posts-button">Mes publications</a>
+                <a href="{{ path('my-events') }}" class="btn buttons my-events-button">Mes évènements</a>
+                {# <a href="" class="btn buttons my-comments-button">Mes commentaires</a> #}
+            </div>
+        </div>
+
+    </div>
+    
+</div>
+
+<div class="ajax-container mb-5">
+
+</div>
+
+
+
 {% endblock %}

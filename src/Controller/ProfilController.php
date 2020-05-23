@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Form\UserType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProfilController extends AbstractController
@@ -10,10 +13,27 @@ class ProfilController extends AbstractController
     /**
      * @Route("/profil", name="profil")
      */
-    public function index()
+    public function index(EntityManagerInterface $manager, Request $request)
     {
+        $user = $this->getUser();
+
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash('success', 'Votre profil a bien été mis à jour.');
+
+            return $this->redirectToRoute('profil');
+        }
+
         return $this->render('profil/profil.html.twig', [
-           
+           'form' => $form->createView()
         ]);
     }
+
+
 }

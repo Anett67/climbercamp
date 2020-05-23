@@ -9,6 +9,7 @@ use App\Entity\PostCommentLike;
 use App\Entity\EventCommentLike;
 use App\Entity\EventCommentReply;
 use App\Entity\PostCommentReply;
+use App\Entity\User;
 use App\Form\EventCommentReplyType;
 use App\Form\PostCommentReplyType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,7 +18,9 @@ use App\Repository\PostCommentLikeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\EventCommentLikeRepository;
 use App\Repository\EventCommentReplyRepository;
+use App\Repository\EventCommentRepository;
 use App\Repository\PostCommentReplyRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -170,5 +173,5 @@ class CommentController extends AbstractController
         return new JsonResponse($response);
 
     }
-
+    
 }
