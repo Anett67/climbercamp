@@ -8,31 +8,45 @@
 
 <div class="row justify-content-center ml-lg-5 mb-5">
     <div class="club-block col-10 col-md-8 mt-3 ml-lg-5 p-2 ">
+
+        <!-- La photo de la salle d'escalade si il y en a -->
         <div class="row justify-content-center">
             {% if club.image %}
                 <div class="col-10">
-                    <img class="club-image" src="{{ asset('build/images/' ~ club.image) }}" alt="">
+                    <img class="club-image" src="{{ asset('upload/' ~ club.image) }}" alt="">
                 </div>
             {% endif %}
         </div>
+
+        <!-- Ville -->
         <div class="row justify-content-center p-2">
             <h4 class="col text-center">{{ club.ville.nom }}</h4>
         </div>
+
+        <!-- Addresse -->
         <div class="row justify-content-center p-2">
             <h5 class="col text-center">{{ club.addresse }}</h5>
         </div>  
+
+        <!-- Numéro de téléphone -->
         <div class="row justify-content-center p-2">   
             <h5 class="col text-center">{{ club.telephone }}</h5>
         </div>
+
+        <!-- Email -->
         <div class="row justify-content-center p-2">   
             <h5 class="col text-center">{{ club.email }}</h5>
         </div>
+
+        <!-- Categories d'escalade -->
         <div class="row justify-content-center p-2">
             <div class="col-12 text-center">Types d'escalade dans cette salle:</div> 
             {% for category in club.climbingCategories %}   
                 <div class="badge m-2">{{ category.label }}</div>
             {% endfor %}
         </div>
+
+        <!-- Liens pour enregistrer ou supprimer la salle d'escalade -->
         <div class="row justify-content-center m-2">
             {% if club in app.user.climbingClub %} 
                 <a class="btn save-button" href="{{ path('club-remove', {'id': club.id}) }}">SUPPRIMER DE MA LISTE</a>
@@ -40,11 +54,15 @@
                 <a class="btn save-button" href="{{ path('club-save', {'id': club.id}) }}">ENREGISTRER</a>
             {% endif %}
         </div>
+
+        <!-- Le nombre des personnes qui aiment cette salle -->
         <div class="row justify-content-center users-block">
             <div class="col-12 text-center">
                 <a href="{{ path('club-users', {'id': club.id}) }}">{{ club.users|length }} personnes aiment cette salle</a>
             </div>
         </div>
+
+        <!-- Les amis qui aiment cette salle -->
         <div class="row justify-content-center friends-block p-2">
             <div class="col-12 text-center">
                 Amis qui aiment cette salle

@@ -10,18 +10,23 @@
     <div class=" event-block col-10 col-lg-9 justify-content-center">
 
         <div class="row event-header {% if event.image %} justify-content-center {% endif %}">
-            
+            <!-- Afficher l'image lié à l'évènement si il y en a -->
             {% if event.image %}
                 <div class="col-10 col-md-6">
-                    <img src="{{ asset('build/images/events/' ~ event.image) }}" alt="" class="event-image p-3">
+                    <img src="{{ asset('upload/' ~ event.image) }}" alt="" class="event-image p-3">
                 </div>
             {% endif %}
 
             <div class="col-10 col-md-6 d-flex flex-column justify-content-around p-5">
+                <!-- Ville, lieu et date -->
                 <h5>{{ event.ville.nom }}</h5>
                 <h6>{{ event.location }}</h6>
                 <span class="date" >le {{ event.eventDate|date("d/m/Y à H:i") }}</span>
+
+                <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
                 <h6>Partagé par: <a class="postedBy-link" href="{{ path('single-user', {'id': event.postedBy.id}) }}">{{ event.postedBy.firstName }} {{ event.postedBy.LastName }} </a></h6>
+                
+                <!-- Lien pour enregistrer ou supprimer l'évènement -->
                 {% if event in app.user.savedEvents %}
                     <span>Vous avez sauvegardé cet évènement</span> 
                     <a class="btn save-button" href="{{ path('event-remove', {'id': event.id}) }}">SUPPRIMER DE MA LISTE</a>
@@ -31,12 +36,14 @@
             </div>
         </div>
 
+        <!-- Le nombre des personnes intéressées -->
         <div class="row justify-content-center justify-content-lg-start">
             <div class="col-10">
                 <a class="interested-persons p-3" href="{{ path('event-users', {'id': event.id}) }}">{{ event.interestedUsers|length }} personnes sont intéressées </a>
             </div>
         </div>
 
+        <!-- Description de l'évènement -->
         <div class="row description mb-5">
             <div class="col-12 p-5">
                <h3>Détails</h3> 
@@ -46,9 +53,12 @@
             </div>
         </div>
 
+        <!-- Commentaires -->
         <div class="row comment-section pb-5">
             <div class="col-12">
                 <div class="row justify-content-center form-block">
+                    
+                    <!-- Le formulaire pour envoyer un nouveau commentaire -->
                     <div class="col-11">
                         {{ form_start(form) }}
                             {{ form_widget(form) }}
@@ -61,12 +71,14 @@
                 
                 <h5 class="pl-4 mb-2">Commentaires ({{ comments|length }})</h5>
 
+                <!-- La liste des commentaires -->
                 {% for comment in comments %}
                     <div class="row justify-content-center mb-3">
                         <div class="col-11 comment-block">
+                            <!-- Photo et nom de l'auteur, temps passé depuis a publication -->
                             <div class="row justify-content-center align-items-center p-2">
                                 <div class="col-1">
-                                    <img src="{{ asset('build/images/' ~ comment.postedBy.image) }}" alt="" class="postedByImage">
+                                    <img src="{{ asset('upload/' ~ comment.postedBy.image) }}" alt="" class="postedByImage">
                                 </div>
                                 <div class="col-7 col-md-8 name">
                                     <a class="name" href="{{ path('single-user', {'id': comment.postedBy.id}) }}">{{ comment.postedBy.firstName }} {{ comment.postedBy.lastName }}</a>
@@ -75,17 +87,23 @@
                                     <span class="date">{{ comment.postedAt|ago }}</span>
                                 </div>   
                             </div>
+
+                            <!-- Texte du commentaire -->
                             <div class="row">
                                 <div class="col-11 m-3">
                                     <p class="commentBody">{{ comment.body }}</p>
                                 </div>
                             </div>
                             <div class="row justify-content-around align-items-center p-3">
+                                
+                                <!-- Nombre de j'aimes et nombre des réponses -->
                                 <div class="col-12 col-md-6 commentLike-count">
                                     <span class="like-count">{{ comment.eventCommentLikes|length }}</span>
                                         J'aimes | 
                                     <span>{{ comment.eventCommentReplies|length }} Réponses</span>
                                 </div>
+
+                                <!-- Bouton j'aime -->
                                 <div class="col-12 col-md-3 text-right mt-2">
                                     <a class="btn commentLike-button" href="{{ path('event-comment-like', {'id': comment.id}) }}">
                                         <span class="{% if comment.isLikedByUser(app.user) %}liked{% endif %}">
@@ -97,10 +115,14 @@
                                         </span>  
                                     </a>
                                 </div>
+
+                                <!-- Lien qui affiche les réponses au commentaire et le formulaire pour envoyer une nouvelle réponse -->
                                 <div class="col-12 col-md-3 text-right mt-2">
                                     <a href="{{ path('event-comment-replies', {'id': comment.id}) }}" class="btn reply-button">Réponses</a>
                                 </div>
                             </div>
+
+                            <!-- Le conteneur ou les réponses apparaissent (AJAX) -->
                             <div class="comment-replies row"></div>
                         </div>
                     </div>

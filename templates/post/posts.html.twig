@@ -4,6 +4,7 @@
 
 {% block pageTitle %}
 
+    <!-- On vérifie si on afficher les publications d'une certaine ville ou d'un certain utilisateur -->
     {% if ville is defined %}
     
     Les publications de {{ ville.nom }}
@@ -18,6 +19,7 @@
 
 {% block body %}
 
+    <!-- Liens qui amènent vers les pages de recherche -->
     <div class="row justify-content-center justify-content-lg-end">
         <div class="button-block col-10 col-lg-9 mt-3 p-2 ">
             <div class="row justify-content-center">
@@ -30,6 +32,7 @@
 
     {% if search %}
 
+        <!-- Formulaire pour chercher une publication -->
         <div class="row justify-content-center justify-content-lg-end">
             <div class="search-form-block col-10 col-lg-9 mt-3 p-2 ">
                 {{ form_start(form) }}
@@ -55,7 +58,8 @@
     {% endif %}
 
     {% if user is not defined %}
-
+        
+        <!-- Formulaire pour créer une nouvelle publication -->
         <div class="row justify-content-center justify-content-lg-end">
             <div class="post-form-block col-10 col-lg-9 mt-3 p-2 ">
                 <div class="row justify-content-center p-3">
@@ -75,35 +79,45 @@
 
      {% if posts|length > 0 %}
 
+        <!-- Liste des publications -->
         {% for post in posts %}
             <div class="row justify-content-center justify-content-lg-end mb-3">
                 <div class="post-block col-10 col-lg-9 mt-3 p-5 ">
                     <div class="row postedByAt-block align-items-center">
                         <div class="col-8 col-lg-6">
+
+                            <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
                             <div class="row align-items-center">
                                 <div class="img-cadre">
-                                    <img class="postedByProfil img-fluid" src="{{ asset('build/images/' ~ post.postedBy.image) }}" alt="Photo de profile">
+                                    <img class="postedByProfil img-fluid" src="{{ asset('upload/' ~ post.postedBy.image) }}" alt="Photo de profile">
                                 </div>
                                 <div class="col-7 col-md-8 col-lg-9">
                                     <a class="postedByName" href="{{ path('single-user',{'id' : post.postedBy.id}) }}">{{ post.postedBy.firstName }} {{ post.postedBy.lastName }}</a>
                                 </div>
                             </div>
+
                         </div>
+                        <!-- Le bloc qui affiche le temps passé depuis la publication -->
                         <div class="col-4 col-lg-6 text-right">
                             {{ post.createdAt|ago }}
                         </div>
+
                     </div>
+
                     <div class="row content-block">
+                        <!-- On vérifie si la publication a une photo ou pas et on affiche l'image si oui -->
                         {% if post.image %}
                             <div class="col-12 col-lg-6">
-                                <img class="postImage" src="{{ asset('build/images/posts/' ~ post.image) }}" alt="">
+                                <img class="postImage" src="{{ asset('upload/' ~ post.image) }}" alt="">
                             </div>
                         {% endif %}
                         <div class="col-12 {% if post.image %}col-lg-6{% endif %} ">
+                            <!-- Texte de la publication -->
                             <div class="row">
                                 <p class="postBody">{{ post.body }}</p>
                             </div>
                             <div class="row justify-content-end align-items-end">
+                                <!-- Bouton j'aime -->
                                 <div class="col-12 {% if post.image %}col-md-6{% else %}col-md-6 col-lg-3 {% endif %}  m-2 mt-lg-5">
                                     <a id="{{ post.id }}" class="btn like-button" href="{{ path('post-like', {'id': post.id}) }}">
                                         <span class="js-postLikes-label{{post.id}} {% if post.isLikedByUser(app.user) %}liked{% endif %}">
@@ -115,12 +129,14 @@
                                         </span>
                                     </a>
                                 </div>
+                                <!-- Bouton commentaire -->
                                 <div class="col-12 {% if post.image %}col-md-6{% else %}col-md-6 col-lg-3 {% endif %} m-2">
                                     <a class="btn comment-button" href="{{ path('single-post', {'id': post.id}) }}">Commentaires</a>
                                 </div>
                             </div>
                         </div>  
                     </div>
+                    <!-- Nombre de j'aime et nombre de commentaire -->
                     <div class="commentsLikes-block row">
                         <div class="col-4 col-md-3 col-lg-2 m-1">
                             <a class="likes-link" href="{{ path('post-likes', {'id': post.id}) }}">
@@ -136,7 +152,7 @@
             </div>       
         {% endfor %}
     {% else %}
-        
+        <!-- Le bloc qui s'affiche quand on veut voir les publications d'un utilisateur et il n'en a aucune -->
         <div class="row justify-content-center justify-content-lg-end">
             <div class="post-form-block col-10 col-lg-9 mt-3 p-2 ">
                 <p class="p-2">L'utilisateur n'a aucune publication</p>

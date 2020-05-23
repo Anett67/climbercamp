@@ -16,6 +16,7 @@
 
 {% block body %}
 
+    <!-- Liens qui amènent vers les pages de recherche -->
     <div class="row justify-content-center ml-lg-5">
         <div class="button-block col-8 mt-3 ml-lg-5 p-2 ">
             <div class="row justify-content-center">
@@ -28,6 +29,7 @@
 
     {% if search %}
     
+    <!-- Formulaire pour chercher une salle d'escalade -->
     <div class="row justify-content-center ml-lg-5">
         <div class="search-form-block col-8 mt-3 ml-lg-5 p-2">
             <div class="row justify-content-center">
@@ -44,6 +46,7 @@
     
     {% endif %}
 
+    <!-- Les messages flash aparaissent ici -->
     {% for message in app.flashes('success') %}
         <div class="row justify-content-center ml-lg-5">
             <div class="button-block flash-success ml-lg-5 col-8 mt-3 p-2 ">
@@ -52,17 +55,26 @@
         </div>
     {% endfor %}
 
+    <!-- La liste des salles d'escalade -->
     {% for club in clubs %}
         <div class="row justify-content-center ml-lg-5">
             <div class="club-block row col-8 mt-3 ml-lg-5 p-3 ">
+
+                <!-- La photo de la salle d'escalade si il y en a -->
                 {% if club.image %}
                     <div class="col-lg-4">
-                        <img class="club-image" src="{{ asset('build/images/' ~  club.image) }}" alt="">
+                        <img class="club-image" src="{{ asset('upload/' ~  club.image) }}" alt="">
                     </div>
                 {% endif %}
                 <div class="col-lg-8">
+                    
+                    <!-- Nom -->
                     <h4><a href="{{ path('single-club', {'id': club.id}) }}">{{ club.nom }}</a></h4>
+                    
+                    <!-- Ville -->
                     <p>{{ club.ville.nom }}</p>
+                    
+                    <!-- Categories -->
                     <div class="categories">
                         {% for category in club.climbingCategories %}
                             <div class="badge ">{{ category.label }}</div>
@@ -71,9 +83,13 @@
                 </div>
             </div>
             <div class="row club-block row col-8 ml-lg-5 pl-3 pr-3 pb-3 pt-0 align-items-center">
+                
+                <!-- Le nombre des personnes qui aiment cette salle -->
                 <div class="col-6">
                     <a class="users-link" href="{{ path('club-users', {'id': club.id}) }}">{{ club.users|length }} Personnes aiment cette salle</a>
                 </div>
+
+                <!-- Le lien vers la page de la salle d'escalade -->
                 <div class="col-6 text-right">
                     <a class="btn info-button" href="{{ path('single-club', {'id': club.id}) }}">Plus d'info</a>
                 </div>

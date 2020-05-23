@@ -12,30 +12,35 @@
         <div class="post-block col-10 col-lg-9 mt-3 p-5 ">
             <div class="row postedByAt-block align-items-center">
                 <div class="col-8 col-lg-6">
+                    <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
                     <div class="row align-items-center">
                         <div class="img-cadre">
-                            <img class="postedByProfil img-fluid" src="{{ asset('build/images/' ~ post.postedBy.image) }}" alt="Photo de profile">
+                            <img class="postedByProfil img-fluid" src="{{ asset('upload/' ~ post.postedBy.image) }}" alt="Photo de profile">
                         </div>
                         <div class="col-7 col-md-8 col-lg-9">
                             <a class="postedByName" href="{{ path('single-user',{'id' : post.postedBy.id}) }}">{{ post.postedBy.firstName }} {{ post.postedBy.lastName }}</a>
                         </div>
                     </div>
                 </div>
+                <!-- Le bloc qui affiche le temps passé depuis la publication -->
                 <div class="col-4 col-lg-6 text-right">
                     {{ post.createdAt|ago }}
                 </div>
             </div>
             <div class="row content-block">
+                <!-- On vérifie si la publication a une photo ou pas et on affiche l'image si oui -->
                 {% if post.image %}
                     <div class="col-12 col-lg-6">
-                        <img class="postImage" src="{{ asset('build/images/posts/' ~ post.image) }}" alt="">
+                        <img class="postImage" src="{{ asset('upload/' ~ post.image) }}" alt="">
                     </div>
                 {% endif %}
                 <div class="col-12 {% if post.image %}col-lg-6{% endif %} ">
+                    <!-- Texte de la publication -->
                     <div class="row">
                         <p class="postBody">{{ post.body }}</p>
                     </div>
                     <div class="row justify-content-end align-items-end">
+                        <!-- Bouton j'aime -->
                         <div class="col-12 {% if post.image %}col-md-6{% else %}col-md-6 col-lg-3 {% endif %}  m-2 mt-lg-5">
                             <a id="{{ post.id }}" class="btn like-button" href="{{ path('post-like', {'id': post.id}) }}">
                                 <span class="js-postLikes-label{{post.id}} {% if post.isLikedByUser(app.user) %}liked{% endif %}">
@@ -50,6 +55,7 @@
                     </div>
                 </div>  
             </div>
+            <!-- Nombre de j'aime -->
             <div class="commentsLikes-block row mb-5">
                 <div class="col-4 col-md-3 col-lg-2 m-1">
                     <a class="likes-link" href="{{ path('post-likes', {'id': post.id}) }}">
@@ -60,6 +66,7 @@
             </div>
             <div class="row comment-section pb-5">
                 <div class="col-12">
+                    <!-- Formulaire pour envoyer un nouveau commentaire -->
                     <div class="row justify-content-center form-block">
                         <div class="col-11">
                             {{ form_start(form) }}
@@ -73,32 +80,38 @@
                     
                     <h5 class="pl-4 mb-2">Commentaires ({{ comments|length }})</h5>
 
+                    <!-- Liste des commentaires -->
                     {% for comment in comments %}
                         <div class="row justify-content-center mb-3">
                             <div class="col-11 comment-block">
                                 <div class="row justify-content-center align-items-center p-2">
+                                    <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
                                     <div class="col-1">
-                                        <img src="{{ asset('build/images/' ~ comment.postedBy.image) }}" alt="" class="postedByImage">
+                                        <img src="{{ asset('upload/' ~ comment.postedBy.image) }}" alt="" class="postedByImage">
                                     </div>
                                     <div class="col-7 col-md-8 name">
                                         <a class="name" href="{{ path('single-user', {'id': comment.postedBy.id}) }}">{{ comment.postedBy.firstName }} {{ comment.postedBy.lastName }}</a>
                                     </div>
+                                    <!-- Le bloc qui affiche le temps passé depuis la publication -->
                                     <div class="col-3 text-right p-2">
                                         <span class="date">{{ comment.postedAt|ago }}</span>
                                     </div>   
                                 </div>
                                 <div class="row">
+                                    <!-- Texte du commentaire -->
                                     <div class="col-11 m-3">
                                         <p class="commentBody">{{ comment.body }}</p>
                                     </div>
                                 </div>
                                 <div class="row justify-content-md-around justify-content-center align-items-center p-3">
+                                    <!-- Nombre de j'aime et nombre de réponses -->
                                     <div class="col-12 col-md-6 commentLike-count">
                                         <span class="like-count">{{ comment.postCommentLikes|length }}</span>
                                         J'aimes | 
                                         <span>{{ comment.postCommentReplies|length }} Réponses</span>
                                     </div>
                                     <div class="col-12 col-md-3 text-right mt-2">
+                                        <!-- Bouton j'aime -->
                                         <a class="btn commentLike-button" href="{{ path('comment-like', {'id': comment.id}) }}">
                                             <span class="{% if comment.isLikedByUser(app.user) %}liked{% endif %}">
                                                 {% if comment.isLikedByUser(app.user) %}
@@ -109,10 +122,12 @@
                                             </span>  
                                         </a>
                                     </div>
+                                    <!-- Lien qui affiche les réponses au commentaire et le formulaire pour envoyer une nouvelle réponse -->
                                     <div class="col-12 col-md-3 text-right mt-2">
                                         <a href="{{ path('comment-replies', {'id': comment.id}) }}" class="btn reply-button">Réponses</a>
                                     </div>
                                 </div>
+                                <!-- Le conteneur ou les réponses apparaissent (AJAX) -->
                                 <div class="comment-replies row"></div>
                             </div>
                         </div>
