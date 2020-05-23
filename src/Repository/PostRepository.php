@@ -65,12 +65,25 @@ class PostRepository extends ServiceEntityRepository
             ->leftJoin('p.postLikes', 'pl')
             ->addSelect('pl')
             ->leftJoin('p.postComments', 'pc')
+            ->addSelect('pc')
             ->setParameter('val', $ville)
             ->orderBy('p.createdAt', 'DESC')
             //->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function findCurrentUserPosts($user){
+
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.postedBy = :val')
+            ->setParameter('val', $user)
+            ->orderBy('p.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+        
     }
 
     // /**

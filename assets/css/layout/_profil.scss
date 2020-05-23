@@ -1,0 +1,65 @@
+
+.flash-message{
+        background-color: $green;
+        color: $black;
+}
+
+.profil-block{
+    background-color: $blackrgba;
+    img{
+        width: 100%;
+    }
+    label, legend{
+        color: $orange;
+    }
+    input, textarea, select{
+        background-color: $greyrgba;
+        border-radius: 0;
+        border: none;
+        color: $green;
+        &:focus{
+            background-color: $blackrgba;
+            color: $green;
+        }
+    } 
+
+    textarea{
+        min-height: 200px;
+    }
+
+    textarea::-webkit-scrollbar {
+        width: 1em;
+        background-color: $green;
+    }
+
+    textarea::-webkit-scrollbar-thumb {
+        background-color: $green;
+        // outline: 1px solid slategrey;
+      }
+
+    .submit-button{
+        @include buttons-colored($green);
+    }
+
+    hr{
+        border-color: $orange;
+    }
+
+    .buttons{
+        margin: 10px;
+    }
+    
+    .my-posts-button{
+        @include buttons($grey);
+    }
+
+    .my-events-button{
+        @include buttons($yellow);
+    }
+
+    .my-comments-button{
+        @include buttons($green);
+    }
+
+
+}

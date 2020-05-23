@@ -69,6 +69,27 @@ class EventRepository extends ServiceEntityRepository
 
     }
 
+    public function findCurrentUserEvents($user){
+
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.eventComments', 'ec')
+            ->addSelect('ec')
+            ->innerJoin('e.ville', 'v')
+            ->addSelect('v')
+            ->leftJoin('e.interestedUsers', 'u')
+            ->addSelect('u')
+            ->innerJoin('e.postedBy', 'pb')
+            ->addSelect('pb')
+            ->andWhere('e.postedBy = :val')
+            ->setParameter('val', $user)
+            ->orderBy('e.eventDate', 'ASC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+
+    }
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */

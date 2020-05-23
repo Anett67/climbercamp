@@ -189,5 +189,20 @@ class EventController extends AbstractController
             'search' => false
         ]);
     }
+
+    /**
+     * @Route("/profil/events", name="my-events")
+     */
+
+     public function myEvents(EventRepository $repository){
+
+        $user = $this->getUser();
+
+        $events = $repository->findCurrentUserEvents($user);
+
+        return $this->render('event/myEvents.html.twig', [
+            'events' => $events
+        ]);
+     }
     
 }
