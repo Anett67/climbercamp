@@ -43,12 +43,15 @@
         border-radius: 0;
         border: none;
     }
+    #output{
+        width: 100%;
+    }
     .submit-button{
         @include buttons-colored($orange);
         width: 100%;
     }
 
-    @include upload_button($orange, $black, 'Télécharger une photo', auto, 100%, 1px solid $orange);
+    @include upload_button($orange, $black, 'Télécharger une photo', 100%, 100%, 1px solid $orange);
 }
 
 .posts-header{

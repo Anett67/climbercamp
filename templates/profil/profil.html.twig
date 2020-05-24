@@ -17,14 +17,14 @@
 
 
 <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
-    <div class="profil-block col-10 col-lg-9 justify-content-center p-3 p-md-5">
+    <div class="profil-block col-10 col-lg-9 justify-content-center p-lg-3 pt-3">
 
         <div class="row justify-content-center align-items-center">
             <div class="col-10 col-md-4 profile-picture">
                 {% if app.user.image %}
-                    <img src="{{ asset('upload/users/' ~ app.user.image ) }}" alt="">
+                    <img id="output" src="{{ asset('upload/users/' ~ app.user.image ) }}" alt="">
                 {% else %}
-                    <img src="{{ asset('upload/default.png' ) }}" alt="">
+                    <img id="output" src="{{ asset('upload/default.png' ) }}" alt="">
                 {% endif %}
                 {{ form_start(form) }}
                 {{ form_row(form.imageFile)}}
@@ -46,17 +46,21 @@
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-10 text-right">
-                <input type="submit" class="btn submit-button" value="Enregistrer">
-                {{ form_end(form) }}
-                <hr class="mt-5">
+            <div class="col-12 col-md-10 col-lg-4 text-right">
+                <input type="submit" class="btn submit-button w-100" value="Enregistrer">
+                {{ form_end(form) }}  
+            </div>
+            <div class="col-12 col-md-10">
+               <hr class="mt-5"> 
             </div>
         </div> 
 
         <div class="row justify-content-center">
-            <div class="col-10 text-center">
-                <a href="{{ path('my-posts') }}" class="btn buttons my-posts-button">Mes publications</a>
-                <a href="{{ path('my-events') }}" class="btn buttons my-events-button">Mes évènements</a>
+            <div class="col-12 col-md-10 col-lg-4 text-center">
+                <a href="{{ path('my-posts') }}" class="btn buttons my-posts-button w-100 w-lg-30">Mes publications</a>
+            </div>
+            <div class="col-12 col-md-10 col-lg-4 text-center">    
+                <a href="{{ path('my-events') }}" class="btn buttons my-events-button w-100 w-lg-30">Mes évènements</a>
             </div>
         </div>
 
@@ -68,6 +72,22 @@
 
 </div>
 
+{% endblock %}
 
+{% block javascripts %}
+
+    <script>
+        var openFile = function(event) {
+        var input = event.target;
+
+        var reader = new FileReader();
+        reader.onload = function(){
+        var dataURL = reader.result;
+        var output = document.getElementById('output');
+        output.src = dataURL;
+        };
+        reader.readAsDataURL(input.files[0]);
+        };
+    </script>
 
 {% endblock %}
