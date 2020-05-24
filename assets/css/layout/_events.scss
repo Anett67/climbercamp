@@ -107,7 +107,9 @@
     select{
         margin: 3px;
     }
-
+    #output{
+        width: 80%;
+    } 
     @include upload_button($green, $black, 'Télécharger une photo', auto, 100%, 1px solid $green);
 
     .submit-button{

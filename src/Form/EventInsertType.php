@@ -26,7 +26,11 @@ class EventInsertType extends AbstractType
                 'class' => Ville::class,
                 'choice_label' => 'nom'
             ])
-            ->add('imageFile', FileType::class, ['required' => false, 'label' => false])
+            ->add('imageFile', FileType::class, ['required' => false, 'label' => false,
+            'attr' => [
+                'accept' => 'image/*',
+                'onchange' => 'openFile(event)'
+            ]])
         ;
     }
 

@@ -14,6 +14,7 @@ import '../css/app.scss';
 import $ from 'jquery';
 import 'bootstrap';
 import '../js/components/like-ajax';
+import '../js/filereader/filereader';
 
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');

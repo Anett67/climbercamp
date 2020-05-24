@@ -68,6 +68,7 @@
                             {{form_row(form.body)}}
                     </div>
                     <div class="col-md-5 col-lg-4 text-right">
+                        <img id="output">
                         {{ form_row(form.imageFile) }}
                         <input type="submit" class="btn submit-button" value="Envoyer">
                         {{ form_end(form) }}      
@@ -75,7 +76,7 @@
                 </div>
             </div>
         </div>
-               
+             
      {% endif %}
 
      {% if posts|length > 0 %}
@@ -166,4 +167,22 @@
     
     {% endif %}
         
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+        var openFile = function(event) {
+        var input = event.target;
+
+        var reader = new FileReader();
+        reader.onload = function(){
+        var dataURL = reader.result;
+        var output = document.getElementById('output');
+        output.src = dataURL;
+        };
+        reader.readAsDataURL(input.files[0]);
+        };
+    </script>
+
 {% endblock %}
