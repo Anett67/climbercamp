@@ -25,6 +25,8 @@ class ProfilController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
+            $user->setImageFile(NULL);
+
             $this->addFlash('success', 'Votre profil a bien été mis à jour.');
 
             return $this->redirectToRoute('profil');

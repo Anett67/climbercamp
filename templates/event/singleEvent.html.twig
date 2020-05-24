@@ -78,7 +78,13 @@
                             <!-- Photo et nom de l'auteur, temps passé depuis a publication -->
                             <div class="row justify-content-center align-items-center p-2">
                                 <div class="col-1">
-                                    <img src="{{ asset('upload/users/' ~ comment.postedBy.image) }}" alt="" class="postedByImage">
+                                    <div class="img-cadre">
+                                        {% if comment.postedBy.image %}
+                                            <img src="{{ asset('upload/users/' ~ comment.postedBy.image) }}" alt="" class="postedByImage">
+                                        {% else %}
+                                            <img src="{{ asset('upload/default.png') }}" alt="" class="postedByImage">
+                                        {% endif %}
+                                    </div>
                                 </div>
                                 <div class="col-7 col-md-8 name">
                                     <a class="name" href="{{ path('single-user', {'id': comment.postedBy.id}) }}">{{ comment.postedBy.firstName }} {{ comment.postedBy.lastName }}</a>

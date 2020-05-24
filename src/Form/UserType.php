@@ -2,14 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\ClimbingCategorie;
-use App\Entity\Level;
 use App\Entity\User;
+use App\Entity\Level;
 use App\Entity\Ville;
+use App\Entity\ClimbingCategorie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class UserType extends AbstractType
 {
@@ -19,7 +20,7 @@ class UserType extends AbstractType
             ->add('email')
             ->add('lastName')
             ->add('firstName')
-            ->add('image')
+            ->add('imageFile', FileType::class, ['required' => false])
             ->add('presentation')
             ->add('ville', EntityType::class,[
                 'class' => Ville::class,

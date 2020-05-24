@@ -112,7 +112,11 @@
                                         </div>
                                     </div>
                                     <div class="img-cadre ml-2">
-                                        <img class="postedByImage" src="{{ asset('upload/users/' ~ event.postedBy.image ) }}" alt="">
+                                        {% if event.postedBy.image %}
+                                            <img class="postedByImage" src="{{ asset('upload/users/' ~ event.postedBy.image ) }}" alt="">
+                                        {% else %}
+                                            <img src="{{ asset('upload/default.png') }}" alt="" class="postedByImage">
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>                       
