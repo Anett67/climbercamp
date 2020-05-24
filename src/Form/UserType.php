@@ -20,7 +20,7 @@ class UserType extends AbstractType
             ->add('email')
             ->add('lastName')
             ->add('firstName')
-            ->add('imageFile', FileType::class, ['required' => false])
+            ->add('imageFile', FileType::class, ['required' => false, 'label' => false])
             ->add('presentation')
             ->add('ville', EntityType::class,[
                 'class' => Ville::class,

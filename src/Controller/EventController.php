@@ -93,7 +93,9 @@ class EventController extends AbstractController
                 ->setEventDate($eventInsert->getEventDate())
                 ->setVille($eventInsert->getVille())
                 ->setPostedBy($this->getUser())
-                ->setLocation($eventInsert->getLocation());
+                ->setLocation($eventInsert->getLocation())
+                ->setImageFile($eventInsert->getImageFile())
+                ;
 
             $manager->persist($event);
             $manager->flush();

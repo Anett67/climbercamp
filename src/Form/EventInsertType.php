@@ -2,13 +2,14 @@
 
 namespace App\Form;
 
-use App\Entity\EventInsert;
 use App\Entity\Ville;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\EventInsert;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class EventInsertType extends AbstractType
 {
@@ -25,6 +26,7 @@ class EventInsertType extends AbstractType
                 'class' => Ville::class,
                 'choice_label' => 'nom'
             ])
+            ->add('imageFile', FileType::class, ['required' => false])
         ;
     }
 
