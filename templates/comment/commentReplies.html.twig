@@ -44,7 +44,7 @@
                 <!-- La photo et le nom de l'auteur -->
                 <div class="row align-items-center">
                     <div class="img-cadre">
-                        <img class="postedByImage" src="{{ asset('upload/' ~ reply.postedBy.image) }}" alt="">
+                        <img class="postedByImage" src="{{ asset('upload/users/' ~ reply.postedBy.image) }}" alt="">
                     </div>
                     <div class="col">
                         <a class="postedByUsername" href="{{ path('single-user', {'id': reply.postedBy.id}) }}">{{ reply.postedBy.username }}</a>

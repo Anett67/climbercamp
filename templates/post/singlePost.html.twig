@@ -15,7 +15,7 @@
                     <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
                     <div class="row align-items-center">
                         <div class="img-cadre">
-                            <img class="postedByProfil img-fluid" src="{{ asset('upload/' ~ post.postedBy.image) }}" alt="Photo de profile">
+                            <img class="postedByProfil img-fluid" src="{{ asset('upload/users/' ~ post.postedBy.image) }}" alt="Photo de profile">
                         </div>
                         <div class="col-7 col-md-8 col-lg-9">
                             <a class="postedByName" href="{{ path('single-user',{'id' : post.postedBy.id}) }}">{{ post.postedBy.firstName }} {{ post.postedBy.lastName }}</a>
@@ -31,7 +31,7 @@
                 <!-- On vérifie si la publication a une photo ou pas et on affiche l'image si oui -->
                 {% if post.image %}
                     <div class="col-12 col-lg-6">
-                        <img class="postImage" src="{{ asset('upload/' ~ post.image) }}" alt="">
+                        <img class="postImage" src="{{ asset('upload/posts/' ~ post.image) }}" alt="">
                     </div>
                 {% endif %}
                 <div class="col-12 {% if post.image %}col-lg-6{% endif %} ">
@@ -87,7 +87,7 @@
                                 <div class="row justify-content-center align-items-center p-2">
                                     <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
                                     <div class="col-1">
-                                        <img src="{{ asset('upload/' ~ comment.postedBy.image) }}" alt="" class="postedByImage">
+                                        <img src="{{ asset('upload/users/' ~ comment.postedBy.image) }}" alt="" class="postedByImage">
                                     </div>
                                     <div class="col-7 col-md-8 name">
                                         <a class="name" href="{{ path('single-user', {'id': comment.postedBy.id}) }}">{{ comment.postedBy.firstName }} {{ comment.postedBy.lastName }}</a>
