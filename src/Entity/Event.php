@@ -5,10 +5,14 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
+ *  @Vich\Uploadable
  * @UniqueEntity(
  * fields={"interestedUsers"},
  * )
@@ -36,6 +40,19 @@ class Event
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="event_image", fileNameProperty="image")
+     */
+
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="events")
@@ -120,6 +137,20 @@ class Event
         $this->image = $image;
 
         return $this;
+    }
+
+    public function setImageFile(?File $imageFile = null): self
+    {
+        $this->imageFile = $imageFile;
+
+        $this->updatedAt = new \DateTime('now');
+
+        return $this;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
     }
 
     public function getVille(): ?Ville

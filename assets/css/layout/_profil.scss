@@ -21,7 +21,9 @@
             background-color: $blackrgba;
             color: $green;
         }
-    } 
+    }
+
+    @include upload_button($black, $green, 'Changer ma photo', 180%);
 
     textarea{
         min-height: 200px;

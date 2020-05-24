@@ -19,7 +19,7 @@
 <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
     <div class="profil-block col-10 col-lg-9 justify-content-center p-3 p-md-5">
 
-        <div class="row justify-content-center">
+        <div class="row justify-content-center align-items-center">
             <div class="col-10 col-md-4 profile-picture">
                 {% if app.user.image %}
                     <img src="{{ asset('upload/users/' ~ app.user.image ) }}" alt="">
@@ -27,7 +27,7 @@
                     <img src="{{ asset('upload/default.png' ) }}" alt="">
                 {% endif %}
                 {{ form_start(form) }}
-                {{ form_row(form.imageFile) }}
+                {{ form_row(form.imageFile)}}
             </div>
             <div class="col-md-6">
                 {{ form_row(form.email) }}
