@@ -45,7 +45,10 @@
     }
     .submit-button{
         @include buttons-colored($orange);
+        width: 100%;
     }
+
+    @include upload_button($orange, $black, 'Télécharger une photo', auto, 100%, 1px solid $orange);
 }
 
 .posts-header{

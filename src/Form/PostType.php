@@ -17,7 +17,7 @@ class PostType extends AbstractType
             ->add('body', TextareaType::class, [
                 'label' => 'Envoyer un nouveau publication'
             ])
-            ->add('imageFile', FileType::class, ['required' => false])
+            ->add('imageFile', FileType::class, ['required' => false, 'label' => false])
         ;
     }
 

@@ -62,12 +62,13 @@
         <!-- Formulaire pour créer une nouvelle publication -->
         <div class="row justify-content-center justify-content-lg-end">
             <div class="post-form-block col-10 col-lg-9 mt-3 p-2 ">
-                <div class="row justify-content-center p-3">
-                    <div class="col-10">
+                <div class="row justify-content-center align-items-center p-2">
+                    <div class="col">
                         {{ form_start(form) }}
-                            {{form_widget(form)}}
+                            {{form_row(form.body)}}
                     </div>
-                    <div class="col-10 text-right">
+                    <div class="col-md-5 col-lg-4 text-right">
+                        {{ form_row(form.imageFile) }}
                         <input type="submit" class="btn submit-button" value="Envoyer">
                         {{ form_end(form) }}      
                     </div>
