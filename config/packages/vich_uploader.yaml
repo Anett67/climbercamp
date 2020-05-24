@@ -5,12 +5,16 @@ vich_uploader:
         user_image:
            uri_prefix: /upoad/users
            upload_destination: '%kernel.project_dir%/public/upload/users'
+           namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
         event_image:
             uri_prefix: /upoad/events
             upload_destination: '%kernel.project_dir%/public/upload/events'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
         post_image:
             uri_prefix: /upoad/posts
             upload_destination: '%kernel.project_dir%/public/upload/posts'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
         club_image:
             uri_prefix: /upoad/clubs
             upload_destination: '%kernel.project_dir%/public/upload/clubs'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
