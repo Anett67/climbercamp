@@ -21,10 +21,15 @@
 
         <div class="row justify-content-center">
             <div class="col-10 col-md-4 profile-picture">
-                <img src="{{ asset('upload/users/' ~ app.user.image ) }}" alt="">
+                {% if app.user.image %}
+                    <img src="{{ asset('upload/users/' ~ app.user.image ) }}" alt="">
+                {% else %}
+                    <img src="{{ asset('upload/default.png' ) }}" alt="">
+                {% endif %}
+                {{ form_start(form) }}
+                {{ form_row(form.imageFile) }}
             </div>
             <div class="col-md-6">
-                {{ form_start(form) }}
                 {{ form_row(form.email) }}
                 {{ form_row(form.firstName) }}
                 {{ form_row(form.lastName) }}
@@ -33,7 +38,6 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-md-10">
-                {{ form_row(form.image) }}
                 {{ form_row(form.presentation) }}
                 {{ form_row(form.ville) }}
                 {{ form_row(form.climbingCategorie) }}

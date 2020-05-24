@@ -15,7 +15,11 @@
                     <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
                     <div class="row align-items-center">
                         <div class="img-cadre">
-                            <img class="postedByProfil img-fluid" src="{{ asset('upload/users/' ~ post.postedBy.image) }}" alt="Photo de profile">
+                            {% if post.postedBy.image %}
+                                <img class="postedByProfil img-fluid" src="{{ asset('upload/users/' ~ post.postedBy.image) }}" alt="Photo de profile">
+                            {% else %}
+                                <img class="postedByProfil img-fluid" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
+                            {% endif %}
                         </div>
                         <div class="col-7 col-md-8 col-lg-9">
                             <a class="postedByName" href="{{ path('single-user',{'id' : post.postedBy.id}) }}">{{ post.postedBy.firstName }} {{ post.postedBy.lastName }}</a>
@@ -87,7 +91,13 @@
                                 <div class="row justify-content-center align-items-center p-2">
                                     <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
                                     <div class="col-1">
-                                        <img src="{{ asset('upload/users/' ~ comment.postedBy.image) }}" alt="" class="postedByImage">
+                                        <div class="img-cadre">
+                                            {% if comment.postedBy.image %}
+                                                <img src="{{ asset('upload/users/' ~ comment.postedBy.image) }}" alt="" class="postedByImage">
+                                            {% else %}
+                                                <img class="postedByImage" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
+                                            {% endif %}
+                                        </div>
                                     </div>
                                     <div class="col-7 col-md-8 name">
                                         <a class="name" href="{{ path('single-user', {'id': comment.postedBy.id}) }}">{{ comment.postedBy.firstName }} {{ comment.postedBy.lastName }}</a>

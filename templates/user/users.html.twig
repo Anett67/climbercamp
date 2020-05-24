@@ -69,7 +69,11 @@
                         <!-- Photo de profil -->
                         <div class="row justify-content-center">
                             <div class="img-cadre m-5">
-                                <img class="card-image" src="{{ asset('upload/users/' ~ user.image) }}" alt="">
+                                {% if user.image %}
+                                    <img class="card-image" src="{{ asset('upload/users/' ~ user.image) }}" alt="">
+                                {% else %}
+                                    <img class="card-image" src="{{ asset('upload/default.png') }}" alt="">
+                                {% endif %}
                             </div>
                         </div>
                         <!-- Nom -->
