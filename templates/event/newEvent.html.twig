@@ -16,15 +16,15 @@
 
 <div class="row justify-content-center">
     <div class="new-form-block col-11 col-md-10 col-lg-7 mt-3 p-2 ">
-        <div class="row justify-content-center p-3 pb-3">
-            <div class="col-8 col-md-10">
+        <div class="row justify-content-center p-1 p-md-3 pb-3">
+            <div class="col-10">
             {{ form_start(form) }}
                 {{ form_row(form.title,{ 'label' : 'Titre' })}}
                 {{ form_row(form.description,{ 'label' : 'Détails' })}}
                 {{ form_row(form.location,{ 'label' : 'Addresse' })}}
                 {{ form_row(form.eventDate,{ 'label' : 'Date et heure' })}}
                 {{ form_row(form.ville,{ 'label' : 'Ville' })}}
-                {{ form_row(form.imageFile,{ 'label' : 'Image' })}}
+                {{ form_row(form.imageFile)}}
                 <input type="submit" class="btn btn-block submit-button mt-4 mb-3" value="Enregistrer">
             {{ form_end(form) }}
             </div>

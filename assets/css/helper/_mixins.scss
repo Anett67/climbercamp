@@ -23,14 +23,17 @@
     }
 }
 
-@mixin upload_button($color, $backgroundColor, $content, $mdHeight){
+@mixin upload_button($color, $backgroundColor, $content, $lgHeight, $mdHeight, $border){
     .custom-file{
         margin-top: 10px;
+         height: $lgHeight;
         .custom-file-input{
             cursor: pointer;
+           
         }
         .custom-file-label{
-            border: none;
+            height: 100%;
+            border: $border;
             border-radius: 0;
             @media screen and (max-width: 991px){
                 height: $mdHeight;
