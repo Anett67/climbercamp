@@ -20,7 +20,7 @@ Mes publications
                         <div class="col-8 col-lg-6">
                             <div class="row align-items-center">
                                 <div class="img-cadre">
-                                    <img class="postedByProfil img-fluid" src="{{ asset('build/images/' ~ post.postedBy.image) }}" alt="Photo de profile">
+                                    <img class="postedByProfil img-fluid" src="{{ asset('upload/users/' ~ post.postedBy.image) }}" alt="Photo de profile">
                                 </div>
                                 <div class="col-7 col-md-8 col-lg-9">
                                     <a class="postedByName" href="{{ path('single-user',{'id' : post.postedBy.id}) }}">{{ post.postedBy.firstName }} {{ post.postedBy.lastName }}</a>
@@ -35,7 +35,7 @@ Mes publications
                     <div class="row content-block">
                         {% if post.image %}
                             <div class="col-12 col-lg-6">
-                                <img class="postImage" src="{{ asset('build/images/posts/' ~ post.image) }}" alt="">
+                                <img class="postImage" src="{{ asset('upload/posts/' ~ post.image) }}" alt="">
                             </div>
                         {% endif %}
                         <div class="col-12 {% if post.image %}col-lg-6{% endif %} ">

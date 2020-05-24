@@ -13,7 +13,7 @@
             <!-- Afficher l'image lié à l'évènement si il y en a -->
             {% if event.image %}
                 <div class="col-10 col-md-6">
-                    <img src="{{ asset('upload/' ~ event.image) }}" alt="" class="event-image p-3">
+                    <img src="{{ asset('upload/events/' ~ event.image) }}" alt="" class="event-image p-3">
                 </div>
             {% endif %}
 
@@ -78,7 +78,7 @@
                             <!-- Photo et nom de l'auteur, temps passé depuis a publication -->
                             <div class="row justify-content-center align-items-center p-2">
                                 <div class="col-1">
-                                    <img src="{{ asset('upload/' ~ comment.postedBy.image) }}" alt="" class="postedByImage">
+                                    <img src="{{ asset('upload/users/' ~ comment.postedBy.image) }}" alt="" class="postedByImage">
                                 </div>
                                 <div class="col-7 col-md-8 name">
                                     <a class="name" href="{{ path('single-user', {'id': comment.postedBy.id}) }}">{{ comment.postedBy.firstName }} {{ comment.postedBy.lastName }}</a>

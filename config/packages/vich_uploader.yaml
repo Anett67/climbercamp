@@ -1,0 +1,16 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        user_image:
+           uri_prefix: /upoad/users
+           upload_destination: '%kernel.project_dir%/public/upload/users'
+        event_image:
+            uri_prefix: /upoad/events
+            upload_destination: '%kernel.project_dir%/public/upload/events'
+        post_image:
+            uri_prefix: /upoad/posts
+            upload_destination: '%kernel.project_dir%/public/upload/posts'
+        club_image:
+            uri_prefix: /upoad/clubs
+            upload_destination: '%kernel.project_dir%/public/upload/clubs'
