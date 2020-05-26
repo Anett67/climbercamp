@@ -11,77 +11,57 @@ Mes publications
 
 {% block body %}
 
-    {% if posts|length > 0 %}
 
-        {% for post in posts %}
-            <div class="row justify-content-center justify-content-lg-end mb-3">
-                <div class="post-block col-10 col-lg-9 mt-3 p-5 ">
-                    <div class="row postedByAt-block align-items-center">
-                        <div class="col-8 col-lg-6">
-                            <div class="row align-items-center">
-                                <div class="img-cadre">
-                                    <img class="postedByProfil img-fluid" src="{{ asset('upload/users/' ~ post.postedBy.image) }}" alt="Photo de profile">
-                                </div>
-                                <div class="col-7 col-md-8 col-lg-9">
-                                    <a class="postedByName" href="{{ path('single-user',{'id' : post.postedBy.id}) }}">{{ post.postedBy.firstName }} {{ post.postedBy.lastName }}</a>
-                                </div>
+        {% if posts|length > 0 %}
+            {% for post in posts %}
+            <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
+                <div class="profil-block col-10 col-lg-9 justify-content-center p-lg-3 pt-3">
+                    <div class="row justify-content-between align-items-center">
+                        {# Image de la publication #}
+                        <div class="col-md-3">
+                            {% if post.image %}
+                                <img src="{{ asset('upload/posts/' ~ post.image) }}" class="w-100" alt="Photo liée à la publication">
+                            {% else %}
+                                <img src="{{ asset('upload/placeholder-image.png') }}" class="w-100" alt="Placeholder image">
+                            {% endif %}
+                        </div>
+                        {# Contenu de la publication #}
+                        <div class="col-md-5">
+                            <p class="post-body p-0">{{ post.body }}</p>
+                        </div>
+                        <div class="col -6 col-md-2 date">
+                            {# Date de création #}
+                            <div>
+                               {{ post.createdAt|ago }} 
+                            </div>
+                            {# Nombre des commentaires et lien vers la page de la publication #}
+                            <div class="mt-2">
+                                <a href="{{ path('single-post', {'id': post.id}) }}">
+                                    Voir les commentaires ({{ post.postComments|length }})
+                                </a>
                             </div>
                         </div>
-                        <div class="col-4 col-lg-6 text-right">
-                            {{ post.createdAt|ago }}
-                            <div><a href="" class="delete-link m-2"><i class="fas fa-trash-alt"></i></a></div>
-                        </div>
-                    </div>
-                    <div class="row content-block">
-                        {% if post.image %}
-                            <div class="col-12 col-lg-6">
-                                <img class="postImage" src="{{ asset('upload/posts/' ~ post.image) }}" alt="">
-                            </div>
-                        {% endif %}
-                        <div class="col-12 {% if post.image %}col-lg-6{% endif %} ">
-                            <div class="row">
-                                <p class="postBody">{{ post.body }}</p>
-                            </div>
-                            <div class="row justify-content-end align-items-end">
-                                <div class="col-12 {% if post.image %}col-md-6{% else %}col-md-6 col-lg-3 {% endif %}  m-2 mt-lg-5">
-                                    <a id="{{ post.id }}" class="btn like-button" href="{{ path('post-like', {'id': post.id}) }}">
-                                        <span class="js-postLikes-label{{post.id}} {% if post.isLikedByUser(app.user) %}liked{% endif %}">
-                                            {% if post.isLikedByUser(app.user) %}
-                                                Je n'aime plus
-                                            {% else %}
-                                                J'aime
-                                            {% endif %}
-                                        </span>
-                                    </a>
-                                </div>
-                                <div class="col-12 {% if post.image %}col-md-6{% else %}col-md-6 col-lg-3 {% endif %} m-2">
-                                    <a class="btn comment-button" href="{{ path('single-post', {'id': post.id}) }}">Commentaires</a>
-                                </div>
-                            </div>
-                        </div>  
-                    </div>
-                    <div class="commentsLikes-block row">
-                        <div class="col-4 col-md-3 col-lg-2 m-1">
-                            <a class="likes-link" href="{{ path('post-likes', {'id': post.id}) }}">
-                                <span id="count{{post.id}}" class="js-postLikes">{{ post.postLikes|length }}</span>
-                                J'aime
-                            </a>
-                            </div>
-                        <div class="col-6 col-lg-3 m-1">
-                            <span class="js-postComments">{{ post.postComments|length }} Commentaires</span>
+                        <div class="col-6 col-md-2 icons text-right">
+                            <a href=""><i class="fas fa-edit m-3"></i></a>
+                            <a href=""><i class="fas fa-trash-alt m-3"></i></a>
                         </div>
                     </div>
                 </div>
-            </div>       
-        {% endfor %}
-    {% else %}
+            </div>
+            {% endfor %}
+            
+        {% else %}
+        
+        {# Le bloc qui s'affiche si la personne n'a pas de publication #}
 
-    <div class="row justify-content-center justify-content-lg-end">
-        <div class="post-form-block col-10 col-lg-9 mt-3 p-2 ">
-            <p class="p-2">Vous n'avez aucune publication</p>
+        <div class="row justify-content-center justify-content-lg-end">
+            <div class="post-form-block col-10 col-lg-9 mt-3 p-2 ">
+                <p class="p-2">Vous n'avez aucune publication</p>
+            </div>
         </div>
-    </div>
 
-    {% endif %}
+        {% endif %}
+
+    
 
 {% endblock %}

@@ -48,9 +48,9 @@
     }
 
     .buttons{
-        margin: 10px;
+        margin: 10px 0;
     }
-    
+
     .my-posts-button{
         @include buttons($grey);
     }
@@ -63,5 +63,7 @@
         @include buttons($green);
     }
 
-
+    .delete-account-button{
+        @include buttons(#c82333);
+    }
 }

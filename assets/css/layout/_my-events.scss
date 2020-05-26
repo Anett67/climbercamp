@@ -1,0 +1,14 @@
+a{
+    &:hover{
+       text-decoration: none; 
+    }
+    
+    h2{
+    color: $yellow;
+    }
+}
+
+.event-description{
+    color: $green;
+    font-size: 0.8rem;
+}

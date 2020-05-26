@@ -9,6 +9,7 @@
     </head>
     <body>
         <header>
+            {% block navbar %}
             <nav>
                 <div class="logo">
                     <a href="{{ path('local-posts') }}"><img id="logo" src="{{ asset('build/images/icons/Logo.png') }}" alt=""></a> 
@@ -47,6 +48,7 @@
                     </ul>
                 </div>
             </nav>
+            {% endblock %}
             {% block header %}
                 <div class="header row justify-content-center align-items-center">
                     

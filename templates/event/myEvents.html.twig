@@ -7,81 +7,50 @@
 {% block body %}
 
 {% if events|length > 0 %}
-
-<div class="row justify-content-center justify-content-lg-end mt-5">
-    <div class=" events-block col-10 col-lg-9 justify-content-center">
-        <div class="row justify-content-center pb-5">
-            {% for event in events %}
-                <div class="event-block col-10 mt-3 p-3 mb-3">
-                    <div class="row">
-                        <div class="col-12 col-lg-8">
-                            <div class="row justify-content-center justify-content-lg-start">
-                                {% if event.image %}
-                                    <div class="col-11 col-md-4 mb-2">
-                                        <img class="event-image" src="{{ asset('upload/events/' ~ event.image ) }}" alt="Image">
-                                    </div>
-                                {% endif %}
-                                <div class="col-11 {% if event.image %}col-md-8{% endif %}">
-                                    <div class="row">
-                                        <div class="col-10">
-                                            <a href="{{ path('single-event', {'id': event.id}) }}"><h4>{{ event.title }}</h4></a>
-                                        </div>
-                                        <div class="event-details col-10">
-                                            {{ event.ville.nom }}   
-                                        </div>
-                                        <div class="col-10 date">le {{ event.eventDate|date("d/m/Y à H:i") }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="col-12 col-lg-4">
-                            <div class="row align-items-center mb-5 mt-5 mt-lg-0">
-                                <div class="col-9 col-md-10 col-lg-8 text-right pr-0">
-                                    <div class="postedByName">Partagé par 
-                                        <div>
-                                            <a href="{{ path('single-user',{'id' : event.postedBy.id}) }}" class="m-0">{{ event.postedBy.firstName }} {{ event.postedBy.lastName }}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="img-cadre ml-2">
-                                    <img class="postedByImage" src="{{ asset('upload/users/' ~ event.postedBy.image ) }}" alt="">
-                                </div>
-                            </div>
-                        </div>                       
+    {% for event in events %}
+    <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
+        <div class="profil-block col-10 col-lg-9 justify-content-center p-lg-3 pt-3">
+            <div class="row justify-content-between align-items-center">
+                
+                {# Image de l'évènement #}
+                <div class="col-md-3">
+                    {% if event.image %}
+                        <img src="{{ asset('upload/events/' ~ event.image) }}" class="w-100" alt="Photo liée à la publication">
+                    {% else %}
+                        <img src="{{ asset('upload/placeholder-image.png') }}" class="w-100" alt="Placeholder image">
+                    {% endif %}
+                </div>
+                
+                {# Titre et description #}
+                <div class="col-md-5">
+                    <a href="{{ path('single-event', {'id': event.id}) }}"><h2>{{ event.title }}</h2></a>
+                    <p class="event-description p-0">{{ event.description }}</p>
+                </div>
+                
+                <div class="col -6 col-md-2 date">
+                    {# Date de l'évènement #}
+                    <div>
+                        {{ event.eventDate|date("d/m/Y  H:i") }} 
                     </div>
-                    <div class="row justify-content-center justify-content-lg-end align-items-end">
-                        <div class="col-12 col-lg-6 ">
-                            <div class="row justify-content-center justify-content-md-start">
-                                <div class=" col-11">
-                                    <a class="commentsAndUsers" href="{{ path('event-users', {'id': event.id}) }}">{{ event.interestedUsers|length }} Personnes sont intéressées</a>
-                                </div>
-                                <div class=" col-11">
-                                    <a class="commentsAndUsers" href="">{{ event.eventComments|length }} Commentaires</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <div class="row justify-content-end">
-                                <div class="col-11 col-md-6 col-lg-6 m-2 m-2 text-right">
-                                    {% if event in app.user.savedEvents %}
-                                        <span>évènement sauvegardé</span> 
-                                        <a class="btn save-button" href="{{ path('event-remove', {'id': event.id}) }}">SUPPRIMER DE MA LISTE</a>
-                                    {% else %}
-                                        <a class="btn save-button" href="{{ path('event-save', {'id': event.id}) }}">ENREGISTRER</a>
-                                    {% endif %}
-                                </div>
-                                <div class="col-11 col-md-6 col-lg-6 m-2">
-                                    <a class="btn info-button" href="{{ path('single-event', {'id': event.id}) }}">INFO</a>
-                                </div>
-                            </div>
-                        </div>  
+                    
+                    <div class="mt-2">
+                        {# Nombre des commentaires et lien vers la page de l'évènement #}
+                        <a href="{{ path('single-event', {'id': event.id}) }}">
+                            Voir les commentaires ({{ event.eventComments|length }})
+                        </a>
+                        <a href="{{ path('event-users', {'id': event.id}) }}"><p class="event-description mt-2">{{ event.interestedUsers|length }} personnes sont intéressées</p></a>
                     </div>
                 </div>
-            {% endfor %}
+                
+                <div class="col-6 col-md-2 icons text-right">
+                    <a href=""><i class="fas fa-edit m-3"></i></a>
+                    <a href=""><i class="fas fa-trash-alt m-3"></i></a>
+                </div>
+            </div>
         </div>
     </div>
-</div> 
+
+    {% endfor %}
 {% else %}
 <div class="row justify-content-center justify-content-lg-end pb-5">
     <div class="events-block col-10 mt-3 p-3 mb-3">
