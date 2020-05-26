@@ -8,12 +8,20 @@
         .postedBy-link{
             color: $green;
         }
+        .saved-message{
+            color: $green;
+            font-size: 0.8rem;
+        }
         .save-button{
             @include buttons-colored($orange);
+        }
+        h5,h6, span, p{
+            font-family: OpenLight;
         }
     }
     .interested-persons{
         color: $green;
+        font-size: 0.8rem;
     }
     
     .description{
@@ -38,11 +46,14 @@
         h4{
             color: $yellow;
         }
-        h5{
+        h6{
             color: $yellow;
         }
         label{
             color: $orange;
+        }
+        textarea{
+            height: 150px;
         }
         .comment-block{
             background-color: $greyrgba;
@@ -52,8 +63,8 @@
                 color: $yellow;
             }
             .img-cadre{
-                width: 40px;
-                height: 40px;
+                width: 35px;
+                height: 35px;
                 overflow: hidden;
                 border-radius: 50%;
                 .postedByImage{
@@ -72,9 +83,23 @@
             .commentBody{
                 color: $green;
                 font-family: OpenLight;
+                p{
+                    font-size: 1.2rem;
+                }
             }
+            .btn{
+                font-size: 0.8rem;
+            }
+
             .commentLike{
                 color: $yellow;
+            }
+            .comment-icons{
+                a{
+                    color: $green;
+                    font-size: 1.2rem;
+                }
+                
             } 
         }
         .form-block{
@@ -124,11 +149,10 @@
             }
             .reply-body{
                 color: $green;
-                font-size: 0.8rem;
             }
             .img-cadre{
-                width: 30px;
-                height: 30px;
+                width: 25px;
+                height: 25px;
                 overflow: hidden;
                 border-radius: 500px;
                 .postedByImage{
@@ -141,11 +165,7 @@
             }
             .postedByUsername{
                 color: $orange;
-            }
-            .ago{
-                margin: 0;
                 font-size: 0.8rem;
-                color: $yellow;
             }
             .hide-replies-button{
                 font-size: 0.8rem;

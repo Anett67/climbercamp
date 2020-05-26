@@ -9,7 +9,7 @@
 {% block body %}
 
     <div class="row justify-content-center justify-content-lg-end mb-3">
-        <div class="post-block col-10 col-lg-9 mt-3 p-5 ">
+        <div class="post-block col-12 col-lg-9 mt-3 p-5 ">
             <div class="row postedByAt-block align-items-center">
                 <div class="col-8 col-lg-6">
                     <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
@@ -61,7 +61,7 @@
             </div>
             <!-- Nombre de j'aime -->
             <div class="commentsLikes-block row mb-5">
-                <div class="col-4 col-md-3 col-lg-2 m-1">
+                <div class="col-5 col-md-3 col-lg-2 m-1">
                     <a class="likes-link" href="{{ path('post-likes', {'id': post.id}) }}">
                         <span id="count{{post.id}}" class="js-postLikes">{{ post.postLikes|length }}</span>
                         J'aime
@@ -71,26 +71,26 @@
             <div class="row comment-section pb-5">
                 <div class="col-12">
                     <!-- Formulaire pour envoyer un nouveau commentaire -->
-                    <div class="row justify-content-center form-block">
-                        <div class="col-11">
+                    <div class="row justify-content-center form-block mb-5">
+                        <div class="col-12">
                             {{ form_start(form) }}
                                 {{ form_widget(form) }}
                         </div>
-                        <div class="col-11 text-right p-2">
-                                <input type="submit" value="Envoyer" class="btn submit-button" >
+                        <div class="col-12">
+                                <input type="submit" value="Envoyer" class="btn submit-button w-100" >
                             {{ form_end(form) }}
                         </div>
                     </div>
                     
-                    <h5 class="pl-4 mb-2">Commentaires ({{ comments|length }})</h5>
+                    <h6 class="mb-2">Commentaires ({{ comments|length }})</h5>
 
                     <!-- Liste des commentaires -->
                     {% for comment in comments %}
                         <div class="row justify-content-center mb-3">
-                            <div class="col-11 comment-block">
+                            <div class="col-12 comment-block">
                                 <div class="row justify-content-center align-items-center p-2">
                                     <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
-                                    <div class="col-1">
+                                    <div class="col-2 col-md-1">
                                         <div class="img-cadre">
                                             {% if comment.postedBy.image %}
                                                 <img src="{{ asset('upload/users/' ~ comment.postedBy.image) }}" alt="" class="postedByImage">
@@ -99,12 +99,22 @@
                                             {% endif %}
                                         </div>
                                     </div>
-                                    <div class="col-7 col-md-8 name">
+                                    <div class="col-6 col-md-8 name">
                                         <a class="name" href="{{ path('single-user', {'id': comment.postedBy.id}) }}">{{ comment.postedBy.firstName }} {{ comment.postedBy.lastName }}</a>
                                     </div>
                                     <!-- Le bloc qui affiche le temps passé depuis la publication -->
-                                    <div class="col-3 text-right p-2">
+                                    <div class="col-4 col-md-3 text-right p-2">
                                         <span class="date">{{ comment.postedAt|ago }}</span>
+                                        {% if comment.postedBy.id == app.user.id %}
+                                        <div class="row justify-content-end comment-icons comment-icons no-gutters">
+                                            <div class="col-6">
+                                                <a href=""><i class="fas fa-edit m-3"></i></a>
+                                            </div>    
+                                            <div class="col-6 col-md-4 text-right">
+                                                <a href=""><i class="fas fa-trash-alt m-3"></i></a>
+                                            </div>
+                                        </div>
+                                        {% endif %}
                                     </div>   
                                 </div>
                                 <div class="row">
@@ -134,7 +144,7 @@
                                     </div>
                                     <!-- Lien qui affiche les réponses au commentaire et le formulaire pour envoyer une nouvelle réponse -->
                                     <div class="col-12 col-md-3 text-right mt-2">
-                                        <a href="{{ path('comment-replies', {'id': comment.id}) }}" class="btn reply-button">Réponses</a>
+                                        <a href="{{ path('comment-replies', {'id': comment.id}) }}" class="btn reply-button w-100">Réponses</a>
                                     </div>
                                 </div>
                                 <!-- Le conteneur ou les réponses apparaissent (AJAX) -->

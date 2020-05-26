@@ -3,9 +3,9 @@
 
 <div class="col-12 mt-2 mb-3">
     <div class="row justify-content-center">
-        <div class="col-10">
+        <div class="col-11">
             <div class="row">
-                <div class="col-9">
+                <div class="col-8">
                     <div class="row align-items-center mb-5">
                         <div class="col-lg-3">
                             <h5 class="m-0">Réponses</h5>
@@ -15,7 +15,7 @@
                         </div> 
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-4">
                     <a class="hide-replies-button" href="">Cacher les réponses</a>
                 </div>
             </div>
@@ -24,12 +24,12 @@
 
     <!-- Formulaire pour répondre à un commentaire -->
     <div class="new-reply-form row justify-content-center mb-5">
-        <div class="col-10">
+        <div class="col-11">
             {{form_start(form)}}
                 {{form_widget(form)}}
-                <div class="row">
-                    <div class="col-12 text-right">
-                        <input type="submit" value="Envoyer" class="btn new-reply-submit-button">
+                <div class="row justify-content-end">
+                    <div class="col-12 col-md-3">
+                        <input type="submit" value="Envoyer" class="btn new-reply-submit-button w-100">
                     </div>
                 </div>
             {{ form_end(form) }}
@@ -40,9 +40,9 @@
     {% for reply in replies %}
         
         <div class="row justify-content-around align-items-center">
-            <div class="col-8">
+            <div class="col-10">
                 <!-- La photo et le nom de l'auteur -->
-                <div class="row align-items-center">
+                <div class="row align-items-start">
                     <div class="img-cadre">
                         {% if reply.postedBy.image %}
                             <img class="postedByImage" src="{{ asset('upload/users/' ~ reply.postedBy.image) }}" alt="">
@@ -50,20 +50,26 @@
                             <img src="{{ asset('upload/default.png') }}" alt="" class="postedByImage">
                         {% endif %}
                     </div>
-                    <div class="col">
-                        <a class="postedByUsername" href="{{ path('single-user', {'id': reply.postedBy.id}) }}">{{ reply.postedBy.username }}</a>
+                    <div class="col-10">
+                        <a class="postedByUsername" href="{{ path('single-user', {'id': reply.postedBy.id}) }}">{{ reply.postedBy.username }} | {{ reply.postedAt|ago }}</a>
                     </div>
                     <!-- Le temps passé depuis la publication -->
-                    <div class="col text-right">
-                        <p class="ago">{{ reply.postedAt|ago }}</p>
-                    </div>
+                    
+                </div>
+                <div class="row">
+                    {% if reply.postedBy.id == app.user.id %}
+                        <div class="comment-icons col-12 text-right">
+                            <a href=""><i class="fas fa-edit ml-2 ml-md-3"></i></a>
+                            <a href=""><i class="fas fa-trash-alt ml-2 ml-md-3"></i></a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
 
         <!-- Texte de la réponse -->
         <div class="row justify-content-center">
-            <div class="col-7 mb-2 mt-2">
+            <div class="col-10 mb-2">
                 <p class="reply-body">{{ reply.body }}</p>
             </div>
         </div>
