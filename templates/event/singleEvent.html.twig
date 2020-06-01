@@ -6,6 +6,15 @@
 
 {% block body %}
 
+<!-- Les messages flash aparaissent ici -->
+{% for message in app.flashes('success') %}
+    <div class="row justify-content-center justify-content-lg-end">
+        <div class="button-block flash-success col-10 col-lg-9 mt-3 p-2 ">
+            <div>{{ message }}</div>
+        </div>    
+    </div>
+{% endfor %}
+
 <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
     <div class=" event-block col-11 col-md-9 justify-content-center">
 
@@ -91,16 +100,27 @@
                                 </div>
                                 <div class="col-4 col-md-3 text-right p-2">
                                     <span class="date">{{ comment.postedAt|ago }}</span>
+                                    
+                                    <!-- Lien de modification et suppression si l'utilisateur connecté est l'auteur du commentaire -->
                                     {% if comment.postedBy.id == app.user.id %}
                                         <div class="row justify-content-end comment-icons no-gutters">
                                             <div class="col-6">
                                                 <a href=""><i class="fas fa-edit m-2 m-md-3"></i></a>
                                             </div>
                                             <div class="col-6 col-md-4 text-right">
-                                                <a href=""><i class="fas fa-trash-alt m-2 m-md-3"></i></a>
+                                                <a href="{{ path('eventcomment-delete', {'id': comment.id}) }}" onclick="return confirm('Confirmer la suppression?')">
+                                                    <i class="fas fa-trash-alt m-2 m-md-3">
+                                                        <form method="POST" style="display:inline-block" action="{{ path('eventcomment-delete', {'id': comment.id}) }}">
+                                                            <input type="hidden" name="_method" value="delete">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ comment.id) }}">
+                                                            <input type="submit" value="" > 
+                                                        </form>
+                                                    </i>
+                                                </a>
                                             </div>
                                         </div>
                                     {% endif %}
+                                
                                 </div>   
                             </div>
 
@@ -116,7 +136,7 @@
                                 <div class="col-12 col-md-6 commentLike-count">
                                     <span class="like-count">{{ comment.eventCommentLikes|length }}</span>
                                         J'aimes | 
-                                    <span>{{ comment.eventCommentReplies|length }} Réponses</span>
+                                    <span class="commentReplyCount">{{ comment.eventCommentReplies|length }}</span> Réponses
                                 </div>
 
                                 <!-- Bouton j'aime -->

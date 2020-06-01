@@ -134,6 +134,7 @@ class CommentController extends AbstractController
 
         $response = array(
             "code" => 200,
+            "replies" => $repository->count(['postComment' => $comment]),
             "response" => $this->render('comment/commentReplies.html.twig', ['replies' => $replies, 'form' => $form->createView() ])->getContent()
         );
 
@@ -167,11 +168,82 @@ class CommentController extends AbstractController
 
         $response = array(
             "code" => 200,
+            "replies" => $repository->count(['eventComment' => $comment]),
             "response" => $this->render('comment/commentReplies.html.twig', ['replies' => $replies, 'comment' => $comment, 'form' =>$form->createView() ])->getContent()
         );
 
         return new JsonResponse($response);
 
+    }
+
+    /**
+     * @Route("/event/comment/{id}/delete", name="eventcomment-delete")
+     */
+
+    public function eventCommentDelete(EventComment $comment, EntityManagerInterface $manager, Request $request){
+
+        $event = $comment->getEvent();
+
+        $manager->remove($comment);
+        $manager->flush();
+        $this->addFlash("success",  "La suppression a été effectuée");
+        return $this->redirectToRoute('single-event',[ 
+            'id' => $event->getId()
+        ]);
+    }
+
+    /**
+     * @Route("/post/comment/{id}/delete", name="postcomment-delete")
+     */
+
+    public function postDelete(PostComment $comment, EntityManagerInterface $manager, Request $request){
+
+        $post = $comment->getPost();
+
+        $manager->remove($comment);
+        $manager->flush();
+        $this->addFlash("success",  "La suppression a été effectuée");
+        return $this->redirectToRoute('single-post',[ 
+            'id' => $post->getId()
+        ]);
+    }
+
+    /**
+     * @Route("/post/reply/{id}/delete", name="postcommentreply-delete")
+     */
+
+    public function postCommentReplyDelete(PostCommentReply $reply, EntityManagerInterface $manager, Request $request, PostCommentReplyRepository $repository){
+
+        $comment = $reply->getPostComment();
+
+        $manager->remove($reply);
+        $manager->flush();
+
+        $response = array(
+            'code' => 200,
+            'replies' => $repository->count(['postComment' => $comment]) 
+        );
+
+        return new JsonResponse($response);
+    }
+
+    /**
+     * @Route("/event/reply/{id}/delete", name="eventcommentreply-delete")
+     */
+
+    public function eventCommentReplyDelete(EventCommentReply $reply, EntityManagerInterface $manager, Request $request, EventCommentReplyRepository $repository){
+
+        $comment = $reply->getEventComment();
+
+        $manager->remove($reply);
+        $manager->flush();
+
+        $response = array(
+            'code' => 200,
+            'replies' => $repository->count(['eventComment' => $comment]) 
+        );
+
+        return new JsonResponse($response);
     }
    
 }

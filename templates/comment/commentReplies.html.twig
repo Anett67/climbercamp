@@ -39,7 +39,7 @@
     <!-- La liste des réponses -->
     {% for reply in replies %}
         
-        <div class="row justify-content-around align-items-center">
+        <div class="row justify-content-around align-items-center reply">
             <div class="col-10">
                 <!-- La photo et le nom de l'auteur -->
                 <div class="row align-items-start">
@@ -60,19 +60,27 @@
                     {% if reply.postedBy.id == app.user.id %}
                         <div class="comment-icons col-12 text-right">
                             <a href=""><i class="fas fa-edit ml-2 ml-md-3"></i></a>
-                            <a href=""><i class="fas fa-trash-alt ml-2 ml-md-3"></i></a>
+                            <a
+                            
+                            {% if reply.postComment is defined %}
+                                href="{{ path('postcommentreply-delete', {'id': reply.id}) }}"
+                            {% else %}
+                                href="{{ path('eventcommentreply-delete', {'id': reply.id}) }}"
+                            {% endif %}
+                            class="delete-reply"><i class="fas fa-trash-alt ml-2 ml-md-3"></i></a>
                         </div>
                     {% endif %}
+                </div>
+                <!-- Texte de la réponse -->
+                <div class="row justify-content-center">
+                    <div class="col-10 mb-2">
+                        <p class="reply-body">{{ reply.body }}</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Texte de la réponse -->
-        <div class="row justify-content-center">
-            <div class="col-10 mb-2">
-                <p class="reply-body">{{ reply.body }}</p>
-            </div>
-        </div>
+        
 
 
     {% endfor %}

@@ -206,5 +206,18 @@ class EventController extends AbstractController
             'events' => $events
         ]);
      }
+
+     /**
+     * @Route("/profil/event/{id}/delete", name="event-delete")
+     */
+
+    public function postDelete(Event $event, EntityManagerInterface $manager, Request $request){
+
+        $manager->remove($event);
+        $manager->flush();
+        $this->addFlash("success",  "La suppression a été effectuée");
+        return $this->redirectToRoute('my-events');
+    }
+
     
 }

@@ -6,6 +6,15 @@
 
 {% block body %}
 
+ <!-- Les messages flash aparaissent ici -->
+ {% for message in app.flashes('success') %}
+    <div class="row justify-content-center justify-content-lg-end">
+        <div class="button-block flash-success col-10 col-lg-9 mt-3 p-2 ">
+            <div>{{ message }}</div>
+        </div>    
+    </div>
+{% endfor %}
+
 {% if events|length > 0 %}
     {% for event in events %}
     <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
@@ -44,7 +53,15 @@
                 
                 <div class="col-6 col-md-2 icons text-right">
                     <a href=""><i class="fas fa-edit m-3"></i></a>
-                    <a href=""><i class="fas fa-trash-alt m-3"></i></a>
+                    <a href="{{ path('event-delete', {'id': event.id}) }}" onclick="return confirm('Confirmer la suppression?')">
+                        <i class="fas fa-trash-alt m-3">
+                            <form method="POST" style="display:inline-block" action="{{ path('event-delete', {'id': event.id}) }}">
+                                <input type="hidden" name="_method" value="delete">
+                                <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ event.id) }}">
+                                <input type="submit" value="" > 
+                            </form>
+                        </i>
+                    </a>
                 </div>
             </div>
         </div>
