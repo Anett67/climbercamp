@@ -90,7 +90,7 @@ $(function(){
                     var block = hideLink.closest('.comment-replies').html('');
                 });
 
-                $('.new-reply-submit-button').click(function(e){
+                $('body').on('click', '.new-reply-submit-button' ,function(e){
                     e.preventDefault();
 
                     var button = $(this);
@@ -106,15 +106,43 @@ $(function(){
                         data: form_data,
                         success: function(data){
                             replyBlock.html(data.response);
+                            $('#post_comment_reply_body, #event_comment_reply_body').val('');
+                            $('.commentReplyCount').html(data.replies);
+                            deleteReply();
                         }
-                    })
-                    
+                    })  
                 });
+
+                deleteReply();
             }
 
         );
 
     });
+
+    function deleteReply(){
+        $('.delete-reply').on('click', function(e){
+            e.preventDefault();
+
+            var replyUrl = $(this).attr('href');
+            var reply = $(this).closest('.reply'); 
+            
+            if(confirm('Confirmer la suppression?')){
+                $.ajax({
+                    url: replyUrl,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    success: function(data){
+                        reply.slideUp();
+                        $('.commentReplyCount').html(data.replies);
+                    }
+                })  
+            }
+            
+        });
+    }
+
+    
 
     
 

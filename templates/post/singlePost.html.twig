@@ -8,6 +8,15 @@
 
 {% block body %}
 
+    <!-- Les messages flash aparaissent ici -->
+    {% for message in app.flashes('success') %}
+        <div class="row justify-content-center justify-content-lg-end">
+            <div class="button-block flash-success col-10 col-lg-9 mt-3 p-2 ">
+                <div>{{ message }}</div>
+            </div>    
+        </div>
+    {% endfor %}
+
     <div class="row justify-content-center justify-content-lg-end mb-3">
         <div class="post-block col-12 col-lg-9 mt-3 p-5 ">
             <div class="row postedByAt-block align-items-center">
@@ -105,16 +114,27 @@
                                     <!-- Le bloc qui affiche le temps passé depuis la publication -->
                                     <div class="col-4 col-md-3 text-right p-2">
                                         <span class="date">{{ comment.postedAt|ago }}</span>
+                                        
+                                        <!-- Lien de modification et suppression si l'utilisateur connecté est l'auteur du commentaire -->
                                         {% if comment.postedBy.id == app.user.id %}
-                                        <div class="row justify-content-end comment-icons comment-icons no-gutters">
-                                            <div class="col-6">
-                                                <a href=""><i class="fas fa-edit m-3"></i></a>
-                                            </div>    
-                                            <div class="col-6 col-md-4 text-right">
-                                                <a href=""><i class="fas fa-trash-alt m-3"></i></a>
+                                            <div class="row justify-content-end comment-icons comment-icons no-gutters">
+                                                <div class="col-6">
+                                                    <a href=""><i class="fas fa-edit m-3"></i></a>
+                                                </div>    
+                                                <div class="col-6 col-md-4 text-right">
+                                                    <a href="{{ path('postcomment-delete', {'id': comment.id}) }}" onclick="return confirm('Confirmer la suppression?')">
+                                                        <i class="fas fa-trash-alt m-3">
+                                                            <form method="POST" style="display:inline-block" action="{{ path('postcomment-delete', {'id': comment.id}) }}">
+                                                                <input type="hidden" name="_method" value="delete">
+                                                                <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ comment.id) }}">
+                                                                <input type="submit" value="" > 
+                                                            </form>
+                                                        </i>
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
                                         {% endif %}
+                                    
                                     </div>   
                                 </div>
                                 <div class="row">
@@ -128,7 +148,7 @@
                                     <div class="col-12 col-md-6 commentLike-count">
                                         <span class="like-count">{{ comment.postCommentLikes|length }}</span>
                                         J'aimes | 
-                                        <span>{{ comment.postCommentReplies|length }} Réponses</span>
+                                        <span class="commentReplyCount">{{ comment.postCommentReplies|length }}</span> Réponses
                                     </div>
                                     <div class="col-12 col-md-3 text-right mt-2">
                                         <!-- Bouton j'aime -->
