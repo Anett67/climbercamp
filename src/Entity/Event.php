@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -288,4 +289,13 @@ class Event
 
         return $this;
     }
+
+    public function pastEvent(){
+        if($this->eventDate < new DateTime('now')){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
