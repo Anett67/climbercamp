@@ -11,6 +11,14 @@ Mes publications
 
 {% block body %}
 
+        <!-- Les messages flash aparaissent ici -->
+        {% for message in app.flashes('success') %}
+            <div class="row justify-content-center justify-content-lg-end">
+                <div class="button-block flash-success col-10 col-lg-9 mt-3 p-2 ">
+                    <div>{{ message }}</div>
+                </div>    
+            </div>
+        {% endfor %}
 
         {% if posts|length > 0 %}
             {% for post in posts %}
@@ -40,10 +48,26 @@ Mes publications
                                     Voir les commentaires ({{ post.postComments|length }})
                                 </a>
                             </div>
+                            <div class="mt-2">
+                                <a class="likes-link" href="{{ path('post-likes', {'id': post.id}) }}">
+                                    <span id="count{{post.id}}" class="js-postLikes">{{ post.postLikes|length }}</span>
+                                    J'aime
+                                </a>
+                            </div>
                         </div>
                         <div class="col-6 col-md-2 icons text-right">
-                            <a href=""><i class="fas fa-edit m-3"></i></a>
-                            <a href=""><i class="fas fa-trash-alt m-3"></i></a>
+                            <a href="">
+                                <i class="fas fa-edit m-3"></i>
+                            </a>
+                            <a href="{{ path('post-delete', {'id': post.id}) }}" onclick="return confirm('Confirmer la suppression?')">
+                                <i class="fas fa-trash-alt m-3">
+                                    <form method="POST" style="display:inline-block" action="{{ path('post-delete', {'id': post.id}) }}">
+                                        <input type="hidden" name="_method" value="delete">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ post.id) }}">
+                                        <input type="submit" value="" > 
+                                    </form>
+                                </i>
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -39,7 +39,7 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $post->setPostedBy($this->getUser())->setCreatedAt(new DateTime('now'));
+            $post->setPostedBy($this->getUser())->setCreatedAt(new DateTime('now'))->setUpdatedAt(new DateTime('now'));
             $manager->persist($post);
             $manager->flush();
 
@@ -196,6 +196,18 @@ class PostController extends AbstractController
         ]);
 
 
+    }
+
+    /**
+     * @Route("/profil/post/{id}/delete", name="post-delete")
+     */
+
+    public function postDelete(Post $post, EntityManagerInterface $manager, Request $request){
+
+        $manager->remove($post);
+        $manager->flush();
+        $this->addFlash("success",  "La suppression a été effectuée");
+        return $this->redirectToRoute('my-posts');
     }
 
 }

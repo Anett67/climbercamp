@@ -106,18 +106,20 @@ class Post
     {
         $this->imageFile = $imageFile;
 
-        if ($this->imageFile instanceof UploadedFile) {
-            $this->updatedAt = new \DateTime('now');
-        }
+        $this->updatedAt = new \DateTime('now');
 
         return $this;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $createdAt)
+    {
+        $this->updatedAt = $createdAt;
     }
 
     public function getImageFile(): ?File
     {
         return $this->imageFile;
     }
-
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
