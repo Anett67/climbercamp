@@ -1,0 +1,44 @@
+{# Image de la publication #}
+<div class="col-md-3">
+    {% if post.image %}
+        <img src="{{ asset('upload/posts/' ~ post.image) }}" class="w-100" alt="Photo liée à la publication">
+    {% else %}
+        <img src="{{ asset('upload/placeholder-image.png') }}" class="w-100" alt="Placeholder image">
+    {% endif %}
+</div>
+{# Contenu de la publication #}
+<div class="col-md-5">
+    <p class="post-body p-0">{{ post.body }}</p>
+</div>
+<div class="col -6 col-md-2 date">
+    {# Date de création #}
+    <div>
+       {{ post.createdAt|ago }} 
+    </div>
+    {# Nombre des commentaires et lien vers la page de la publication #}
+    <div class="mt-2">
+        <a href="{{ path('single-post', {'id': post.id}) }}">
+            Voir les commentaires ({{ post.postComments|length }})
+        </a>
+    </div>
+    <div class="mt-2">
+        <a class="likes-link" href="{{ path('post-likes', {'id': post.id}) }}">
+            <span id="count{{post.id}}" class="js-postLikes">{{ post.postLikes|length }}</span>
+            J'aime
+        </a>
+    </div>
+</div>
+<div class="col-6 col-md-2 icons text-right">
+    <a class="post-update-link" href="{{ path('post-update', {'id': post.id}) }}">
+        <i class="fas fa-edit m-3"></i>
+    </a>
+    <a href="{{ path('post-delete', {'id': post.id}) }}" onclick="return confirm('Confirmer la suppression?')">
+        <i class="fas fa-trash-alt m-3">
+            <form method="POST" style="display:inline-block" action="{{ path('post-delete', {'id': post.id}) }}">
+                <input type="hidden" name="_method" value="delete">
+                <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ post.id) }}">
+                <input type="submit" value="" > 
+            </form>
+        </i>
+    </a>
+</div>
