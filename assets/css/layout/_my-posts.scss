@@ -16,5 +16,33 @@
         color: $orange;
         font-size: 1.2rem;
         cursor: pointer;
+        
+    }
+}
+ 
+.submit-button.post-update{
+    @include buttons-colored($orange);
+    font-size: 1rem;
+    &:hover{
+        transform: scale(1.01);
+    }
+}
+
+.profil-block{
+    position: relative;
+}
+
+.cancel{
+    position: absolute;
+    right: 20px;
+    bottom: 100%;
+    font-size: 0.8rem;
+    background-color: $black;
+    color: $orange;
+    font-family: OpenLight;
+    padding: 2px 5px;
+    cursor: pointer;
+    &:hover{
+        transform: scale(1.07);
     }
 }

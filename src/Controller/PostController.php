@@ -184,7 +184,7 @@ class PostController extends AbstractController
      * @Route("/profil/posts", name="my-posts")
      */
 
-    public function myPosts(PostRepository $repository):Response
+    public function myPosts(PostRepository $repository, EntityManagerInterface $manager, Request $request):Response
     {
 
         $user = $this->getUser();
@@ -194,8 +194,6 @@ class PostController extends AbstractController
         return $this->render('post/myPosts.html.twig', [
             'posts' => $posts
         ]);
-
-
     }
 
     /**
@@ -210,4 +208,47 @@ class PostController extends AbstractController
         return $this->redirectToRoute('my-posts');
     }
 
+    /**
+     * @Route("/profil/post/{id}/update", name="post-update")
+     */
+
+     public function updatePost(Post $post, EntityManagerInterface $manager, Request $request):Response
+     {
+        $form = $this->createForm(PostType::class, $post,  [
+            'action' => $this->generateUrl('post-update', [ 'id'=>$post->getId()])
+        ]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($post);
+            $manager->flush();
+
+            $this->addFlash('success', 'La modification a bien été effectué.');
+
+            return $this->redirectToRoute('my-posts');
+        }
+
+        $response = array(
+            'code' => 200,
+            'response' => $this->render('post/updatePost.html.twig', [
+                'form' => $form->createView(),
+                'post' => $post
+            ])->getContent()
+        );
+
+        return new JsonResponse($response);
+     }
+
+     /**
+     * @Route("/profil/post/json/{id}", name="post-json")
+     */
+
+     public function jsonPost(Post $post):Response
+     {
+        
+        $response = $this->render('post/myPost.html.twig', ['post' => $post])->getContent();
+
+        return new JsonResponse($response);
+     }
 }

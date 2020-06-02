@@ -26,7 +26,8 @@
     @include upload_button($black, $green, 'Changer ma photo', 100%, 180%, none);
 
     textarea{
-        min-height: 200px;
+        min-height: 150px;
+        height: 200px;
     }
 
     textarea::-webkit-scrollbar {

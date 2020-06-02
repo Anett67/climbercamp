@@ -1,0 +1,53 @@
+<div class="cancel" data-url="{{ path('post-json', {'id': post.id }) }}">
+    Annuler
+</div>
+<div class="col-12 col-md-8">
+    {{form_start(form)}}
+        {{form_row(form.body, { 'label': false })}}
+            {{form_row(form.imageFile)}}
+            <input type="submit" class="btn submit-button post-update w-100">
+        {{form_end(form)}}
+        
+</div>
+<div class="col-12 col-md-4">
+    <div class="row">
+        <div class="col-12">
+            {% if post.image %}
+                <img src="{{ asset('upload/posts/' ~ post.image) }}" class="w-100 img-update" alt="Photo liée à la publication">
+            {% else %}
+                <img src="{{ asset('upload/placeholder-image.png') }}" class="w-100 img-update" alt="Placeholder image">
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% block javascripts %}
+
+    <script>
+        var openFile = function(event) {
+        var input = event.target;
+
+        var reader = new FileReader();
+        reader.onload = function(){
+            var dataURL = reader.result;
+            var output = input.;
+            console.log(output);
+            output.src = dataURL;
+        };
+        reader.readAsDataURL(input.files[0]);
+        };
+    </script>
+
+{% endblock %}
+
+
+
+   
+
+
+
+        
+        
+    
+        
+        
