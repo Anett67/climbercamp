@@ -31,6 +31,16 @@
 .profil-block{
     position: relative;
 }
+.spinner-front{
+    height: 50px;
+}
+
+.green-spinner{
+    background-image: url('../../images/icons/spinner_green.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
 
 .cancel{
     position: absolute;

@@ -1,0 +1,8 @@
+<!-- Les messages flash aparaissent ici -->
+{% for message in app.flashes('success') %}
+<div class="row justify-content-center justify-content-lg-end">
+    <div class="button-block flash-success col-10 col-lg-9 mt-3 p-2 ">
+        <div>{{ message }}</div>
+    </div>    
+</div>
+{% endfor %}

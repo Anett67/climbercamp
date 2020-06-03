@@ -46,14 +46,7 @@
     
     {% endif %}
 
-    <!-- Les messages flash aparaissent ici -->
-    {% for message in app.flashes('success') %}
-        <div class="row justify-content-center ml-lg-5">
-            <div class="button-block flash-success ml-lg-5 col-8 mt-3 p-2 ">
-                <div>{{ message }}</div>
-            </div>    
-        </div>
-    {% endfor %}
+    {% include 'flashMessages.html.twig' %}
 
     <!-- La liste des salles d'escalade -->
     {% for club in clubs %}
