@@ -43,6 +43,8 @@ class PostController extends AbstractController
             $manager->persist($post);
             $manager->flush();
 
+            $this->addFlash('success', 'Votre publication a été enregistré.');
+
             return $this->redirectToRoute('local-posts');
         }
 
