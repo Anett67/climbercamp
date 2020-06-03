@@ -19,44 +19,32 @@
 
 {% block body %}
 
-    <!-- Liens qui amènent vers les pages de recherche -->
-    <div class="row justify-content-center justify-content-lg-end">
-        <div class="button-block col-10 col-lg-9 mt-3 p-2 ">
-            <div class="row justify-content-center">
-                <a class="col-10 col-lg-3 btn event-button" href="{{ path('event-search') }}">Chercher des évènements</a>
-                <a class="col-10 col-lg-3 btn grimpeur-button" href="{{ path('user-search') }}">Chercher des grimpeurs</a>
-                <a class="col-10 col-lg-3 btn club-button" href="{{ path('club-search') }}">Chercher des salles d'escalade</a>
-            </div>
-        </div>    
-    </div>
+    {% include 'topLinks.html.twig' %}    
 
-    {% if search %}
-
+    {% if searchForm is defined %}
         <!-- Formulaire pour chercher une publication -->
         <div class="row justify-content-center justify-content-lg-end">
             <div class="search-form-block col-10 col-lg-9 mt-3 p-2 ">
-                {{ form_start(form) }}
+                {{ form_start(searchForm) }}
                 <div class="row justify-content-around align-items-center">
                     <div class="col-10 col-md-4 m-2 text-center">
-                        {{ form_row(form.firstName) }}
+                        {{ form_row(searchForm.firstName) }}
                     </div>
                     <div class="col-10 col-md-4 m-2 text-center">
-                        {{ form_row(form.lastName) }}
+                        {{ form_row(searchForm.lastName) }}
                     </div>
                     <div class="col-10 col-md-4 m-2 text-center">
-                        {{ form_row(form.keyword) }}
+                        {{ form_row(searchForm.keyword) }}
                     </div>
                     <div class="col-10 col-md-4 text-right">
                         <input type="submit" class="submit-button m-2" value="Rechercher">
                     </div>
                 </div>
-                {{ form_end(form) }}               
+                {{ form_end(searchForm) }}               
             </div>
         </div>
-
-    
     {% endif %}
-
+    
     {% include 'flashMessages.html.twig' %}
 
     {% if user is not defined %}

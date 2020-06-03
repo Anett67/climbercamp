@@ -48,11 +48,20 @@ class PostController extends AbstractController
             return $this->redirectToRoute('local-posts');
         }
 
+        $searchPost = new SearchPost();
+
+        $searchForm = $this->createForm(SearchPostType::class, $searchPost);
+
+        $searchForm->handleRequest($request);
+
+        $posts = $repository->findWithSearch($searchPost);
+
         return $this->render('post/posts.html.twig', [
             'posts' => $posts,
             'ville' => $ville,
             'form' => $form->createView(),
-            'search' => false
+            'searchForm' => $searchForm->createView(),
+            'hideLocalPostsButton' => true
         ]);
     }
 
@@ -88,26 +97,6 @@ class PostController extends AbstractController
             'comments' => $comments
         ]);
 
-    }
-
-    /**
-     * @Route("/post/search", name="post-search")
-     */
-    public function postSearch(PostRepository $repository, Request $request)
-    {   
-        $searchPost = new SearchPost();
-
-        $form = $this->createForm(SearchPostType::class, $searchPost);
-
-        $form->handleRequest($request);
-
-        $posts = $repository->findWithSearch($searchPost);
-
-        return $this->render('post/posts.html.twig', [
-            'posts' => $posts,
-            'form' => $form->createView(),
-            'search' => true
-        ]);
     }
 
     /**
@@ -194,7 +183,8 @@ class PostController extends AbstractController
         $posts = $repository->findCurrentUserPosts($user);
 
         return $this->render('post/myPosts.html.twig', [
-            'posts' => $posts
+            'myPosts' => $posts,
+            'hideMyPostsButton' => true
         ]);
     }
 

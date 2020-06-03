@@ -1,0 +1,19 @@
+<!-- Liens qui amènent vers les pages de recherche -->
+<div class="row justify-content-center justify-content-lg-end">
+    <div class="button-block col-10 col-lg-9 mt-3 p-2 ">
+        <div class="row justify-content-center">
+            {% if hideLocalEventsButton is not defined %}
+                <a class="col-10 col-lg-3 btn event-button" href="{{ path('local-events') }}"> Évènements à {{app.user.ville.nom}}</a>
+            {% endif %}
+            {% if hideLocalUsersButton is not defined %}
+                <a class="col-10 col-lg-3 btn grimpeur-button" href="{{ path('local-users') }}">Grimpeurs à {{app.user.ville.nom}}</a>
+            {% endif %}
+            {% if hideLocalClubsButton is not defined %}
+                <a class="col-10 col-lg-3 btn club-button" href="{{ path('local-clubs') }}">Salles d'escalade à {{app.user.ville.nom}}</a>
+            {% endif %}
+            {% if hideLocalPostsButton is not defined %}
+                <a class="col-10 col-lg-3 btn post-button" href="{{ path('local-posts') }}">Publications à {{app.user.ville.nom}}</a>
+            {% endif %}
+        </div>
+    </div>    
+</div>

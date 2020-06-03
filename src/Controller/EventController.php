@@ -31,32 +31,19 @@ class EventController extends AbstractController
 
         return $this->render('event/events.html.twig', [
             'events' => $events,
-            'user' => $user,
-            'search' => false
+            'user' => $user
         ]);
     }
 
     /**
      * @Route("/local-events", name="local-events")
      */
-    public function localEvents(EventRepository $repository)
+    public function localEvents(EventRepository $repository, Request $request)
     {
         $ville = $this->getUser()->getVille();
 
         $events =$repository->findByVille($ville);
 
-        return $this->render('event/events.html.twig', [
-            'events' => $events,
-            'ville' => $ville,
-            'search' =>false
-        ]);
-    }
-
-    /**
-     * @Route("/events/search", name="event-search")
-     */
-    public function eventSearch(EventRepository $repository, Request $request)
-    {   
         $eventSearch = new EventSearch();
 
         $form = $this->createForm(EventSearchType::class, $eventSearch);
@@ -67,8 +54,9 @@ class EventController extends AbstractController
 
         return $this->render('event/events.html.twig', [
             'events' => $events,
+            'ville' => $ville,
             'form' => $form->createView(),
-            'search' => true
+            'hideLocalEventsButton' => true
         ]);
     }
 
@@ -188,7 +176,6 @@ class EventController extends AbstractController
         return $this->render('user/users.html.twig', [
             'users' => $users,
             'event' => true,
-            'search' => false
         ]);
     }
 
@@ -200,10 +187,11 @@ class EventController extends AbstractController
 
         $user = $this->getUser();
 
-        $events = $repository->findCurrentUserEvents($user);
+        $myEvents = $repository->findCurrentUserEvents($user);
 
         return $this->render('event/myEvents.html.twig', [
-            'events' => $events
+            'myEvents' => $myEvents,
+            'hideMyEventsButton' => true
         ]);
      }
 

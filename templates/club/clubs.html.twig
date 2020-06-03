@@ -4,9 +4,7 @@
 
 {% block pageTitle %}
     
-    {% if search %}
-        Chercher de salles d'escalade
-    {% elseif saved is defined and saved %}    
+    {% if saved is defined and saved %}    
         Vos salles préférées
     {% else %}
         Salles d'escalade à {{ app.user.ville.nom }}
@@ -16,36 +14,25 @@
 
 {% block body %}
 
-    <!-- Liens qui amènent vers les pages de recherche -->
-    <div class="row justify-content-center ml-lg-5">
-        <div class="button-block col-8 mt-3 ml-lg-5 p-2 ">
-            <div class="row justify-content-center">
-                <a class="col-10 col-lg-3 btn event-button" href="{{ path('event-search') }}">Chercher des évènements</a>
-                <a class="col-10 col-lg-3 btn post-button" href="{{ path('post-search') }}">Chercher des publications</a>
-                <a class="col-10 col-lg-3 btn grimpeur-button" href="{{ path('user-search') }}">Chercher des grimpeurs</a>
-            </div>
-        </div>    
-    </div>
-
-    {% if search %}
+    {% include 'topLinks.html.twig' %}    
     
+    {% if form is defined %}
+        
     <!-- Formulaire pour chercher une salle d'escalade -->
-    <div class="row justify-content-center ml-lg-5">
-        <div class="search-form-block col-8 mt-3 ml-lg-5 p-2">
-            <div class="row justify-content-center">
-                <div class="col-10 p-2">
-                    {{ form_start(form) }}
-                        {{ form_widget(form) }}
-                        <input type="submit" class="btn submit-button">
-                    {{ form_end(form) }}
+        <div class="row justify-content-center ml-lg-5">
+            <div class="search-form-block col-8 mt-3 ml-lg-5 p-2">
+                <div class="row justify-content-center">
+                    <div class="col-10 p-2">
+                        {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            <input type="submit" class="btn submit-button">
+                        {{ form_end(form) }}
+                    </div>
                 </div>
-            </div>
-        </div>    
-    </div>
-    
-    
+            </div>    
+        </div>
     {% endif %}
-
+    
     {% include 'flashMessages.html.twig' %}
 
     <!-- La liste des salles d'escalade -->

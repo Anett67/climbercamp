@@ -16,16 +16,26 @@ class ClubController extends AbstractController
     /**
      * @Route("/local-clubs", name="local-clubs")
      */
-    public function localClubs(ClimbingClubRepository $repository)
+    public function localClubs(ClimbingClubRepository $repository, Request $request)
     {
 
         $ville = $this->getUser()->getVille();
 
         $clubs = $repository->findByVille($ville);
 
+        $clubSearch = new ClubSearch();
+
+        $form = $this->createForm(ClubSearchType::class, $clubSearch);
+
+        $form->handleRequest($request);
+
+        $clubs = $repository->findWithSearch($clubSearch);
+
+
         return $this->render('club/clubs.html.twig', [
             'clubs' => $clubs,
-            'search' => false
+            'form' => $form->createView(),
+            'hideLocalClubsButton' => true
         ]);
     }
 
@@ -51,31 +61,8 @@ class ClubController extends AbstractController
      */
     public function singleClub(ClimbingClub $club)
     {
-        $users = $club->getUsers();
-
         return $this->render('club/singleClub.html.twig', [
-            'users' => $users,
             'club' => $club
-        ]);
-    }
-
-    /**
-     * @Route("/clubs/search", name="club-search")
-     */
-    public function clubSearch(ClimbingClubRepository $repository, Request $request)
-    {
-        $clubSearch = new ClubSearch();
-
-        $form = $this->createForm(ClubSearchType::class, $clubSearch);
-
-        $form->handleRequest($request);
-
-        $clubs = $repository->findWithSearch($clubSearch);
-
-        return $this->render('club/clubs.html.twig', [
-            'clubs' => $clubs,
-            'form' => $form->createView(),
-            'search' => true
         ]);
     }
 

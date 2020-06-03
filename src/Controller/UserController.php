@@ -15,23 +15,12 @@ class UserController extends AbstractController
     /**
      * @Route("/local-users", name="local-users")
      */
-    public function localUsers(UserRepository $repsitory)
+    public function localUsers(UserRepository $repository, Request $request)
     {
         $ville = $this->getUser()->getVille();
 
-        $users = $repsitory->findByVille($ville);
+        $users = $repository->findByVille($ville);
 
-        return $this->render('user/users.html.twig', [
-            'users' => $users,
-            'search' => false
-        ]);
-    }
-
-    /**
-     * @Route("/users/search", name="user-search")
-     */
-    public function userSearch(UserRepository $repository, Request $request)
-    {
         $userSearch = new UserSearch();
 
         $form = $this->createForm(UserSearchType::class, $userSearch);
@@ -41,9 +30,10 @@ class UserController extends AbstractController
         $users = $repository->findWithSearch($userSearch);
 
         return $this->render('user/users.html.twig', [
-            'form' => $form->createView(),
             'users' => $users,
-            'search' => true 
+            'ville' => $ville,
+            'form' => $form->createView(),
+            'hideLocalUsersButton' => true
         ]);
     }
 

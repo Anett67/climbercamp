@@ -79,25 +79,17 @@
                         </div>
 
                         <div class="buttons">
-                            <a href="{{ path('local-events') }}" class="btn event-button">Évènements à {{ app.user.ville.nom }}</a>
-                            <a href="{{ path('local-users') }}" class="btn grimpeur-button">Grimpeurs à {{ app.user.ville.nom }}</a>
-                            <a href="{{ path('local-clubs') }}" class="btn club-button">Salles d'escalade à {{ app.user.ville.nom }}</a>
-                            <a href="{{ path('local-posts') }}" class="btn post-button">Publications de {{ app.user.ville.nom }}</a>
+
+                            {% if hideProfilButton is not defined %}
+                                <a href="{{ path('profil') }}" class="btn event-button">Voir mon profil</a>
+                            {% endif %}
+                            {% if hideMyEventsButton is not defined %}
+                                <a href="{{ path('my-events') }}" class="btn grimpeur-button">Mes évènements</a>
+                            {% endif %}
+                            {% if hideMyPostsButton is not defined %}
+                                <a href="{{ path('my-posts') }}" class="btn club-button">Mes publications</a>
+                            {% endif %}
                         </div>
-                    </div>
-                    
-                    <div class="image-block d-none d-md-block d-lg-none col-2">
-                        {% block image %}
-                            <div class="row justify-content-center">
-                                <div class="img-cadre m-3">
-                                    {% if app.user.image %}
-                                        <img class="profilPicture" src="{{ asset('upload/users/' ~ app.user.image) }}" alt="Photo de profile">
-                                    {% else %}
-                                        <img src="{{ asset('upload/default.png') }}" alt="Photo de profile" class="profilPicture">
-                                    {% endif %}
-                                </div>
-                            </div> 
-                        {% endblock %}
                     </div>
 
                     <h1 class="col-8 text-center ml-lg-5 pl-lg-5">{% block pageTitle %}{% endblock %}</h1>

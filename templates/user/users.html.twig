@@ -10,8 +10,6 @@
         Ceux qui aiment cette publication
     {% elseif event is defined and event %}
         Utilisateurs intéressés
-    {% elseif search %}
-        Chercher des utilisateurs
     {% endif %}
 
 
@@ -19,48 +17,40 @@
 
 {% block body %}
 
-<!-- Liens vers les pages de rechereche -->
-<div class="row justify-content-center justify-content-lg-end">
-    <div class="button-block col-10 mt-3 ml-lg-5 p-2 ">
-        <div class="row justify-content-center">
-            <a class="col-10 col-lg-3 btn event-button" href="{{ path('event-search') }}">Chercher des évènements</a>
-            <a class="col-10 col-lg-3 btn post-button" href="{{ path('post-search') }}">Chercher des publications</a>
-            <a class="col-10 col-lg-3 btn club-button" href="{{ path('club-search') }}">Chercher des salles d'escalade</a>
-        </div>
-    </div>    
-</div>
+    {% include 'topLinks.html.twig' %}    
 
-{% if search %}
+    {% if form is defined %}
 
-<!-- Formulaire pour chercher des utilisateurs -->
-<div class="row justify-content-center justify-content-lg-end">
-    <div class="search-form-block col-10 mt-3 ml-lg-5 p-2 ">
-        <div class="row justify-content-center p-2">
-            {{ form_start(form) }}
-            <div class="col-12">
-                
-                <div class="row justify-content-center">
-                    <div class="col-10">
-                        {{ form_row(form.firstName) }}
+        <!-- Formulaire pour chercher des utilisateurs -->
+        <div class="row justify-content-center justify-content-lg-end">
+            <div class="search-form-block col-10 mt-3 ml-lg-5 p-2 ">
+                <div class="row justify-content-center p-2">
+                    {{ form_start(form) }}
+                    <div class="col-12">
+                        
+                        <div class="row justify-content-center">
+                            <div class="col-10">
+                                {{ form_row(form.firstName) }}
+                            </div>
+                            <div class="col-10">
+                                {{ form_row(form.lastName) }}
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-10">
+                                {{ form_row(form.ville) }}
+                            </div>
+                            <div class="col-10 text-center">
+                                <input type="submit" class="btn submit-button" value="Rechercher">
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-10">
-                        {{ form_row(form.lastName) }}
-                    </div>
+                    {{ form_end(form) }}
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-10">
-                        {{ form_row(form.ville) }}
-                    </div>
-                    <div class="col-10 text-center">
-                         <input type="submit" class="btn submit-button" value="Rechercher">
-                    </div>
-                </div>
-            </div>
-             {{ form_end(form) }}
+            </div>    
         </div>
-    </div>    
-</div>
-{% endif %}
+
+    {% endif %}
 
 <div class="row justify-content-center justify-content-lg-end">
     <div class="col-10 mt-3 ml-lg-5 p-2 ">
