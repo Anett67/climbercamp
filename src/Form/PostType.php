@@ -15,12 +15,12 @@ class PostType extends AbstractType
     {
         $builder
             ->add('body', TextareaType::class, [
-                'label' => 'Envoyer un nouveau publication'
+                'label' => 'Envoyer une publication'
             ])
             ->add('imageFile', FileType::class, ['required' => false, 'label' => false,
                 'attr' => [
                     'accept' => 'image/*',
-                    'onchange' => 'openFile(event)'
+                    'onchange' => 'openFile(event)' 
                 ]
             ])
         ;

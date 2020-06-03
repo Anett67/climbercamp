@@ -6,6 +6,8 @@
 
 {% block body %}
 
+{% include 'topLinks.html.twig' %}    
+
 {% include 'flashMessages.html.twig' %}
 
 <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
@@ -53,9 +55,6 @@
             </div>
             <div class="col-12 col-md-10 col-lg-3 text-center">    
                 <a href="{{ path('my-events') }}" class="btn buttons my-events-button w-100 w-lg-30">Mes évènements</a>
-            </div>
-            <div class="col-12 col-md-10 col-lg-3 text-center">    
-                <a href="" class="btn buttons my-comments-button w-100 w-lg-30">Mes commentaires</a>
             </div>
             <div class="col-12 col-md-10">
                 <hr class="mt-5"> 

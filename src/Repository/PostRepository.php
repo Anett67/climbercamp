@@ -27,8 +27,6 @@ class PostRepository extends ServiceEntityRepository
             ->addSelect('pb')
             ->leftJoin('p.postLikes', 'pl')
             ->addSelect('pl')
-            ->innerJoin('pc.postedBy', 'pcpb')
-            ->addSelect('pc')
             ->orderBy('p.createdAt', 'DESC');
 
             if($searchPost->getFirstName()){
@@ -68,7 +66,7 @@ class PostRepository extends ServiceEntityRepository
             ->addSelect('pc')
             ->setParameter('val', $ville)
             ->orderBy('p.createdAt', 'DESC')
-            //->setMaxResults(10)
+            // ->setMaxResults(1)
             ->getQuery()
             ->getResult()
         ;
