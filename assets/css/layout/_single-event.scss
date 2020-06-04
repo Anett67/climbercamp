@@ -123,6 +123,7 @@
             .submit-button{
                 @include buttons-colored($green);
             }
+
         }
         .commentLike-count{
             color: $yellow;
@@ -153,7 +154,7 @@
                 color: $green;
                 width: 100%;
             }
-            .new-reply-submit-button{
+            .new-reply-submit-button, .update-reply-submit-button{
                 @include buttons-colored($green);
                 font-size: 0.8rem;
                 padding: 5px 10px;
@@ -181,6 +182,21 @@
             .hide-replies-button{
                 font-size: 0.8rem;
                 color: $yellow;
+            }
+
+            .reply-update-form{
+                textarea{
+                    height: 100px;
+                    background: transparent;
+                    border: 1px solid $green;
+                    border-radius: 0;
+                }
+                .cancel{
+                    color: $green;
+                    background: transparent;
+                    border: 1px solid $green;
+                    border-bottom: none;
+                }
             }
         }
     }

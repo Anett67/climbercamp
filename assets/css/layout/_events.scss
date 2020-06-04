@@ -2,7 +2,7 @@
     background-color: $blackrgba;
     color: $orange;
     .new-event-button{
-        @include buttons-colored($orange);
+        @include buttons($green);
     }
     hr{
         border-color: $orange;
@@ -16,7 +16,7 @@
         }
     }
     .event-block{
-        background-color: $greyrgba;
+        background-color: transparent;
         .event-image{
             width: 100%;
         }
@@ -26,7 +26,7 @@
             }
             h4{
                 color: $green!important;
-                font-family: OpenSemiBold;
+                font-family: OpenLight;
                 &:hover{
                     text-decoration: none;
                 }
@@ -46,13 +46,19 @@
         }
         
         .postedByName{
-            font-size: 0.7rem;
+            color: $green;
+            font-size: 0.8rem;
             div{
                 a{
-                    color: $orange;
+                    color: $green;
                 }
             }
         }
+
+        .event-details{
+            font-family: OpenLight;
+        }
+
         .save-button{
             color: $orange;
             border: 1px solid $orange;
@@ -60,6 +66,8 @@
             border-radius: 0;
             transition: 0.2s;
             width: 100%;
+            font-size: 0.8rem;
+            font-family: OpenLight;
             &:hover{
                 background-color: $orange;
                 color: $black;
@@ -82,13 +90,16 @@
         }
         .date{
             font-size: 0.9rem;
-            font-family: OpenItalic;
+            font-family: OpenLight;
             color: $yellow;
         }
         .commentsAndUsers{
             font-size: 0.9rem;
             font-family: OpenItalic;
             color: $orange;
+        }
+        hr{
+            border: 1px dashed $green;
         }
     }
 }

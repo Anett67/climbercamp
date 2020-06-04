@@ -1,0 +1,20 @@
+
+.button-block{
+    background-color: $blackrgba;
+    width: 100%;
+    .btn{
+        margin: 10px;
+    }
+    .event-button{
+        @include buttons($orange);
+    }
+    .grimpeur-button{
+        @include buttons($yellow);
+    }
+    .post-button{
+        @include buttons($grey);
+    }
+    .club-button{
+        @include buttons($green);
+    }
+}

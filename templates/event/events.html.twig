@@ -92,7 +92,8 @@
                             <div class="col-12 col-lg-4">
                                 <div class="row align-items-center mb-5 mt-5 mt-lg-0">
                                     <div class="col-9 col-md-10 col-lg-8 text-right pr-0">
-                                        <div class="postedByName">Partagé par 
+                                        <div class="postedByName">
+                                             
                                             <div>
                                                 <a href="{{ path('single-user',{'id' : event.postedBy.id}) }}" class="m-0">{{ event.postedBy.firstName }} {{ event.postedBy.lastName }}</a>
                                             </div>
@@ -127,7 +128,6 @@
                                         <!-- Liens pour enregistrer ou commenter l'évènement -->
                                         <div class="col-11 col-md-6 col-lg-6 m-2 m-2 text-right">
                                             {% if event in app.user.savedEvents %}
-                                                <span>évènement sauvegardé</span> 
                                                 <a class="btn save-button" href="{{ path('event-remove', {'id': event.id}) }}">SUPPRIMER DE MA LISTE</a>
                                             {% else %}
                                                 <a class="btn save-button" href="{{ path('event-save', {'id': event.id}) }}">ENREGISTRER</a>
@@ -138,10 +138,11 @@
                                             <a class="btn info-button" href="{{ path('single-event', {'id': event.id}) }}">INFO</a>
                                         </div>
                                     </div>
-                                </div>
-                                
+                                </div> 
                             </div>
+                            <hr>
                     </div>
+
                 {% endfor %}
             </div>  
         </div>
