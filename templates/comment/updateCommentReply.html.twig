@@ -1,0 +1,19 @@
+
+<div class="col-12 reply-update-form">
+    <div class="cancel reply-update-cancel" 
+        {% if reply.postComment is defined %}
+            data-url="{{ path('post-reply-json', {'id': reply.id}) }}"
+        {% elseif reply.eventComment is defined %}
+            data-url="{{ path('event-reply-json', {'id': reply.id}) }}"
+        {% endif %}> 
+        Annuler
+    </div>
+    {{form_start(form)}}
+        {{form_row(form.body, {'attr': {'autofocus': true}})}}
+        <div class="row justify-content-end">
+            <div class="col-12 col-md-3">
+                <input type="submit" value="Envoyer" class="btn update-reply-submit-button w-100">
+            </div>
+        </div>
+    {{ form_end(form) }}
+</div>

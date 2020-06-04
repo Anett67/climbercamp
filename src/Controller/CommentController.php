@@ -326,7 +326,7 @@ class CommentController extends AbstractController
     }
 
      /**
-     * @Route("/event/comment/json/{id}", name="post-comment-json")
+     * @Route("/event/comment/json/{id}", name="event-comment-json")
      */
 
     public function jsonEvent(EventComment $comment):Response
@@ -336,5 +336,94 @@ class CommentController extends AbstractController
 
        return new JsonResponse($response);
     }
+
+    /**
+     * @Route("/post/reply/{id}/update", name="post-reply-update")
+     */
+
+    public function updatePostReply(PostCommentReply $reply, EntityManagerInterface $manager, Request $request):Response
+    {
+       $form = $this->createForm(PostCommentReplyType::class , $reply,  [
+           'action' => $this->generateUrl('post-reply-update', [ 'id'=>$reply->getId()])
+       ]);
+
+       $form->handleRequest($request);
+
+       if($form->isSubmitted() && $form->isValid()){
+           $manager->persist($reply);
+           $manager->flush();
+
+           $this->addFlash('success', 'La modification a bien été effectué.');
+
+           return $this->redirectToRoute('single-post', ['id' => $reply->getPostComment()->getPost()->getId()]);
+       }
+
+       $response = array(
+           'code' => 200,
+           'response' => $this->render('comment/updateCommentReply.html.twig', [
+               'form' => $form->createView(),
+               'reply' => $reply
+           ])->getContent()
+       );
+
+       return new JsonResponse($response);
+    }
+
+     /**
+     * @Route("/post/reply/json/{id}", name="post-reply-json")
+     */
+
+    public function jsonPostCommentReply(PostCommentReply $reply):Response
+    {
+       
+       $response = $this->render('comment/singleCommentReply.html.twig', ['reply' => $reply])->getContent();
+
+       return new JsonResponse($response);
+    }
+
+    /**
+     * @Route("/event/reply/{id}/update", name="event-reply-update")
+     */
+
+    public function updateEventReply(EventCommentReply $reply, EntityManagerInterface $manager, Request $request):Response
+    {
+       $form = $this->createForm(EventCommentReplyType::class , $reply,  [
+           'action' => $this->generateUrl('event-reply-update', [ 'id'=>$reply->getId()])
+       ]);
+
+       $form->handleRequest($request);
+
+       if($form->isSubmitted() && $form->isValid()){
+           $manager->persist($reply);
+           $manager->flush();
+
+           $this->addFlash('success', 'La modification a bien été effectué.');
+
+           return $this->redirectToRoute('single-event', ['id' => $reply->getEventComment()->getEvent()->getId()]);
+       }
+
+       $response = array(
+           'code' => 200,
+           'response' => $this->render('comment/updateCommentReply.html.twig', [
+               'form' => $form->createView(),
+               'reply' => $reply
+           ])->getContent()
+       );
+
+       return new JsonResponse($response);
+    }
+
+     /**
+     * @Route("/event/reply/json/{id}", name="event-reply-json")
+     */
+
+    public function jsonEventCommentReply(EventCommentReply $reply):Response
+    {
+       
+       $response = $this->render('comment/singleCommentReply.html.twig', ['reply' => $reply])->getContent();
+
+       return new JsonResponse($response);
+    }
+
    
 }

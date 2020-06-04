@@ -14,7 +14,7 @@ class PostCommentReplyType extends AbstractType
     {
         $builder
             ->add('body', TextareaType::class, [
-                'label' => 'Répondre à ce commentaire'
+                'label' => false
             ])
         ;
     }

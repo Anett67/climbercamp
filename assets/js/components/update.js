@@ -9,10 +9,7 @@ $(function(){
     
         postBlock.html('<div class="spinner-front"></div>');
         postBlock.addClass('green-spinner');
-
-        console.log(url);
         
-
         $.post(
             url,
             {},
@@ -26,11 +23,17 @@ $(function(){
 
     $('body').on('click', '.cancel', function(){
         var url = $(this).data('url');
-        var postBlock = $(this).parent('.update-block');
+        if ($(this).hasClass('reply-update-cancel')){
+            var postBlock = $(this).parent().parent('.update-block');
+        }else{
+            var postBlock = $(this).parent('.update-block');
+        }
         
         postBlock.html('<div class="spinner-front"></div>');
         postBlock.addClass('green-spinner');
 
+        console.log(postBlock);
+        
         $.post(
             url,
             {},
