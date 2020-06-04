@@ -14,6 +14,8 @@ class EventInsert{
 
     private $ville;
 
+    private $image;
+
     private $imageFile;
 
     public function getTitle(){
@@ -60,6 +62,16 @@ class EventInsert{
         $this->ville = $ville;
         return $this;
     }
+
+    public function getImage(){
+        return $this->image;
+    }
+
+    public function setImage($image){
+        $this->image = $image;
+        return $this;
+    }
+
 
     public function getImageFile(){
         return $this->imageFile;

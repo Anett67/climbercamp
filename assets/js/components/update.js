@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 $(function(){
 
-    $('body').on('click', '.post-update-link', function(event){
+    $('body').on('click', '.update-link', function(event){
         event.preventDefault();
         var postBlock = $(this).closest('.my-post-block');
         var url = $(this).attr('href');

@@ -2,22 +2,24 @@
 
 namespace App\Controller;
 
+use DateTime;
+use App\Entity\User;
 use App\Entity\Event;
-use App\Entity\EventComment;
+use App\Form\EventType;
 use App\Entity\EventInsert;
 use App\Entity\EventSearch;
-use App\Entity\User;
-use App\Form\EventCommentType;
+use App\Entity\EventComment;
 use App\Form\EventInsertType;
 use App\Form\EventSearchType;
-use App\Form\EventType;
-use App\Repository\EventCommentRepository;
+use App\Form\EventCommentType;
 use App\Repository\EventRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\EventCommentRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class EventController extends AbstractController
 {
@@ -205,6 +207,66 @@ class EventController extends AbstractController
         $manager->flush();
         $this->addFlash("success",  "La suppression a été effectuée");
         return $this->redirectToRoute('my-events');
+    }
+
+    /**
+     * @Route("/profil/event/{id}/update", name="event-update")
+     */
+
+    public function updatePost(Event $event, EntityManagerInterface $manager, Request $request):Response
+    {   
+        $eventInsert = new EventInsert();
+
+        $eventInsert->setTitle($event->getTitle())
+                    ->setDescription($event->getDescription())
+                    ->setEventDate($event->getEventDate())
+                    ->setLocation($event->getLocation())
+                    ->setVille($event->getVille())
+                    ->setImage($event->getImage());
+
+       $form = $this->createForm(EventInsertType::class, $eventInsert,  [
+           'action' => $this->generateUrl('event-update', [ 'id'=> $event->getId()])
+       ]);
+
+       $form->handleRequest($request);
+
+       if($form->isSubmitted() && $form->isValid()){
+            $event->setTitle($eventInsert->getTitle())
+                    ->setDescription($eventInsert->getDescription())
+                    ->setEventDate($eventInsert->getEventDate())
+                    ->setLocation($eventInsert->getLocation())
+                    ->setVille($eventInsert->getVille())
+                    ->setImageFile($eventInsert->getImageFile());
+
+           $manager->persist($event);
+           $manager->flush();
+
+           $this->addFlash('success', 'La modification a bien été effectué.');
+
+           return $this->redirectToRoute('my-events');
+       }
+
+       $response = array(
+           'code' => 200,
+           'response' => $this->render('event/updateEvent.html.twig', [
+               'form' => $form->createView(),
+               'event' => $event
+           ])->getContent()
+       );
+
+       return new JsonResponse($response);
+    }
+
+    /**
+    * @Route("/profil/event/json/{id}", name="event-json")
+    */
+
+    public function jsonEvent(Event $event):Response
+    {
+       
+       $response = $this->render('event/myEvent.html.twig', ['event' => $event])->getContent();
+
+       return new JsonResponse($response);
     }
 
     

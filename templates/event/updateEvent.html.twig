@@ -1,0 +1,37 @@
+<div class="cancel" data-url="{{ path('event-json', {'id': event.id }) }}">
+    Annuler
+</div>
+<div class="col-10">
+{{ form_start(form) }}
+    {{ form_row(form.title,{ 'label' : 'Titre' })}}
+    {{ form_row(form.description,{ 'label' : 'Détails' })}}
+    {{ form_row(form.location,{ 'label' : 'Addresse' })}}
+    {{ form_row(form.eventDate,{ 'label' : 'Date et heure' })}}
+    {{ form_row(form.ville,{ 'label' : 'Ville' })}}
+    <div class="row justify-content-center">
+        <img id="{{event.id}}" class="w-50" {% if event.image %} src="{{ asset('upload/events/' ~ event.image) }}" {% endif %}>
+    </div>
+    {{ form_row(form.imageFile, {'attr': {'data-id' : event.id}})}}
+    <input type="submit" class="btn btn-block submit-button mt-4 mb-3" value="Enregistrer">  
+{{ form_end(form) }}
+</div>
+
+{% block javascripts %}
+
+    <script>
+        var openFile = function(event) {
+        var input = event.target;
+        var id = input.dataset.id;
+        
+        var reader = new FileReader();
+        reader.onload = function(){
+            var dataURL = reader.result;
+            var output = document.getElementById(id);
+            console.log(output);
+            output.src = dataURL;
+        };
+        reader.readAsDataURL(input.files[0]);
+        };
+    </script>
+
+{% endblock %}
