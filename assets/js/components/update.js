@@ -4,11 +4,14 @@ $(function(){
 
     $('body').on('click', '.update-link', function(event){
         event.preventDefault();
-        var postBlock = $(this).closest('.my-post-block');
+        var postBlock = $(this).closest('.update-block');
         var url = $(this).attr('href');
     
         postBlock.html('<div class="spinner-front"></div>');
         postBlock.addClass('green-spinner');
+
+        console.log(url);
+        
 
         $.post(
             url,
@@ -23,7 +26,7 @@ $(function(){
 
     $('body').on('click', '.cancel', function(){
         var url = $(this).data('url');
-        var postBlock = $(this).parent('.my-post-block');
+        var postBlock = $(this).parent('.update-block');
         
         postBlock.html('<div class="spinner-front"></div>');
         postBlock.addClass('green-spinner');

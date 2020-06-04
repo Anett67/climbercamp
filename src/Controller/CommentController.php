@@ -3,24 +3,27 @@
 namespace App\Controller;
 
 use DateTime;
+use App\Entity\User;
 use App\Entity\PostComment;
 use App\Entity\EventComment;
 use App\Entity\PostCommentLike;
 use App\Entity\EventCommentLike;
-use App\Entity\EventCommentReply;
 use App\Entity\PostCommentReply;
-use App\Entity\User;
-use App\Form\EventCommentReplyType;
+use App\Entity\EventCommentReply;
 use App\Form\PostCommentReplyType;
+use App\Repository\UserRepository;
+use App\Form\EventCommentReplyType;
+use App\Form\EventCommentType;
+use App\Form\PostCommentType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\PostCommentRepository;
+use App\Repository\EventCommentRepository;
 use App\Repository\PostCommentLikeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\EventCommentLikeRepository;
-use App\Repository\EventCommentReplyRepository;
-use App\Repository\EventCommentRepository;
 use App\Repository\PostCommentReplyRepository;
-use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Response;
+use App\Repository\EventCommentReplyRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -244,6 +247,94 @@ class CommentController extends AbstractController
         );
 
         return new JsonResponse($response);
+    }
+
+    /**
+     * @Route("/post/comment/{id}/update", name="post-comment-update")
+     */
+
+    public function updatePostComment(PostComment $comment, EntityManagerInterface $manager, Request $request):Response
+    {
+       $form = $this->createForm(PostCommentType::class , $comment,  [
+           'action' => $this->generateUrl('post-comment-update', [ 'id'=>$comment->getId()])
+       ]);
+
+       $form->handleRequest($request);
+
+       if($form->isSubmitted() && $form->isValid()){
+           $manager->persist($comment);
+           $manager->flush();
+
+           $this->addFlash('success', 'La modification a bien été effectué.');
+
+           return $this->redirectToRoute('single-post', ['id' => $comment->getPost()->getId()]);
+       }
+
+       $response = array(
+           'code' => 200,
+           'response' => $this->render('comment/updateComment.html.twig', [
+               'form' => $form->createView(),
+               'comment' => $comment
+           ])->getContent()
+       );
+
+       return new JsonResponse($response);
+    }
+
+     /**
+     * @Route("/post/comment/json/{id}", name="post-comment-json")
+     */
+
+    public function jsonPost(PostComment $comment):Response
+    {
+       
+       $response = $this->render('comment/singlePostComment.html.twig', ['comment' => $comment, 'post' => $comment->getPost()])->getContent();
+
+       return new JsonResponse($response);
+    }
+
+    /**
+     * @Route("/event/comment/{id}/update", name="event-comment-update")
+     */
+
+    public function updateEventComment(EventComment $comment, EntityManagerInterface $manager, Request $request):Response
+    {
+       $form = $this->createForm(EventCommentType::class , $comment,  [
+           'action' => $this->generateUrl('event-comment-update', [ 'id'=>$comment->getId()])
+       ]);
+
+       $form->handleRequest($request);
+
+       if($form->isSubmitted() && $form->isValid()){
+           $manager->persist($comment);
+           $manager->flush();
+
+           $this->addFlash('success', 'La modification a bien été effectué.');
+
+           return $this->redirectToRoute('single-event', ['id' => $comment->getEvent()->getId()]);
+       }
+
+       $response = array(
+           'code' => 200,
+           'response' => $this->render('comment/updateComment.html.twig', [
+               'form' => $form->createView(),
+               'comment' => $comment
+           ])->getContent()
+       );
+
+       return new JsonResponse($response);
+    }
+
+     /**
+     * @Route("/event/comment/json/{id}", name="post-comment-json")
+     */
+
+    public function jsonEvent(EventComment $comment):Response
+    {
+       
+       $response = $this->render('comment/singleEventComment.html.twig', ['comment' => $comment, 'event' => $comment->getEvent()])->getContent();
+
+       return new JsonResponse($response);
     }
    
 }
