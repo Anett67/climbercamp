@@ -105,9 +105,23 @@
                 color: $green;
                 border-radius: 0;
                 border: none;
+                height: 100px;
             }
             .submit-button{
                 @include buttons-colored($orange);
+            }
+        }
+        .form-update-block{
+            background: transparent;
+            textarea{
+                background: transparent;
+                border-radius: 0;
+                border-color: $green;
+                color: $green;
+                height: 80px;
+            }
+            .submit-button{
+                @include buttons-colored($green);
             }
         }
         .commentLike-count{

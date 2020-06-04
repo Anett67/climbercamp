@@ -1,0 +1,11 @@
+<div class="cancel" data-url="{{ path('post-comment-json', {'id': comment.id }) }}">
+    Annuler
+</div>
+<div class="row justify-content-center no-gutters form-update-block m-2">
+    <div class="col-12 text-right">
+        {{ form_start(form) }}
+            {{ form_row(form.body, {'attr': {'autofocus': true}}) }}
+            <input type="submit" value="Envoyer" class="btn submit-button w-100 w-md-25" >
+        {{ form_end(form) }}
+    </div>
+</div>

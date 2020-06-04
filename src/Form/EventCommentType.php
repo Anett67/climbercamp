@@ -14,7 +14,7 @@ class EventCommentType extends AbstractType
     {
         $builder
             ->add('body', TextareaType::class,[
-                'label' => 'Nouveau commentaire'
+                'label' => false
             ])
         ;
     }

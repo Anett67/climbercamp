@@ -34,7 +34,7 @@ $(function(){
 
         });
 
-    $('.commentLike-button').click(function(e){
+    $('body').on('click', '.commentLike-button',function(e){
 
         e.preventDefault();
 
@@ -63,7 +63,7 @@ $(function(){
 
     });
 
-    $('.reply-button').click(function(e){
+    $('body').on('click', '.reply-button',function(e){
 
         e.preventDefault();
 
