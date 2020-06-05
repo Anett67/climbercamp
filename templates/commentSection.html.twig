@@ -1,0 +1,36 @@
+<!-- Commentaires -->
+<div class="row justify-content-center comment-section pb-5">
+    <div class="col-10">
+        <div class="row justify-content-center align-items-end form-block">
+            
+            <!-- Le formulaire pour envoyer un nouveau commentaire -->
+            <div class="col-12">
+                <h6>Envoyer un nouveau commentaire</h6>
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+            </div>
+            <div class="col-12 text-right">
+                <input type="submit" value="Envoyer" class="btn submit-button mb-5" >   
+                {{ form_end(form) }}
+            </div>
+        </div>
+        
+        <h6 class=" mb-2">Commentaires ({{ comments|length }})</h5>
+
+        <!-- La liste des commentaires -->
+        {% for comment in comments %}
+            <div class="row justify-content-center mb-3">
+                <div class="col-12 comment-block update-block">
+
+                    {% if event is defined %}
+                        {% include 'comment/singleEventComment.html.twig' %}
+                    {% elseif post is defined %}
+                        {% include 'comment/singlePostComment.html.twig' %}
+                    {% endif %}
+                    
+                </div>
+            </div>
+        {% endfor %}
+            
+    </div>
+</div>
