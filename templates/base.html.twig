@@ -21,8 +21,6 @@
                                 <i class="fas fa-bars burger"></i>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item text-right" href="{{ path('local-posts') }}">Accueil</a>
-                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-right" href="{{path('profil') }}">Mon Profile</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-right" href="{{path('friends') }}">Mes amis</a>
@@ -38,13 +36,13 @@
                         </li>
                     </ul>
                     <ul class="menu-list d-none d-md-flex">
-                        <li class="menu-item"><a class="menu-link" href="{{ path('local-posts') }}" title="Accueil"><i class="fas fa-home d-none d-md-block"></i></a></li>
-                        <li class="menu-item"><a class="menu-link" href="{{path('profil') }}" title="Mon Profil"><i class="fas fa-user d-none d-md-block"></i></a></li>
-                        <li class="menu-item"><a class="menu-link" href="{{path('friends') }}" title="Mes amis"><i class="fas fa-users d-none d-md-block"></i></a></li>
-                        <li class="menu-item"><a class="menu-link" href="{{path('saved-clubs') }}" title="Salles d'escalade préférées"><i class="fas fa-trophy"></i></a></li>
-                        <li class="menu-item"><a class="menu-link" href="{{ path('messages') }}" title="Messages"><i class="far fa-envelope d-none d-md-block"></i></a></li>
-                        <li class="menu-item"><a class="menu-link" href="{{ path('saved-events', {'id' : app.user.id}) }}" title="Évènements enregistrés"><i class="far d-none fa-calendar-alt d-md-block"></i></a></li>
-                        <li class="menu-item"><a class="menu-link" href="{{ path('logout') }}" title="Déconnexion"><i class="fas fa-sign-out-alt d-none d-md-block"></i></li></a>
+                        <li class="menu-item"><a class="menu-link" href="{{path('local-posts') }}" title="Accueil">Accueil</a></li>
+                        <li class="menu-item"><a class="menu-link" href="{{path('profil') }}" title="Mon Profil">Mon Profil</a></li>
+                        <li class="menu-item"><a class="menu-link" href="{{path('friends') }}" title="Mes amis">Mes amis</a></li>
+                        <li class="menu-item"><a class="menu-link" href="{{path('saved-clubs') }}" title="Salles d'escalade préférées">Mes salles préférées</a></li>
+                        <li class="menu-item"><a class="menu-link {% if app.user.countNewMessages %}new-messages{% endif %}" href="{{ path('messages') }}" title="Messages">Messages {% if app.user.countNewMessages %}({{ app.user.countNewMessages }}){% endif %}</a></li>
+                        <li class="menu-item"><a class="menu-link" href="{{ path('saved-events', {'id' : app.user.id}) }}" title="Évènements enregistrés">Évènements enregistrés</a></li>
+                        <li class="menu-item"><a class="menu-link" href="{{ path('logout') }}" title="Déconnexion">Déconnexion</li></a>
                     </ul>
                 </div>
             </nav>

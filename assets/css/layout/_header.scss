@@ -61,12 +61,14 @@ header{
                     .menu-link{
                         text-decoration: none;
                         color: $yellow;
-                        font-size: 30px;
+                        font-size: 14px;
+                        font-family: OpenLight;
                         display: flex;
                         align-content: flex-start;
+                        text-transform: uppercase;
                         &:hover{
                             text-decoration: none;
-                            color: $orange;
+                            color: $green;
                         }
                         i{
                             color: $yellow;
@@ -77,6 +79,10 @@ header{
                                 color: $orange;
                             }
                         }
+                    }
+                    .menu-link.new-messages{
+                        color: $orange;
+                        font-family: OpenBold;
                     }
                 }
             }
