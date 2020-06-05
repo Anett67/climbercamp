@@ -806,13 +806,26 @@ class User implements UserInterface
         $receivedMessages = $this->receivedMessages;
 
         foreach($sentMessages as $message){
-            $messagedUsers[] = $message;
+            $messages[] = $message;
         }
 
         foreach($receivedMessages as $message){
-            $messagedUsers[] = $message;
+            $messages[] = $message;
         }
 
         return $messages;
+    }
+
+    public function countNewMessages(){
+        $messages = $this->getAllMessages();
+        $count = 0;
+
+        foreach($messages as $message){
+            if(!$message->getSeen() && $message->getToUser() == $this){
+                $count++;
+            }
+        }
+
+        return $count;
     }
 }
