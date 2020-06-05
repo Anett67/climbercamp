@@ -799,4 +799,20 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getAllMessages(){
+
+        $messages = [];
+        $sentMessages = $this->sentMessages;
+        $receivedMessages = $this->receivedMessages;
+
+        foreach($sentMessages as $message){
+            $messagedUsers[] = $message;
+        }
+
+        foreach($receivedMessages as $message){
+            $messagedUsers[] = $message;
+        }
+
+        return $messages;
+    }
 }

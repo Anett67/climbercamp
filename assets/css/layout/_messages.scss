@@ -29,7 +29,7 @@
         font-size: 0.8rem;
         color: $yellow;
     } 
-    .message-link{
+    .response-link{
         position: absolute;
         top: 100%;
         right: 20px;
@@ -37,5 +37,29 @@
         color: $black;
         font-size: 0.8rem;
         padding: 2px 5px;
+    }
+
+    .seen-link{
+        position: absolute;
+        top: 100%;
+        right: 100px;
+        background-color: $yellow;
+        color: $black;
+        font-size: 0.8rem;
+        padding: 2px 5px;
+    }
+
+    .nouveau-link{
+        color: $black;
+        background-color: $orange;
+        font-size: 0.8rem;
+        padding: 2px 5px;
+        display: inline-block;
+    }
+}
+.message-block.not-seen{
+    background-color: $black;
+    .message-body{
+        color: $yellow;
     }
 }
