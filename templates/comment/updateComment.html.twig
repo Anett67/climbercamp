@@ -1,4 +1,10 @@
-<div class="cancel" data-url="{{ path('post-comment-json', {'id': comment.id }) }}">
+<div class="cancel" 
+    {% if comment.post is defined %}
+        data-url="{{ path('post-comment-json', {'id': comment.id }) }}"
+    {% elseif comment.event is defined %}
+        data-url="{{ path('event-comment-json', {'id': comment.id }) }}"
+    {% endif %}
+    >
     Annuler
 </div>
 <div class="row justify-content-center no-gutters form-update-block m-2">

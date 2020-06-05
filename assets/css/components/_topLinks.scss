@@ -3,7 +3,12 @@
     background-color: $blackrgba;
     width: 100%;
     .btn{
+        font-size: 0.7rem;
+        letter-spacing: 2px;
         margin: 10px;
+        border-radius: 1px;
+        font-family: OpenRegular;
+        text-transform: uppercase;
     }
     .event-button{
         @include buttons($orange);

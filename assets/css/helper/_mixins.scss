@@ -17,7 +17,7 @@
     border-radius: 0;
     &:hover{
         color: $color;
-        background-color: $black;
+        background-color: transparent;
         transition: 0.2s;
         border: 1px solid $color;
     }
