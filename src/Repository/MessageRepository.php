@@ -19,6 +19,17 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
+    public function findUsersMessages($user){
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.toUser = :val OR m.fromUser = :val')
+            ->setParameter('val', $user)
+            ->orderBy('m.sendDate', 'DESC')
+            // ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Message[] Returns an array of Message objects
     //  */

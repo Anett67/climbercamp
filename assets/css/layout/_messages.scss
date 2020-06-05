@@ -1,0 +1,41 @@
+.message-block{
+    position: relative;
+    background-color: $blackrgba;
+    .chat-users{
+        vertical-align: middle;
+        .img-cadre{
+            width: 40px;
+            height: 40px;
+            display: inline-block;
+            margin: 8px;
+            img{
+                height:100%;
+                width: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+        .name{
+        color: $green;
+        font-size: 0.8rem;
+        font-family: OpenLight;
+        }
+    }
+    
+    .message-body{
+            color: $orange;
+    }
+    .message-date{
+        font-size: 0.8rem;
+        color: $yellow;
+    } 
+    .message-link{
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        background-color: $green;
+        color: $black;
+        font-size: 0.8rem;
+        padding: 2px 5px;
+    }
+}
