@@ -41,6 +41,6 @@
             {% endif %}
         >Je réponds</a>
         {% if not message.seen and message.fromUser.id != app.user.id %}
-            <a class="seen-link" href="">Marquer comme lu</a>
+            <a class="seen-link" href="{{ path('message-seen', {'id': message.id }) }}">Marquer comme lu</a>
             <div class="nouveau-link">Nouveau</div>
         {% endif %}
