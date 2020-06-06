@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
-use App\Repository\MessageRepository;
+use App\Entity\User;
 use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\MessageRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MessageController extends AbstractController
 {
@@ -41,4 +44,21 @@ class MessageController extends AbstractController
             'messages' => $messages
         ]);
     }
+
+    /**
+     * @Route("/conversation/{id}", name="conversation")
+     */
+
+     public function conversation(User $partner, MessageRepository $repository, EntityManagerInterface $manager, Request $request){
+
+        $user = $this->getUser();
+
+        $messages = $repository->findConversation($user, $partner);
+
+        return $this->render('message/conversation.html.twig',[
+            'partner' => $partner,
+            'messages' => $messages
+        ]);
+
+     }
 }

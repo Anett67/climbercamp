@@ -29,6 +29,19 @@ class MessageRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function findConversation($user, $partner){
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.toUser = :val OR m.fromUser = :val')
+            ->setParameter('val', $user)
+            ->andWhere('m.toUser = :partner OR m.fromUser = :partner')
+            ->setParameter('partner', $partner)
+            ->orderBy('m.sendDate', 'DESC')
+            // ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
 
     // /**

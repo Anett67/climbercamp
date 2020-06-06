@@ -1,0 +1,54 @@
+.conversation-message-block{
+    .conversation-table{
+        background-color: $blackrgba;
+        color: $yellow;
+        tr{
+            display: flex;
+            th{
+                background-color: $black;
+                letter-spacing: 2px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 50%;
+                text-align: center;
+                border-top: 1px solid $green;
+                .conversation-img-cadre{
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        object-position: center;
+                    }
+                }
+            }
+            td{
+                border: none;
+            }
+            td.new-message-form-block{
+                border: none;
+                width: 100%;
+                text-align: center;
+            }
+            .single-message{
+                width: 100%;
+            }
+            .single-message.currentuser{
+                text-align: right;
+            }
+            .single-message.partner{
+                background-color: $greyrgbadark;
+            }
+        }
+        .partner{
+            color: $yellow;
+        }
+        .currentuser{
+            color: $green;
+        }
+    }
+}

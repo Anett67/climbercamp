@@ -33,7 +33,13 @@
                 <div class="message-date">{{ message.sendDate|ago }}</div>
             </div>
         </div>
-        <a class="response-link" href="">Je réponds</a>
+        <a class="response-link"
+            {% if app.user.id is same as(message.fromUser.id)  %}
+                href="{{ path('conversation', {'id': message.toUser.id }) }}"
+            {% elseif app.user.id is same as(message.toUser.id)  %}
+                href="{{ path('conversation', {'id': message.fromUser.id }) }}"
+            {% endif %}
+        >Je réponds</a>
         {% if not message.seen and message.fromUser.id != app.user.id %}
             <a class="seen-link" href="">Marquer comme lu</a>
             <div class="nouveau-link">Nouveau</div>
