@@ -5,6 +5,9 @@
 {% block pageTitle %}Vos Messages avec {{ partner.firstName }}{% endblock %}
 
 {% block body %}
+
+{% include "flashMessages.html.twig" %}
+
 <div class="row justify-content-center justify-content-lg-end mt-5  ">
     <div class="col-11 col-lg-9 justify-content-center conversation-message-block">
         <table class="table conversation-table">
@@ -34,7 +37,10 @@
             </tr>
             <tr>
                 <td class="new-message-form-block">
-                    form
+                    {{ form_start(form) }}
+                        {{form_row(form.body, {'attr' : { 'placeholder' : 'Nouveau message', 'autofocus': true }})}}
+                        <input class="new-message-button" type="submit" value="Envoyer">
+                    {{ form_end(form) }}
                 </td>
             </tr>
             {% for message in messages %}
