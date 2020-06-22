@@ -23,8 +23,6 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item text-right" href="{{path('profil') }}">Mon Profile</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-right" href="{{path('friends') }}">Mes amis</a>
-                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-right" href="{{ path('saved-clubs') }}">Salles d'escalade</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-right" href="{{ path('messages') }}">Messages</a>
@@ -38,7 +36,6 @@
                     <ul class="menu-list d-none d-md-flex">
                         <li class="menu-item"><a class="menu-link" href="{{path('local-posts') }}" title="Accueil">Accueil</a></li>
                         <li class="menu-item"><a class="menu-link" href="{{path('profil') }}" title="Mon Profil">Mon Profil</a></li>
-                        <li class="menu-item"><a class="menu-link" href="{{path('friends') }}" title="Mes amis">Mes amis</a></li>
                         <li class="menu-item"><a class="menu-link" href="{{path('saved-clubs') }}" title="Salles d'escalade préférées">Mes salles préférées</a></li>
                         <li class="menu-item"><a class="menu-link {% if app.user.countNewMessages %}new-messages{% endif %}" href="{{ path('messages') }}" title="Messages">Messages {% if app.user.countNewMessages %}({{ app.user.countNewMessages }}){% endif %}</a></li>
                         <li class="menu-item"><a class="menu-link" href="{{ path('saved-events', {'id' : app.user.id}) }}" title="Évènements enregistrés">Évènements enregistrés</a></li>

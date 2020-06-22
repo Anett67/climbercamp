@@ -1,0 +1,31 @@
+ul.pagination{
+    justify-content: center;
+    margin-top: 50px;
+    font-family: OpenRegular;
+    border-radius: 0px;
+    & > li.page-item{
+        .page-link{
+            color: $green;
+            background-color: $blackrgba;
+            border-radius: 0px;
+            border: 1px solid $green;
+            &:hover{
+                transform: scale(1.02);
+            }
+        }
+    }
+    & > li.active{
+       .page-link{
+           font-family: OpenBold;
+            color: $black;
+            background-color: $green;
+            cursor: pointer;
+       }  
+    }
+    & > li.disabled{
+        .page-link{
+            color: $grey;
+            border: 1px solid $grey;
+        }
+    }
+}

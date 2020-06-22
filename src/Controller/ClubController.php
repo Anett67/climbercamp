@@ -7,6 +7,7 @@ use App\Entity\ClimbingClub;
 use App\Form\ClubSearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ClimbingClubRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,12 +17,18 @@ class ClubController extends AbstractController
     /**
      * @Route("/local-clubs", name="local-clubs")
      */
-    public function localClubs(ClimbingClubRepository $repository, Request $request)
+    public function localClubs(ClimbingClubRepository $repository, Request $request, PaginatorInterface $paginator)
     {
 
         $ville = $this->getUser()->getVille();
 
         $clubs = $repository->findByVille($ville);
+
+        $clubs = $paginator->paginate(
+            $repository->findByVille($ville), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
 
         $clubSearch = new ClubSearch();
 
@@ -29,8 +36,21 @@ class ClubController extends AbstractController
 
         $form->handleRequest($request);
 
-        $clubs = $repository->findWithSearch($clubSearch);
+        if($form->isSubmitted() && $form->isValid()){
+            //$clubs = $repository->findWithSearch($clubSearch);
 
+            $clubs = $paginator->paginate(
+                $repository->findWithSearch($clubSearch), /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                5 /*limit per page*/
+            );
+
+            return $this->render('club/clubs.html.twig', [
+                'clubs' => $clubs,
+                'form' => $form->createView()
+            ]);
+
+        }
 
         return $this->render('club/clubs.html.twig', [
             'clubs' => $clubs,
@@ -42,12 +62,15 @@ class ClubController extends AbstractController
     /**
      * @Route("/clubs/saved-clubs", name="saved-clubs")
      */
-    public function savedClubs()
+    public function savedClubs(ClimbingClubRepository $repo, PaginatorInterface $paginator, Request $request)
     {   
-
         $user = $this->getUser();
 
-        $clubs = $user->getClimbingClub();
+        $clubs = $paginator->paginate(
+            $repo->findSavedClubs($user), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
 
         return $this->render('club/clubs.html.twig', [
             'search' => false,

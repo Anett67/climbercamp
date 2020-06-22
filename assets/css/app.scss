@@ -2,7 +2,8 @@
 @import '~./helper/variables';
 @import '~./helper/mixins';
 @import '~./helper/fonts';
-@import '~./components/topLinks'; 
+@import '~./components/topLinks';
+@import '~./components/pagination';
 @import '~./layout/header';
 @import '~./layout/posts';
 @import '~./layout/events';
@@ -25,6 +26,7 @@ body {
     background-attachment: fixed;
     background-position: center;
     font-family: OpenLight;
+    padding-bottom: 100px;
     h1{
         color: $yellow;
         text-transform: uppercase;
