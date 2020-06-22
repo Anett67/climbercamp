@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\ClimbingClub;
 use App\Entity\ClubSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -41,12 +42,12 @@ class ClimbingClubRepository extends ServiceEntityRepository
         }
 
         return $req->getQuery()
-                    ->getResult()
+                    //->getResult()
     ;
 
     }
 
-    public function findByVille($ville){
+    public function findByVille($ville): Query{
 
         return $this->createQueryBuilder('c')
             ->innerJoin('c.ville', 'v')
@@ -58,9 +59,25 @@ class ClimbingClubRepository extends ServiceEntityRepository
             ->orderBy('c.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
+            //->getResult()
         ;
+    }
 
+    public function findSavedClubs($user): Query{
+        $clubs = $user->getClimbingClub();
+
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.ville', 'v')
+            ->addSelect('v')
+            ->leftJoin('c.climbingCategories', 'cc')
+            ->addSelect('cc')
+            ->andWhere('c IN (:val)')
+            ->setParameter('val', $clubs)
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            //->getResult()
+        ;
     }
 
     // /**
