@@ -27,7 +27,7 @@ class ClubController extends AbstractController
         $clubs = $paginator->paginate(
             $repository->findByVille($ville), /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
-            5 /*limit per page*/
+            3 /*limit per page*/
         );
 
         $clubSearch = new ClubSearch();

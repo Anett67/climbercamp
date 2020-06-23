@@ -7,6 +7,7 @@ use App\Entity\EventSearch;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @method Event|null find($id, $lockMode = null, $lockVersion = null)
@@ -61,15 +62,17 @@ class EventRepository extends ServiceEntityRepository
             ->addSelect('pb')
             ->andWhere('e.ville = :val')
             ->setParameter('val', $ville)
+            ->andWhere('e.eventDate >= :date')
+            ->setParameter(':date', new DateTime('now'))
             ->orderBy('e.eventDate', 'ASC')
             //->setMaxResults(10)
             ->getQuery()
-            ->getResult()
+            //->getResult()
         ;
 
     }
 
-    public function findCurrentUserEvents($user){
+    public function findCurrentUserFutureEvents($user){
 
         return $this->createQueryBuilder('e')
             ->leftJoin('e.eventComments', 'ec')
@@ -82,12 +85,37 @@ class EventRepository extends ServiceEntityRepository
             ->addSelect('pb')
             ->andWhere('e.postedBy = :val')
             ->setParameter('val', $user)
+            ->andWhere('e.eventDate >= :date')
+            ->setParameter('date', new DateTime('now'))
             ->orderBy('e.eventDate', 'ASC')
             //->setMaxResults(10)
             ->getQuery()
-            ->getResult()
+            //->getResult()
         ;
 
+    }
+
+    public function getFutureSavedEvents($user){
+        $events = $user->getSavedEvents();
+
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.eventComments', 'ec')
+            ->addSelect('ec')
+            ->innerJoin('e.ville', 'v')
+            ->addSelect('v')
+            ->leftJoin('e.interestedUsers', 'u')
+            ->addSelect('u')
+            ->innerJoin('e.postedBy', 'pb')
+            ->addSelect('pb')
+            ->andWhere('e IN (:val)')
+            ->setParameter('val', $events)
+            ->andWhere('e.eventDate >= :date')
+            ->setParameter('date', new DateTime('now'))
+            ->orderBy('e.eventDate', 'ASC')
+            //->setMaxResults(10)
+            ->getQuery()
+            //->getResult()
+        ;
     }
 
     // /**
