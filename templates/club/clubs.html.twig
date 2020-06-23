@@ -37,10 +37,10 @@
 
     <!-- La liste des salles d'escalade -->
     {% for club in clubs %}
-        <div class="row justify-content-center ml-lg-5">
-            <div class="club-block row col-8 mt-3 ml-lg-5 p-3 ">
+    <div class="row justify-content-center justify-content-lg-end">
+        <div class="club-block col-10 col-lg-9 mt-3 pt-2">
 
-                <!-- La photo de la salle d'escalade si il y en a -->
+            <div class="row">
                 {% if club.image %}
                     <div class="col-lg-4">
                         <img class="club-image" src="{{ asset('upload/clubs/' ~  club.image) }}" alt="">
@@ -62,7 +62,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row club-block row col-8 ml-lg-5 pl-3 pr-3 pb-3 pt-0 align-items-center">
+                <!-- La photo de la salle d'escalade si il y en a -->
+                
+            <div class="row align-items-center pb-2">
                 
                 <!-- Le nombre des personnes qui aiment cette salle -->
                 <div class="col-6">
@@ -76,11 +78,15 @@
             </div>
         </div>
 
-        
+    </div>    
     {% endfor %}
 
-    <div class="navigation">
-        {{ knp_pagination_render(clubs) }}
+    <div class="row justify-content-center justify-content-lg-end ml-lg-5">
+        <div class="navigation">
+            {{ knp_pagination_render(clubs) }}
+        </div>
     </div>
+
+    
 
 {% endblock %}

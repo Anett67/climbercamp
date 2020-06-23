@@ -15,6 +15,7 @@ use App\Form\EventCommentType;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\EventCommentRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,10 +27,13 @@ class EventController extends AbstractController
     /**
      * @Route("/user/events/{id}", name="saved-events")
      */
-    public function savedEvents(User $user, EventRepository $repository)
+    public function savedEvents(User $user, EventRepository $repository, PaginatorInterface $paginator, Request $request)
     {
-
-        $events = $user->getSavedEvents();
+        $events = $paginator->paginate(
+            $repository->getFutureSavedEvents($user), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            2 /*limit per page*/
+        );
 
         return $this->render('event/events.html.twig', [
             'events' => $events,
@@ -40,11 +44,17 @@ class EventController extends AbstractController
     /**
      * @Route("/local-events", name="local-events")
      */
-    public function localEvents(EventRepository $repository, Request $request)
+    public function localEvents(EventRepository $repository, Request $request, PaginatorInterface $paginator)
     {
         $ville = $this->getUser()->getVille();
 
-        $events =$repository->findByVille($ville);
+        //$events = $repository->findByVille($ville);
+
+        $events = $paginator->paginate(
+            $repository->findByVille($ville), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
 
         $eventSearch = new EventSearch();
 
@@ -52,7 +62,15 @@ class EventController extends AbstractController
 
         $form->handleRequest($request);
 
-        $events = $repository->findWithSearch($eventSearch);
+        if($form->isSubmitted() && $form->isValid()){
+            $events = $repository->findWithSearch($eventSearch);
+
+            return $this->render('event/events.html.twig', [
+                'events' => $events,
+                'ville' => $ville,
+                'form' => $form->createView()
+            ]);
+        }
 
         return $this->render('event/events.html.twig', [
             'events' => $events,
@@ -174,7 +192,7 @@ class EventController extends AbstractController
     public function eventUsers(Event $event)
     {
         $users = $event->getInterestedUsers();
-        dump($users);
+
         return $this->render('user/users.html.twig', [
             'users' => $users,
             'event' => true,
@@ -185,11 +203,15 @@ class EventController extends AbstractController
      * @Route("/profil/events", name="my-events")
      */
 
-     public function myEvents(EventRepository $repository){
+     public function myEvents(EventRepository $repository, Request $request, PaginatorInterface $paginator){
 
         $user = $this->getUser();
 
-        $myEvents = $repository->findCurrentUserEvents($user);
+        $myEvents = $paginator->paginate(
+            $repository->findCurrentUserFutureEvents($user), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
 
         return $this->render('event/myEvents.html.twig', [
             'myEvents' => $myEvents,

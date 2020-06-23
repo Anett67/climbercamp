@@ -82,8 +82,7 @@
                         <div class="col-12 p-0">
                             <div class="row buttons justify-content-center no-gutters p-2">
                                 <a class="col-10 m-2 btn profil-button" href="{{ path('single-user',{'id' : user.id}) }}">Voir profile</a>
-                                <a class="col-10 m-2 btn invitation-button" href="">Envoyer une invitation</a>
-                                <a class="col-10 m-2 btn message-button" href="">Envoyer un message</a>
+                                <a class="col-10 m-2 btn message-button" href="{{ path('conversation', {'id': user.id }) }}">Envoyer un message</a>
                             </div>
                         </div> 
                     </div>
