@@ -59,13 +59,21 @@
                         </div>
                         <div class="card-title"><a href="{{path('profil') }}">{{ app.user.firstName }} {{ app.user.lastName }}</a></div>    
                         <div class="card-text">
-                            <div>{{ app.user.ville.nom }}</div>
-                            <div>Niveau: <span class="level">{{ app.user.level.label }}</span></div>
-                            <div>Salles d'escalade:
-                                {% for salle in app.user.climbingClub %}
-                                    <div><a class="club-link" href="{{ path('single-club', {'id': salle.id}) }}">{{ salle.nom }}</a></div>
-                                {% endfor %}
-                            </div>
+
+                            {% if app.user.ville.nom is defined %}
+                                <div>{{ app.user.ville.nom }}</div>
+                            {% endif %}
+                            
+                            {% if app.user.level.label is defined %}
+                                <div>Niveau: <span class="level">{{ app.user.level.label }}</span></div>
+                            {% endif %}
+                            {% if app.user.climbingClub|length > 0 %}
+                                <div>Salles d'escalade:
+                                    {% for salle in app.user.climbingClub %}
+                                        <div><a class="club-link" href="{{ path('single-club', {'id': salle.id}) }}">{{ salle.nom }}</a></div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                             <div class="row justify-content-center">
                                 {% for type in app.user.climbingCategorie %}
                                     <div class="badge">{{ type.label }}</div>
@@ -78,8 +86,10 @@
                             {% if hideProfilButton is not defined %}
                                 <a href="{{ path('profil') }}" class="btn event-button">Voir mon profil</a>
                             {% endif %}
-                            {% if hideMyEventsButton is not defined %}
-                                <a href="{{ path('my-events') }}" class="btn grimpeur-button">Mes évènements</a>
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
+                                {% if hideMyEventsButton is not defined %}
+                                    <a href="{{ path('my-events') }}" class="btn grimpeur-button">Mes évènements</a>
+                                {% endif %}
                             {% endif %}
                             {% if hideMyPostsButton is not defined %}
                                 <a href="{{ path('my-posts') }}" class="btn club-button">Mes publications</a>

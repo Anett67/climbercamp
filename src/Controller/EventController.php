@@ -63,6 +63,7 @@ class EventController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            
             $events = $repository->findWithSearch($eventSearch);
 
             return $this->render('event/events.html.twig', [

@@ -119,12 +119,13 @@ class CommentController extends AbstractController
         $postCommentReply = new PostCommentReply();
 
         $form = $this->createForm(PostCommentReplyType::class, $postCommentReply, [
-            'action' => $this->generateUrl('comment-replies', [ 'id'=>$comment->getId()])
+            'action' => $this->generateUrl('comment-replies', [ 'id'=> $comment->getId()])
         ]);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            
             $postCommentReply->setPostedBy($this->getUser())
                             ->setPostedAt(new DateTime('now'))
                             ->setPostComment($comment);

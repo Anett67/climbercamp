@@ -30,8 +30,12 @@ class PostController extends AbstractController
     {   
         $ville = $this->getUser()->getVille();
 
-        $posts = $repository->findLocalPosts($ville);
-
+        if($ville){
+            $posts = $repository->findLocalPosts($ville);
+        }else{
+            $posts = $repository->findAll(['postedAt' => 'DESC']);
+        }
+        
         $post = new Post();
 
         $form = $this->createForm(PostType::class, $post);
@@ -48,19 +52,10 @@ class PostController extends AbstractController
             return $this->redirectToRoute('local-posts');
         }
 
-        $searchPost = new SearchPost();
-
-        $searchForm = $this->createForm(SearchPostType::class, $searchPost);
-
-        $searchForm->handleRequest($request);
-
-        $posts = $repository->findWithSearch($searchPost);
-
         return $this->render('post/posts.html.twig', [
             'posts' => $posts,
             'ville' => $ville,
             'form' => $form->createView(),
-            'searchForm' => $searchForm->createView(),
             'hideLocalPostsButton' => true
         ]);
     }

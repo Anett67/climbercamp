@@ -279,6 +279,15 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getUpdatedAt(){
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt($dateTime){
+        $this->updatedAt = $dateTime;
+        return $this;
+    }
+
     public function getImageFile(): ?File
     {
         return $this->imageFile;
