@@ -90,32 +90,32 @@ $(function(){
                     var block = hideLink.closest('.comment-replies').html('');
                 });
 
-                $('body').on('click', '.new-reply-submit-button' ,function(e){
-                    e.preventDefault();
-
-                    var button = $(this);
-                    var url = button.closest('form').attr('action');
-                    var form = button.closest('form');
-                    var replyBlock = button.closest('.comment-replies');
-                    var form_data = form.serialize();
-
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        dataType: 'json',
-                        data: form_data,
-                        success: function(data){
-                            replyBlock.html(data.response);
-                            $('#post_comment_reply_body, #event_comment_reply_body').val('');
-                            $('.commentReplyCount').html(data.replies);
-                        }
-                    })  
-                });
-
             }
 
         );
 
+    });
+
+    $('body').on('click', '.new-reply-submit-button' ,function(e){
+        e.preventDefault();
+
+        var button = $(this);
+        var url = button.closest('form').attr('action');
+        var form = button.closest('form');
+        var replyBlock = button.closest('.comment-replies');
+        var form_data = form.serialize();
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: form_data,
+            success: function(data){
+                replyBlock.html(data.response);
+                $('#post_comment_reply_body, #event_comment_reply_body').val('');
+                $('.commentReplyCount').html(data.replies);
+            }
+        })  
     });
 
     $('body').on('click', '.delete-reply', function(e){

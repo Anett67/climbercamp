@@ -2,12 +2,13 @@
 
 namespace App\Repository;
 
-use App\Entity\Event;
-use App\Entity\EventSearch;
 use DateTime;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Event;
+use Doctrine\ORM\Query;
+use App\Entity\EventSearch;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Validator\Constraints\Date;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Event|null find($id, $lockMode = null, $lockVersion = null)
@@ -49,7 +50,7 @@ class EventRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findByVille($ville){
+    public function findByVille($ville):Query{
 
         return $this->createQueryBuilder('e')
             ->leftJoin('e.eventComments', 'ec')
@@ -72,7 +73,7 @@ class EventRepository extends ServiceEntityRepository
 
     }
 
-    public function findCurrentUserFutureEvents($user){
+    public function findCurrentUserFutureEvents($user):Query{
 
         return $this->createQueryBuilder('e')
             ->leftJoin('e.eventComments', 'ec')

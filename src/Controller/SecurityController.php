@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,6 +29,7 @@ class SecurityController extends AbstractController
             $passwordCrypte = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($passwordCrypte);
             $user->setRoles("ROLE_USER");
+            $user->setUpdatedAt(new DateTime('now'));
             $manager->persist($user);
             $manager->flush();
 

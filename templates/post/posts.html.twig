@@ -5,14 +5,12 @@
 {% block pageTitle %}
 
     <!-- On vérifie si on afficher les publications d'une certaine ville ou d'un certain utilisateur -->
-    {% if ville is defined %}
-    
-    Les publications de {{ ville.nom }}
-
+    {% if ville.nom is defined %}
+        Les publications de {{ ville.nom }}
     {% elseif user is defined %}    
-    
-    Les publications de {{ user.firstName }}
-    
+        Les publications de {{ user.firstName }}
+    {% else %}
+        Publications
     {% endif %}
 
 {% endblock %}
@@ -23,7 +21,7 @@
 
     {% if searchForm is defined %}
         <!-- Formulaire pour chercher une publication -->
-        <div class="row justify-content-center justify-content-lg-end">
+        {# <div class="row justify-content-center justify-content-lg-end">
             <div class="search-form-block col-10 col-lg-9 mt-3 p-2 ">
                 {{ form_start(searchForm) }}
                 <div class="row justify-content-around align-items-center">
@@ -42,7 +40,7 @@
                 </div>
                 {{ form_end(searchForm) }}               
             </div>
-        </div>
+        </div> #}
     {% endif %}
     
     {% include 'flashMessages.html.twig' %}

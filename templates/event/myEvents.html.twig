@@ -6,7 +6,19 @@
 
 {% block body %}
 
-{% include 'topLinks.html.twig' %}    
+{% include 'topLinks.html.twig' %}
+
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
+            <div class="row justify-content-center justify-content-lg-end">
+                <div class="events-block col-10 col-lg-9 mt-3 p-3 mb-1">
+                    <div class="row justify-content-center">
+                        <div class="col-10 mt-3 p-2 text-center">
+                            <a class="new-event-button btn" href="{{ path('event-new') }}">Créer un évènement</a>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        {% endif %}
 
 {% include 'flashMessages.html.twig' %}
 
@@ -32,12 +44,15 @@
          
 {% else %}
 <div class="row justify-content-center justify-content-lg-end pb-5">
-    <div class="events-block col-10 mt-3 p-3 mb-3">
-        <d iv class="row justify-content-center">
+    <div class="events-block col-10 col-lg-9 mt-3 p-3 mb-3">
+
+        <div class="row justify-content-center">
             <div class="col-10 text-center">
                 <p>Vou n'avez pas encore créé d'évènement</p>
             </div>
         </div>
+
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
         <div class="row justify-content-center">
             <div class="col-10 text-center">
                <hr> 
@@ -48,6 +63,8 @@
                 <a class="new-event-button btn" href="{{ path('event-new') }}">Créer un évènement</a>
             </div>
         </div>
+        {% endif %}
+
     </div>
 
 </div>
