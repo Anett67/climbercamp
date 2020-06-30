@@ -43,12 +43,10 @@
             border: 1px solid $green;
             border-radius: 0px;
         }
-        .form-check{
-            input.form-check-input{
-                background-color: $blackrgba;
-                color: $green;
-                border: 1px solid $orange;
-            }
+        @include upload_button($orange, $black, 'Télécharger une photo', auto, 100%, 2px solid $orange);
+        .new-club-submit{
+            @include buttons-colored($green);
+            font-family: OpenSemiBold;
         }
         
     }
