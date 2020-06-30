@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Salles d'escalade{% endblock %}
+
+{% block pageTitle %}
+    Créer une nouvelle salle
+{% endblock %}
+
+{% block body %}
+
+    {% include 'topLinks.html.twig' %}
+    
+    <div class="row justify-content-center justify-content-lg-end">
+        <div class="new-club-form col-10 col-lg-9 mt-3">
+            <div class="row justify-content-center pt-3 pb-3">
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <button type="submit" class="btn new-club-submit">Enregistrer</button>
+                {{ form_end(form) }}  
+            </div>
+        </div>
+    </div>
+    
+
+
+{% endblock %}

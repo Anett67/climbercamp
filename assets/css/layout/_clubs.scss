@@ -21,5 +21,36 @@
     .users-link{
         color: $green;
     }
+
+    .new-club-button{
+        @include buttons-colored($green);
+        font-family: OpenSemiBold;
+    }
+}
+
+.new-club-form{
+    background-color: $blackrgba;
+    color: $yellow;
+    form{
+        label{
+            font-family: OpenSemiBold;
+        }
+        width: 70%;
+        input,
+        select{
+            background-color: transparent;
+            color: $green;
+            border: 1px solid $green;
+            border-radius: 0px;
+        }
+        .form-check{
+            input.form-check-input{
+                background-color: $blackrgba;
+                color: $green;
+                border: 1px solid $orange;
+            }
+        }
+        
+    }
 }
 
