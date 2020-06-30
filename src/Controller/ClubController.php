@@ -5,12 +5,15 @@ namespace App\Controller;
 use App\Entity\ClubSearch;
 use App\Entity\ClimbingClub;
 use App\Form\ClubSearchType;
+use App\Form\ClubType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ClimbingClubRepository;
+use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\VarDumper\Dumper\CliDumper;
 
 class ClubController extends AbstractController
 {
@@ -30,31 +33,8 @@ class ClubController extends AbstractController
             3 /*limit per page*/
         );
 
-        $clubSearch = new ClubSearch();
-
-        $form = $this->createForm(ClubSearchType::class, $clubSearch);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            //$clubs = $repository->findWithSearch($clubSearch);
-
-            $clubs = $paginator->paginate(
-                $repository->findWithSearch($clubSearch), /* query NOT result */
-                $request->query->getInt('page', 1), /*page number*/
-                5 /*limit per page*/
-            );
-
-            return $this->render('club/clubs.html.twig', [
-                'clubs' => $clubs,
-                'form' => $form->createView()
-            ]);
-
-        }
-
         return $this->render('club/clubs.html.twig', [
             'clubs' => $clubs,
-            'form' => $form->createView(),
             'hideLocalClubsButton' => true
         ]);
     }
@@ -80,7 +60,22 @@ class ClubController extends AbstractController
     }
 
     /**
-     * @Route("/club/{id}", name="single-club")
+     * @Route("/clubs/new", name="club-new")
+     */ 
+    
+    public function createClub(EntityManagerInterface $manager, Request $request){
+
+        $club = new ClimbingClub();
+
+        $form = $this->createForm(ClubType::class, $club);
+
+        return $this->render('club/newClub.html.twig',[
+            'form' => $form->createView()
+        ]);
+     }
+
+    /**
+     * @Route("/club/{id}", name="single-club", requirements={"id":"\d+"})
      */
     public function singleClub(ClimbingClub $club)
     {
@@ -90,7 +85,7 @@ class ClubController extends AbstractController
     }
 
     /**
-     * @Route("/clubs/users/{id}", name="club-users")
+     * @Route("/clubs/users/{id}", name="club-users", requirements={"id":"\d+"})
      */
     public function clubUsers(ClimbingClub $club)
     {
@@ -136,5 +131,7 @@ class ClubController extends AbstractController
         return $this->redirectToRoute('local-clubs');
 
     }
+
+
 
 }

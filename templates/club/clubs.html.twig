@@ -16,21 +16,13 @@
 
     {% include 'topLinks.html.twig' %}    
     
-    {% if form is defined %}
-        
-    <!-- Formulaire pour chercher une salle d'escalade -->
-        {# <div class="row justify-content-center ml-lg-5">
-            <div class="search-form-block col-8 mt-3 ml-lg-5 p-2">
-                <div class="row justify-content-center">
-                    <div class="col-10 p-2">
-                        {{ form_start(form) }}
-                            {{ form_widget(form) }}
-                            <input type="submit" class="btn submit-button">
-                        {{ form_end(form) }}
-                    </div>
-                </div>
-            </div>    
-        </div> #}
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
+    
+    <div class="row justify-content-center justify-content-lg-end">
+        <div class="club-block col-10 col-lg-9 mt-3 p-3 text-center">
+            <a class="new-club-button btn" href="{{ path('club-new') }}">Ajouter une salle d'escalade</a>
+        </div>
+    </div>  
     {% endif %}
     
     {% include 'flashMessages.html.twig' %}

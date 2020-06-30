@@ -51,20 +51,6 @@
                 <p>Vou n'avez pas encore créé d'évènement</p>
             </div>
         </div>
-
-        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
-        <div class="row justify-content-center">
-            <div class="col-10 text-center">
-               <hr> 
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-10 mt-3 p-2 text-center">
-                <a class="new-event-button btn" href="{{ path('event-new') }}">Créer un évènement</a>
-            </div>
-        </div>
-        {% endif %}
-
     </div>
 
 </div>
