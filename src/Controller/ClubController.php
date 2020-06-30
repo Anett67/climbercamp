@@ -69,6 +69,18 @@ class ClubController extends AbstractController
 
         $form = $this->createForm(ClubType::class, $club);
 
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $club->setUpdatedAt(new DateTime('now'));
+            $manager->persist($club);
+            $manager->flush();
+
+            $this->addFlash('success', 'La salle a été enregistrée avec succès.');
+
+            return $this->redirectToRoute('local-clubs');
+        }
+
         return $this->render('club/newClub.html.twig',[
             'form' => $form->createView()
         ]);
