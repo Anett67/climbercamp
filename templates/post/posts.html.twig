@@ -18,30 +18,6 @@
 {% block body %}
 
     {% include 'topLinks.html.twig' %}    
-
-    {% if searchForm is defined %}
-        <!-- Formulaire pour chercher une publication -->
-        {# <div class="row justify-content-center justify-content-lg-end">
-            <div class="search-form-block col-10 col-lg-9 mt-3 p-2 ">
-                {{ form_start(searchForm) }}
-                <div class="row justify-content-around align-items-center">
-                    <div class="col-10 col-md-4 m-2 text-center">
-                        {{ form_row(searchForm.firstName) }}
-                    </div>
-                    <div class="col-10 col-md-4 m-2 text-center">
-                        {{ form_row(searchForm.lastName) }}
-                    </div>
-                    <div class="col-10 col-md-4 m-2 text-center">
-                        {{ form_row(searchForm.keyword) }}
-                    </div>
-                    <div class="col-10 col-md-4 text-right">
-                        <input type="submit" class="submit-button m-2" value="Rechercher">
-                    </div>
-                </div>
-                {{ form_end(searchForm) }}               
-            </div>
-        </div> #}
-    {% endif %}
     
     {% include 'flashMessages.html.twig' %}
 
@@ -93,7 +69,16 @@
                         </div>
                         <!-- Le bloc qui affiche le temps passé depuis la publication -->
                         <div class="col-4 col-lg-6 text-right">
-                            {{ post.createdAt|ago }}
+                            <div class="row justify-content-end align-items-center">
+                                {{ post.createdAt|ago }}
+                                {% if is_granted('ROLE_SUPERADMIN') %}
+                                    <form method="POST" style="display:inline-block" action="{{ path('post-delete', {'id': post.id}) }}">
+                                        <input type="hidden" name="_method" value="delete">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ post.id) }}">
+                                        <button class="delete-post" type="submit"><i class="fas fa-trash-alt m-3"></i></button>
+                                    </form>
+                                {% endif %}
+                            </div>    
                         </div>
                     </div>
 

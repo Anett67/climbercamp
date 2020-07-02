@@ -15,26 +15,28 @@
         
     </div>
     <div class="row">
-        {% if reply.postedBy.id == app.user.id %}
             <div class="comment-icons col-12 text-right">
-                <a class="update-link"
-                    {% if reply.postComment is defined %}
-                        href="{{ path('post-reply-update', {'id': reply.id}) }}"
-                    {% elseif reply.eventComment is defined %}
-                        href="{{ path('event-reply-update', {'id': reply.id}) }}"
-                    {% endif %}>
-                    <i class="fas fa-edit ml-2 ml-md-3"></i>
-                </a>
-                <a
-                
-                {% if reply.postComment is defined %}
-                    href="{{ path('postcommentreply-delete', {'id': reply.id}) }}"
-                {% else %}
-                    href="{{ path('eventcommentreply-delete', {'id': reply.id}) }}"
+                {% if reply.postedBy.id == app.user.id %}
+                    <a class="update-link"
+                        {% if reply.postComment is defined %}
+                            href="{{ path('post-reply-update', {'id': reply.id}) }}"
+                        {% elseif reply.eventComment is defined %}
+                            href="{{ path('event-reply-update', {'id': reply.id}) }}"
+                        {% endif %}>
+                        <i class="fas fa-edit ml-2 ml-md-3"></i>
+                    </a>
                 {% endif %}
-                class="delete-reply"><i class="fas fa-trash-alt ml-2 ml-md-3"></i></a>
+                {% if reply.postedBy.id == app.user.id or is_granted('ROLE_SUPERADMIN') %}
+                    <a
+                    {% if reply.postComment is defined %}
+                        href="{{ path('postcommentreply-delete', {'id': reply.id}) }}"
+                    {% else %}
+                        href="{{ path('eventcommentreply-delete', {'id': reply.id}) }}"
+                    {% endif %}
+                    class="delete-reply"><i class="fas fa-trash-alt ml-2 ml-md-3"></i></a>
+                {% endif %}
             </div>
-        {% endif %}
+        
     </div>
     <!-- Texte de la réponse -->
     <div class="row justify-content-center">

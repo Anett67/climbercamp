@@ -16,25 +16,27 @@
             <span class="date">{{ comment.postedAt|ago }}</span>
             
             <!-- Lien de modification et suppression si l'utilisateur connecté est l'auteur du commentaire -->
-            {% if comment.postedBy.id == app.user.id %}
+            
                 <div class="row justify-content-end comment-icons no-gutters">
-                    <div class="col-6">
-                        <a class="update-link" href="{{ path('event-comment-update', {'id' : comment.id }) }}"><i class="fas fa-edit m-2 m-md-3"></i></a>
-                    </div>
-                    <div class="col-6 col-md-4 text-right">
-                        <a href="{{ path('eventcomment-delete', {'id': comment.id}) }}" onclick="return confirm('Confirmer la suppression?')">
-                            <i class="fas fa-trash-alt m-2 m-md-3">
-                                <form method="POST" style="display:inline-block" action="{{ path('eventcomment-delete', {'id': comment.id}) }}">
-                                    <input type="hidden" name="_method" value="delete">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ comment.id) }}">
-                                    <input type="submit" value="" > 
-                                </form>
-                            </i>
-                        </a>
-                    </div>
+                    {% if comment.postedBy.id == app.user.id %}
+                        <div class="col-6">
+                            <a class="update-link" href="{{ path('event-comment-update', {'id' : comment.id }) }}"><i class="fas fa-edit m-2 m-md-3"></i></a>
+                        </div>
+                    {% endif %}
+                    {% if comment.postedBy.id == app.user.id or is_granted('ROLE_SUPERADMIN') %}
+                        <div class="col-6 col-md-4 text-right">
+                            <a href="{{ path('eventcomment-delete', {'id': comment.id}) }}" onclick="return confirm('Confirmer la suppression?')">
+                                <i class="fas fa-trash-alt m-2 m-md-3">
+                                    <form method="POST" style="display:inline-block" action="{{ path('eventcomment-delete', {'id': comment.id}) }}">
+                                        <input type="hidden" name="_method" value="delete">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ comment.id) }}">
+                                        <input type="submit" value="" > 
+                                    </form>
+                                </i>
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
-            {% endif %}
-        
         </div>   
     </div>
 
