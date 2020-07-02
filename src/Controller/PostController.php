@@ -184,15 +184,18 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/profil/post/{id}/delete", name="post-delete")
+     * @Route("/profil/post/{id}/delete", name="post-delete", methods="delete")
      */
 
     public function postDelete(Post $post, EntityManagerInterface $manager, Request $request){
 
-        $manager->remove($post);
-        $manager->flush();
-        $this->addFlash("success",  "La suppression a été effectuée");
-        return $this->redirectToRoute('my-posts');
+        if($this->isCsrfTokenValid('SUP' . $post->getId(), $request->get('_token'))){
+            $manager->remove($post);
+            $manager->flush();
+            $this->addFlash("success",  "La suppression a été effectuée");
+        }
+        
+        return $this->redirectToRoute('local-posts');
     }
 
     /**

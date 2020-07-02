@@ -134,8 +134,15 @@ $(function(){
                     $('.commentReplyCount').html(data.replies);
                 }
             })  
+        } 
+    });
+
+    $('body').on('click', '.delete-post', function(e){
+
+        if(!confirm('Confirmer la suppression?')){
+            e.preventDefault;
         }
-        
+
     });
     
 

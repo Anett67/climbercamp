@@ -33,12 +33,10 @@
         <i class="fas fa-edit m-3"></i>
     </a>
     <a href="{{ path('post-delete', {'id': post.id}) }}" onclick="return confirm('Confirmer la suppression?')">
-        <i class="fas fa-trash-alt m-3">
-            <form method="POST" style="display:inline-block" action="{{ path('post-delete', {'id': post.id}) }}">
-                <input type="hidden" name="_method" value="delete">
-                <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ post.id) }}">
-                <input type="submit" value="" > 
-            </form>
-        </i>
+        <form method="POST" style="display:inline-block" action="{{ path('post-delete', {'id': post.id}) }}">
+            <input type="hidden" name="_method" value="delete">
+            <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ post.id) }}">
+            <button class="delete-post" type="submit"><i class="fas fa-trash-alt m-3"></i></button> 
+        </form>
     </a>
 </div>

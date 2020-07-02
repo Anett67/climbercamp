@@ -133,17 +133,17 @@ class ClubController extends AbstractController
 
     public function removeClub(ClimbingClub $club, EntityManagerInterface $manager){
 
-        $club->removeUser($this->getUser());
+        if($this->getUser()){
+            $club->removeUser($this->getUser());
 
-        $manager->persist($club);
-        $manager->flush();
+            $manager->persist($club);
+            $manager->flush();
 
-        $this->addFlash('success', "La salle a bien été supprimé de votre liste");
+            $this->addFlash('success', "La salle a bien été supprimé de votre liste");
 
-        return $this->redirectToRoute('local-clubs');
-
+            return $this->redirectToRoute('local-clubs');
+        }else{
+            return $this->redirectToRoute('login');
+        }
     }
-
-
-
 }
