@@ -38,7 +38,7 @@
                         <img class="club-image" src="{{ asset('upload/clubs/' ~  club.image) }}" alt="">
                     </div>
                 {% endif %}
-                <div class="col-lg-8">
+                <div class="col-lg-4">
                     
                     <!-- Nom -->
                     <h4><a href="{{ path('single-club', {'id': club.id}) }}">{{ club.nom }}</a></h4>
@@ -51,6 +51,20 @@
                         {% for category in club.climbingCategories %}
                             <div class="badge ">{{ category.label }}</div>
                         {% endfor %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row justify-content-end align-items-center">
+                        {% if is_granted('ROLE_SUPERADMIN') %}
+                            <a class="update-club mr-3" href="{{ path('club-update', {'id': club.id }) }}">
+                                <i class="fas fa-edit m-3"></i>
+                            </a>
+                            <form class="mr-3 delete-form" method="POST" style="display:inline-block" action="{{ path('club-delete', {'id': club.id}) }}">
+                                <input type="hidden" name="_method" value="delete">
+                                <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ club.id) }}">
+                                <button class="delete-post" type="submit"><i class="fas fa-trash-alt m-3"></i></button>
+                            </form>
+                        {% endif %}
                     </div>
                 </div>
             </div>

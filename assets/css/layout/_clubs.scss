@@ -28,6 +28,14 @@
     }
 }
 
+.update-club{
+    color: $orange;
+    &:hover{
+        color: $orange;
+        cursor: pointer;
+    }
+}
+
 .new-club-form{
     background-color: $blackrgba;
     color: $yellow;

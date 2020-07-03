@@ -226,10 +226,13 @@ class EventController extends AbstractController
 
     public function postDelete(Event $event, EntityManagerInterface $manager, Request $request){
 
-        $manager->remove($event);
-        $manager->flush();
-        $this->addFlash("success",  "La suppression a été effectuée");
-        return $this->redirectToRoute('my-events');
+        if($this->isCsrfTokenValid('SUP' . $event->getId(), $request->get('_token'))){
+            $manager->remove($event);
+            $manager->flush();
+            $this->addFlash("success",  "La suppression a été effectuée");
+        }
+
+        return $this->redirectToRoute('local-events');
     }
 
     /**
@@ -286,7 +289,7 @@ class EventController extends AbstractController
 
     public function jsonEvent(Event $event):Response
     {
-       
+
        $response = $this->render('event/myEvent.html.twig', ['event' => $event])->getContent();
 
        return new JsonResponse($response);

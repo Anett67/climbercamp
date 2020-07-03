@@ -31,8 +31,6 @@ $(function(){
         
         postBlock.html('<div class="spinner-front"></div>');
         postBlock.addClass('green-spinner');
-
-        console.log(postBlock);
         
         $.post(
             url,

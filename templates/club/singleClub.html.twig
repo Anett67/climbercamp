@@ -8,8 +8,8 @@
 
 {% include 'topLinks.html.twig' %}    
 
-<div class="row justify-content-center ml-lg-5 mb-5">
-    <div class="club-block col-10 col-md-8 mt-3 ml-lg-5 p-2 ">
+<div class="row justify-content-center justify-content-lg-end">
+    <div class="club-block col-10 col-lg-9 mt-3 p-2 pt-5 ">
 
         <!-- La photo de la salle d'escalade si il y en a -->
         <div class="row justify-content-center">
@@ -58,21 +58,9 @@
         </div>
 
         <!-- Le nombre des personnes qui aiment cette salle -->
-        <div class="row justify-content-center users-block">
+        <div class="row justify-content-center users-block mb-5 mt-3">
             <div class="col-12 text-center">
                 <a href="{{ path('club-users', {'id': club.id}) }}">{{ club.users|length }} personnes aiment cette salle</a>
-            </div>
-        </div>
-
-        <!-- Les amis qui aiment cette salle -->
-        <div class="row justify-content-center friends-block p-2">
-            <div class="col-12 text-center">
-                Amis qui aiment cette salle
-            </div>
-            <div class="row">
-                <div class="col-12 text-white text-center p-3">
-                    Bloc Amis
-                </div>
             </div>
         </div>
     </div>

@@ -16,7 +16,7 @@
                 {{ form_start(form) }}
                     {{form_row(form.nom)}}
                     <div class="row justify-content-center mb-2">
-                        <img src="" id="output" class="w-50">
+                        <img src="{% if club is defined %}{{ asset('upload/clubs/' ~  club.image) }}{% endif %}" id="output" class="w-50">
                     </div>
                     {{ form_widget(form) }}
                     <button type="submit" class="btn new-club-submit mt-3 mb-3 w-100">Enregistrer</button>

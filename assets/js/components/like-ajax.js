@@ -140,7 +140,7 @@ $(function(){
     $('body').on('click', '.delete-post', function(e){
 
         if(!confirm('Confirmer la suppression?')){
-            e.preventDefault;
+            e.preventDefault();
         }
 
     });
