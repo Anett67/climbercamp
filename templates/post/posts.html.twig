@@ -72,7 +72,7 @@
                             <div class="row justify-content-end align-items-center">
                                 {{ post.createdAt|ago }}
                                 {% if is_granted('ROLE_SUPERADMIN') %}
-                                    <form method="POST" style="display:inline-block" action="{{ path('post-delete', {'id': post.id}) }}">
+                                    <form method="POST" class="delete-form" style="display:inline-block" action="{{ path('post-delete', {'id': post.id}) }}">
                                         <input type="hidden" name="_method" value="delete">
                                         <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ post.id) }}">
                                         <button class="delete-post" type="submit"><i class="fas fa-trash-alt m-3"></i></button>

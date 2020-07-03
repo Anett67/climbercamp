@@ -146,4 +146,45 @@ class ClubController extends AbstractController
             return $this->redirectToRoute('login');
         }
     }
+
+     /**
+     * @Route("/profil/club/{id}/delete", name="club-delete")
+     */
+
+    public function clubDelete(ClimbingClub $club, EntityManagerInterface $manager, Request $request){
+
+        if($this->isCsrfTokenValid('SUP' . $club->getId(), $request->get('_token'))){
+            $manager->remove($club);
+            $manager->flush();
+            $this->addFlash("success",  "La suppression a été effectuée");
+        }
+
+        return $this->redirectToRoute('local-clubs');
+    }
+
+    /**
+     * @Route("/profil/club/{id}/update", name="club-update")
+     */
+
+    public function clubUpdate(ClimbingClub $club, EntityManagerInterface $manager, Request $request){
+
+        $form = $this->createForm(ClubType::class, $club);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($club);
+            $manager->flush();
+
+            $this->addFlash('success', 'La modification a bien été effectuée.');
+
+            return $this->redirectToRoute('local-clubs');
+        }
+
+        return $this->render('club/newClub.html.twig', [
+            'form' => $form->createView(),
+            'club' => $club
+        ]);
+
+    }
 }

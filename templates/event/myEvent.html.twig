@@ -29,16 +29,12 @@
 </div>
 
 <div class="col-6 col-md-2 icons text-right">
-    <a class="update-link" href="{{ path('event-update', {'id': event.id }) }}">
+    <a class="update-link mr-3" href="{{ path('event-update', {'id': event.id }) }}">
         <i class="fas fa-edit m-3"></i>
     </a>
-    <a href="{{ path('event-delete', {'id': event.id}) }}" onclick="return confirm('Confirmer la suppression?')">
-        <i class="fas fa-trash-alt m-3">
-            <form method="POST" style="display:inline-block" action="{{ path('event-delete', {'id': event.id}) }}">
-                <input type="hidden" name="_method" value="delete">
-                <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ event.id) }}">
-                <input type="submit" value="" > 
-            </form>
-        </i>
-    </a>
+    <form class="mr-3 delete-form" method="POST" style="display:inline-block" action="{{ path('event-delete', {'id': event.id}) }}">
+        <input type="hidden" name="_method" value="delete">
+        <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ event.id) }}">
+        <button class="delete-post" type="submit"><i class="fas fa-trash-alt m-3"></i></button>
+    </form>
 </div>
