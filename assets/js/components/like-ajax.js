@@ -32,7 +32,7 @@ $(function(){
 
             );
 
-        });
+       });
 
     $('body').on('click', '.commentLike-button',function(e){
 
