@@ -18,7 +18,7 @@ class EventCommentReply
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\EventComment", inversedBy="eventCommentReplies")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $eventComment;
 

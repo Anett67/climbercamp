@@ -20,6 +20,7 @@ class PostComment
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Post", inversedBy="postComments")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $post;
 

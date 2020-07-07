@@ -22,7 +22,7 @@ class PostLike
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Post", inversedBy="postLikes")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $post;
 
