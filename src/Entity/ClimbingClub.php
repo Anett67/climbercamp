@@ -63,7 +63,7 @@ class ClimbingClub
     private $email;
 
     /**
-     * @ORM\Column(type="integer", length=255, nullable=true)
+     * @ORM\Column(type="bigint", length=255, nullable=true)
      */
     private $telephone;
 
