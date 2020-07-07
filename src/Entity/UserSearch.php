@@ -8,6 +8,8 @@ class UserSearch{
 
     private $lastName;
 
+    private $username;
+
     private $ville;
 
 
@@ -40,5 +42,11 @@ class UserSearch{
         $this->ville = $ville;
         return $this;
     }
+
+    public function getUsername()
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
 
 }

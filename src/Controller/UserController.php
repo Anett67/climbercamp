@@ -27,7 +27,12 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
 
-        $users = $repository->findWithSearch($userSearch);
+        if($form->isSubmitted() && $form->isValid()){
+
+            $users = $repository->findWithSearch($userSearch);
+            
+            return $this->redirectToRoute('local-users', ['users' => $users, 'from' => $form->createView()]);
+        }
 
         return $this->render('user/users.html.twig', [
             'users' => $users,
