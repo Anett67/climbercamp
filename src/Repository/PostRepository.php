@@ -66,7 +66,7 @@ class PostRepository extends ServiceEntityRepository
             ->leftJoin('p.postComments', 'pc')
             ->addSelect('pc')
             ->orderBy('p.createdAt', 'DESC')
-            // ->setMaxResults(1)
+            //->setMaxResults(35)
             ->getQuery()
             ->getResult()
         ;
