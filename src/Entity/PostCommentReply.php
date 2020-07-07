@@ -18,7 +18,7 @@ class PostCommentReply
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\PostComment", inversedBy="postCommentReplies")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $postComment;
 
