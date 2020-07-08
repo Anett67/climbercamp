@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\UserSearch;
+use App\Form\UserRoleType;
 use App\Form\UserSearchType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -45,10 +47,22 @@ class UserController extends AbstractController
     /**
      * @Route("/user/{id}", name="single-user")
      */
-    public function singleUser(User $user)
+    public function singleUser(User $user, EntityManagerInterface $manager, Request $request)
     {
+        $form = $this->createForm(UserRoleType::class, $user);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($user);
+            $manager->flush();
+
+            return $this->redirectToRoute('single-user', ['id' => $user->getId()]);
+        }
+
         return $this->render('user/singleUser.html.twig', [
-            'user' => $user
+            'user' => $user,
+            'form' => $form->createView()
         ]);
     }
 

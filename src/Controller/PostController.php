@@ -67,7 +67,7 @@ class PostController extends AbstractController
     public function singlePost(Post $post, PostCommentRepository $repository, Request $request, EntityManagerInterface $manager)
     {   
         $comments = $repository->findByPost($post);
-
+        
         $postComment = new PostComment();
 
         $form = $this->createForm(PostCommentType::class, $postComment);
@@ -82,9 +82,7 @@ class PostController extends AbstractController
             $manager->flush();
 
             return $this->redirectToRoute('single-post', ['id' => $post->getId()]);
-
         }
-
 
         return $this->render('post/singlePost.html.twig', [
             'post' => $post,

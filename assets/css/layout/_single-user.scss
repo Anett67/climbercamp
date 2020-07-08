@@ -15,18 +15,65 @@
     color: $green;
     font-family: OpenLight;
     h4{
-        color: $yellow;
-    }
-    .friends-link{
         color: $orange;
+        font-family: OpenSemiBold;
     }
     .btn{
         width: 100%;
     }
-    .check-button{
-        @include buttons($green);
+    .user-events-button{
+        @include buttons-colored($orange);
+        font-family: OpenSemiBold;
+        text-transform: uppercase;
+        font-size: 16px;
     }
     .contact-button{
-        @include buttons($green);
-    } 
+        @include buttons-colored($yellow);
+        font-family: OpenSemiBold;
+        text-transform: uppercase;
+        font-size: 16px;
+    }
+    .user-posts-button{
+        @include buttons-colored($grey);
+        font-family: OpenSemiBold;
+        text-transform: uppercase;
+        font-size: 16px;
+    }
+}
+hr.separator{
+    border: 1px solid $green;
+    margin: 20px 0px;
+}
+h5{
+    margin: 0px;
+}
+.role-form{
+    form{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        #user_role{
+            width: 80%;
+            .form-group{
+                display: flex;
+                align-items: center;
+                margin: 0;
+                label{
+                    margin: 0;
+                }
+                select{
+                    width: 70%;
+                    margin-left: 20px;
+                    background-color: $blackrgba;
+                    border-radius: 0px;
+                    color: $yellow;
+                    border: 1px solid $grey;
+                }
+            }
+        }
+        .role-submit{
+            @include buttons-colored($green);
+        }
+    }
+    
 }
