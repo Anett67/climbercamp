@@ -15,6 +15,7 @@ use App\Repository\PostRepository;
 use App\Repository\PostLikeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\PostCommentRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -64,9 +65,13 @@ class PostController extends AbstractController
      * @Route("/post/{id}", name="single-post")
      */
     
-    public function singlePost(Post $post, PostCommentRepository $repository, Request $request, EntityManagerInterface $manager)
+    public function singlePost(Post $post, PostCommentRepository $repository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator)
     {   
-        $comments = $repository->findByPost($post);
+        $comments = $paginator->paginate(
+            $repository->findByPostWithPagination($post), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
         
         $postComment = new PostComment();
 

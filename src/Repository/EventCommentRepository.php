@@ -19,7 +19,7 @@ class EventCommentRepository extends ServiceEntityRepository
         parent::__construct($registry, EventComment::class);
     }
 
-    public function findComments($event){
+    public function findCommentsPagination($event){
         
         return $this->createQueryBuilder('e')
             ->innerJoin('e.postedBy', 'pb')
@@ -29,7 +29,7 @@ class EventCommentRepository extends ServiceEntityRepository
             ->orderBy('e.postedAt', 'DESC')
             //->setMaxResults(10)
             ->getQuery()
-            ->getResult()
+            //->getResult()
         ;
     }
 
