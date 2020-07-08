@@ -59,30 +59,45 @@
             </div>
         </div>
 
-        <div class="row justify-content-around user-data m-3">
-            <div class="col-lg-4 text-center m-2">
+        <div class="row justify-content-around user-data m-3 mb-5">
+            <div class="col-lg-3 text-center m-2">
                 <a href="" class="btn contact-button">
                     Envoyer un message
                 </a>
             </div>
-            <div class="col-lg-4 text-center m-2">
-                <a href="{{ path('saved-events', {'id': user.id} ) }}" class="btn check-button">
-                    Voir les évènement qui l'intéressent
+            <div class="col-lg-3 text-center m-2">
+                <a href="{{ path('saved-events', {'id': user.id} ) }}" class="btn user-events-button">
+                    Evènements qui l'intéressent
+                </a>
+            </div>
+            <div class="col-lg-3 text-center m-2">
+                <a href="{{ path('user-posts', {'id': user.id}) }}" class="btn user-posts-button">
+                   Voir ses publications
                 </a>
             </div>
         </div>
-        <div class="row justify-content-around user-data m-3">
-            <div class="col-lg-4 text-center m-2">
-                <a href="" class="btn contact-button">
-                    Envoyer une invitation
-                </a>
+
+        {% if is_granted('ROLE_SUPERADMIN') or is_granted('ROLE_ADMIN') %}
+            <hr class="separator">
+            <div class="row justify-content-center">
+                <h5> Rôle: 
+                        {% for role in user.roles %}
+                            {{ role }}
+                        {% endfor %}
+                </h5>
             </div>
-            <div class="col-lg-4 text-center m-2">
-                <a href="{{ path('user-posts', {'id': user.id}) }}" class="btn check-button">
-                    Voir ses publications
-                </a>
+            <hr class="separator">
+        {% endif %}
+        {% if is_granted('ROLE_SUPERADMIN') %}
+            <div class="row role-form justify-content-around align-items-center">
+                <div class="col role-form">
+                    {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                        <input type="submit" class="btn role-submit">
+                    {{ form_end(form) }}
+                </div>
             </div>
-        </div>
+        {% endif %}
     </div>
 </div>
 
