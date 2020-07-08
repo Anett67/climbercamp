@@ -48,8 +48,6 @@ class EventController extends AbstractController
     {
         $ville = $this->getUser()->getVille();
 
-        //$events = $repository->findByVille($ville);
-
         $events = $paginator->paginate(
             $repository->findByVille($ville), /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
@@ -159,9 +157,17 @@ class EventController extends AbstractController
     /**
      * @Route("/event/{id}", name="single-event")
      */
-    public function singleEvent(Event $event, EventCommentRepository $repo, Request $request, EntityManagerInterface $manager)
+    public function singleEvent(Event $event, EventCommentRepository $repo, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator)
     {     
-        $comments = $repo->findComments($event);
+        //$comments = $repo->findCommentsPagination($event);
+
+        //$comments = $repo->findBy(['event' => $event], ['postedAt' => 'DESC']);
+
+        $comments = $paginator->paginate(
+            $repo->findCommentsPagination($event), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
 
         $eventComment = new EventComment();
 

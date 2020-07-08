@@ -19,7 +19,7 @@ class PostCommentRepository extends ServiceEntityRepository
         parent::__construct($registry, PostComment::class);
     }
 
-    public function findByPost($post)
+    public function findByPostWithPagination($post)
     {
         return $this->createQueryBuilder('p')
             ->innerJoin('p.postedBy', 'pb')
@@ -29,7 +29,7 @@ class PostCommentRepository extends ServiceEntityRepository
             ->orderBy('p.postedAt', 'DESC')
             //->setMaxResults(10)
             ->getQuery()
-            ->getResult()
+            //->getResult()
         ;
     }
 
