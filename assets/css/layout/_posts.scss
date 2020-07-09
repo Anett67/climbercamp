@@ -1,19 +1,4 @@
 
-
-.search-form-block{
-    background-color: $blackrgba;
-    width: 100%;
-    color: $orange;
-    input{
-        background-color: $blackrgba;
-        border: 1px solid $orange;
-        border-radius: 0;
-    }
-    .submit-button{
-        @include buttons-colored($orange);
-    }
-}
-
 .post-form-block{
     background-color: $blackrgba;
     width: 100%;

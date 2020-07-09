@@ -21,36 +21,21 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
-    public function findWithSearch(SearchPost $searchPost){
-        $req = $this->createQueryBuilder('p')
+    public function findLocalPostsWithPagination($ville){
+
+        return $this->createQueryBuilder('p')
             ->innerJoin('p.postedBy', 'pb')
             ->addSelect('pb')
+            ->andWhere('pb.ville = :val')
+            ->setParameter('val', $ville)
             ->leftJoin('p.postLikes', 'pl')
             ->addSelect('pl')
-            ->orderBy('p.createdAt', 'DESC');
-
-            if($searchPost->getFirstName()){
-
-                $req = $req->andWhere('pb.firstName LIKE :val')
-                        ->setParameter(':val', '%' . $searchPost->getFirstName() . '%');
-            }
-
-            if($searchPost->getLastName()){
-
-                $req = $req->andWhere('pb.lastName LIKE :lastName')
-                        ->setParameter(':lastName', '%' . $searchPost->getLastName() . '%');
-            }
-
-            if($searchPost->getKeyword()){
-
-                $req = $req->andWhere('p.body LIKE :keyword')
-                        ->setParameter(':keyword', '%' . $searchPost->getKeyword() . '%');
-            }
-
-
-
-            return $req->getQuery()
-                        ->getResult()
+            ->leftJoin('p.postComments', 'pc')
+            ->addSelect('pc')
+            ->orderBy('p.createdAt', 'DESC')
+            //->setMaxResults(35)
+            ->getQuery()
+            //->getResult()
         ;
     }
 
@@ -69,6 +54,20 @@ class PostRepository extends ServiceEntityRepository
             //->setMaxResults(35)
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    public function findAllWithPagination(){
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.postedBy', 'pb')
+            ->addSelect('pb')
+            ->leftJoin('p.postLikes', 'pl')
+            ->addSelect('pl')
+            ->leftJoin('p.postComments', 'pc')
+            ->addSelect('pc')
+            ->orderBy('p.createdAt', 'DESC')
+            ->getQuery()
+            //->getResult()
         ;
     }
 
