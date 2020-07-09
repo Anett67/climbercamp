@@ -13,15 +13,14 @@ class UserRoleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('roles', ChoiceType::class, [
+            ->add('userRole', ChoiceType::class, [
+                'mapped' => false,
                 'label' => 'Changer le rôle',
                 'choices' => [
                     'Abonné'            => 'ROLE_USER',
                     'Editeur'           => 'ROLE_ADMIN',
                     'Administrateur'    => 'ROLE_SUPERADMIN'
-                ],
-                'expanded' => true,
-                'multiple' => true
+                ]
             ])
         ;
     }

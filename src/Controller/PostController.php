@@ -149,7 +149,7 @@ class PostController extends AbstractController
             return $this->json([
                 'code' => 200,
                 'message' => 'Like supprimé',
-                'likes' =>$repository->count(['post' => $post]) 
+                'likes' => $repository->count(['post' => $post]) 
             ], 200);
 
         }
