@@ -54,6 +54,9 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
+            $role = $form['userRole']->getData();
+            $user->setRoles($role);
             $manager->persist($user);
             $manager->flush();
 

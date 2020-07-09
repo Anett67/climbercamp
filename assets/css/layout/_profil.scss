@@ -11,6 +11,7 @@
     }
     label, legend{
         color: $orange;
+        font-family: OpenRegular;
     }
     input, textarea, select{
         background-color: $greyrgba;
@@ -38,7 +39,11 @@
     textarea::-webkit-scrollbar-thumb {
         background-color: $green;
         // outline: 1px solid slategrey;
-      }
+    }
+
+    h5{
+        color: $yellow;
+    }
 
     .submit-button{
         @include buttons-colored($green);

@@ -26,6 +26,7 @@
             </div>
             <!-- Présentation -->
             <div class="col-lg-6 presentation user-data m-5">
+                <h4>{{ user.username }}</h4>
                 <p>{{ user.presentation }}</p>
             </div>
         </div> 
@@ -80,10 +81,7 @@
         {% if is_granted('ROLE_SUPERADMIN') or is_granted('ROLE_ADMIN') %}
             <hr class="separator">
             <div class="row justify-content-center">
-                <h5> Rôle: 
-                        {% for role in user.roles %}
-                            {{ role }}
-                        {% endfor %}
+                <h5> Rôle: {{ user.getRole }}
                 </h5>
             </div>
             <hr class="separator">

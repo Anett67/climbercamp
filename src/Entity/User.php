@@ -82,6 +82,9 @@ class User implements UserInterface
      */
     private $roles;
 
+    //Le nom de rôle qui s'affiche sur les pages
+    private $role;
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="postedBy")
      */
@@ -836,5 +839,18 @@ class User implements UserInterface
         }
 
         return $count;
+    }
+
+    public function getRole(){
+        
+        if($this->roles === "ROLE_USER"){
+            $role = 'Abonné';
+        }elseif($this->roles === "ROLE_ADMIN"){
+            $role = 'Editeur';
+        }elseif($this->roles === 'ROLE_SUPERADMIN'){
+            $role = 'Administrateur';
+        }
+
+        return $role;
     }
 }

@@ -30,12 +30,13 @@
                     
             </div>
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mb-5">
             <div class="col-md-10">
                 {{ form_row(form.presentation) }}
                 {{ form_row(form.ville) }}
                 {{ form_row(form.climbingCategorie) }}
-                {{ form_row(form.level) }}  
+                {{ form_row(form.level) }} 
+                <h5>Rôle: {{ app.user.getRole }}</h4> 
             </div>
         </div>
 
