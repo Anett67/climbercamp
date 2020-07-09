@@ -27,15 +27,29 @@ class PostController extends AbstractController
     /**
      * @Route("/", name="local-posts")
      */
-    public function localPosts(PostRepository $repository, Request $request, EntityManagerInterface $manager)
+    public function localPosts(PostRepository $repository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator)
     {   
         $ville = $this->getUser()->getVille();
+        $postsPerPage = 5;
 
         if($ville){
-            $posts = $repository->findLocalPosts($ville);
+            $totalPosts = count($repository->findLocalPosts($ville));
+            $posts = $paginator->paginate(
+                $repository->findLocalPostsWithPagination($ville), /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                $postsPerPage /*limit per page*/
+            );
         }else{
-            $posts = $repository->findAll(['postedAt' => 'DESC']);
+            $totalPosts = count($repository->findAll());
+            $posts = $paginator->paginate(
+                $repository->findAllWithPagination(), /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                $postsPerPage /*limit per page*/
+            );
         }
+
+        //La dernière page de la pagination pour savoir où le scroll infini doit s'arreter
+        $lastPage = ceil($totalPosts/$postsPerPage);
         
         $post = new Post();
 
@@ -57,8 +71,37 @@ class PostController extends AbstractController
             'posts' => $posts,
             'ville' => $ville,
             'form' => $form->createView(),
-            'hideLocalPostsButton' => true
+            'hideLocalPostsButton' => true, 
+            'lastPage' => $lastPage
         ]);
+    }
+
+    /**
+     * @Route("/posts/{page}", name="scroll-post")
+     */
+
+    public function scroll($page, PaginatorInterface $paginator, PostRepository $repository, Request $request): JsonResponse
+    {
+
+        $ville = $this->getUser()->getVille();
+        $postsPerPage = 5;
+
+        if($ville){
+            $posts = $paginator->paginate(
+                $repository->findLocalPostsWithPagination($ville), /* query NOT result */
+                $request->query->getInt('page', $page), /*page number*/
+                $postsPerPage /*limit per page*/
+            );
+        }else{
+            $posts = $paginator->paginate(
+                $repository->findAllWithPagination(), /* query NOT result */
+                $request->query->getInt('page', $page), /*page number*/
+                $postsPerPage /*limit per page*/
+            );
+        }
+
+        $response = $this->render('post/post.html.twig', ['posts' => $posts])->getContent();
+        return new JsonResponse($response);
     }
 
     /**

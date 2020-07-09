@@ -22,4 +22,9 @@
     .club-button{
         @include buttons($green);
     }
+    .link-to-profil{
+        color: $green;
+        font-family: OpenSemiBold;
+        text-decoration: underline;
+    }
 }
