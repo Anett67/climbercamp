@@ -4,12 +4,14 @@
 
 {% block pageTitle %}
 
-    {% if ville is defined %}
+    {% if ville %}
         Grimpeurs à {{ ville.nom }}
     {% elseif likes is defined and likes %}
         Ceux qui aiment cette publication
     {% elseif event is defined and event %}
         Utilisateurs intéressés
+    {% else %}
+        Grimpeurs
     {% endif %}
 
 
@@ -34,38 +36,16 @@
         </div>    
 
     {% endif %}
+
+    <!-- La dernière page de la pagination pour savoir où le scroll infini s'arrête -->
+    <input class="users-count" type="hidden" value="{{ lastUsersPage }}">
         
         <div class="row justify-content-center justify-content-lg-end">
             <div class="col-10 mt-3 col-lg-9 p-0">
                 <div class="card-container">
                     <!-- La liste des utilisateur -->
-                    {% for user in users %}
-                            <div class="cardd">
-                                <!-- Photo de profil -->
-                                <div class="img-cadre m-5">
-                                    {% if user.image %}
-                                        <img class="card-image" src="{{ asset('upload/users/' ~ user.image) }}" alt="">
-                                    {% else %}
-                                        <img class="card-image" src="{{ asset('upload/default.png') }}" alt="">
-                                    {% endif %}
-                                </div>
-                                <!-- Nom -->
-                                <div class="card-title"><a href="{{ path('single-user',{'id' : user.id}) }}">{{ user.firstName }} {{ user.lastName }}</a></div>
-                                <!-- Ville -->
-                                <div class="card-text">
-                                    <div>{{ user.ville.nom }}</div>
-                                </div>
-                                <!-- Présentation -->
-                                <div class="presentation m-2">
-                                    <p>{{ user.presentation }}</p>
-                                </div>
-                                <!-- Liens -->
-                                <div class="buttons">
-                                    <a class="m-2 btn profil-button" href="{{ path('single-user',{'id' : user.id}) }}">Voir profile</a>
-                                    <a class="m-2 btn message-button" href="{{ path('conversation', {'id': user.id }) }}">Envoyer un message</a>
-                                </div>
-                            </div>
-                    {% endfor %}
+                   {% include 'user/user.html.twig' %}
+
                 </div>
             </div>    
         </div>

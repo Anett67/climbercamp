@@ -75,6 +75,8 @@
        width: 100%;
        display: flex;
        justify-content: space-between;
+       background-color: $blackrgba;
+       padding: 10px;
        #user_search{
            display: flex;
            justify-content: space-around;
@@ -82,7 +84,17 @@
            .form-group{
                 width: 45%;
                 margin: 0;
-            } 
+                input{
+                    border-radius: 0px;
+                    color: $green;
+                    background-color: transparent;
+                    border-color: $yellow;
+                }
+            }     
+        }
+        input[type="submit"]{
+            @include buttons-colored($orange);
+            font-family: OpenSemiBold;
         }    
     }
 }

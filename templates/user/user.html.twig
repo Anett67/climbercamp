@@ -1,0 +1,27 @@
+ {% for user in users %}
+    <div class="cardd">
+        <!-- Photo de profil -->
+        <div class="img-cadre m-5">
+            {% if user.image %}
+                <img class="card-image" src="{{ asset('upload/users/' ~ user.image) }}" alt="">
+            {% else %}
+                <img class="card-image" src="{{ asset('upload/default.png') }}" alt="">
+            {% endif %}
+        </div>
+        <!-- Nom -->
+        <div class="card-title"><a href="{{ path('single-user',{'id' : user.id}) }}">{{ user.firstName }} {{ user.lastName }}</a></div>
+        <!-- Ville -->
+        <div class="card-text">
+            <div>{{ user.ville.nom }}</div>
+        </div>
+        <!-- Présentation -->
+        <div class="presentation m-2">
+            <p>{{ user.presentation }}</p>
+        </div>
+        <!-- Liens -->
+        <div class="buttons">
+            <a class="m-2 btn profil-button" href="{{ path('single-user',{'id' : user.id}) }}">Voir profile</a>
+            <a class="m-2 btn message-button" href="{{ path('conversation', {'id': user.id }) }}">Envoyer un message</a>
+        </div>
+    </div>
+{% endfor %}
