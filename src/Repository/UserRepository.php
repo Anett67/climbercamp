@@ -36,13 +36,31 @@ class UserRepository extends ServiceEntityRepository
                         ->setParameter(':lastname', '%' . $userSearch->getLastName() . '%');
         }
         
-        if($userSearch->getVille()){
-            $req = $req->andWhere('v.nom LIKE :ville')
-                        ->setParameter(':ville', '%' . $userSearch->getVille() . '%');
-        }  
-        
         return $req->getQuery()
                     ->getResult()
+        ;
+
+    }
+
+
+    public function findWithSearchWithPagination(UserSearch $userSearch){
+
+        $req = $this->createQueryBuilder('u')
+        ->innerJoin('u.ville', 'v')
+        ->addSelect('v');
+
+        if($userSearch->getFirstName()){
+            $req = $req->andWhere('u.firstName LIKE :firstname')
+                        ->setParameter(':firstname', '%' . $userSearch->getFirstName() . '%');
+        }
+
+        if($userSearch->getLastName()){
+            $req = $req->andWhere('u.lastName LIKE :lastname')
+                        ->setParameter(':lastname', '%' . $userSearch->getLastName() . '%');
+        }
+        
+        return $req->getQuery()
+                    //->getResult()
         ;
 
     }
@@ -61,6 +79,31 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByVilleWithPagination($ville){
+
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.ville', 'v')
+            ->addSelect('v')
+            ->andWhere('u.ville = :val')
+            ->setParameter('val', $ville)
+            ->orderBy('u.lastName', 'ASC')
+            //->setMaxResults(10)
+            ->getQuery()
+            //->getResult()
+        ;
+    }
+
+    public function findAllWithPagination(){
+
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.ville', 'v')
+            ->addSelect('v')
+            ->orderBy('u.lastName', 'ASC')
+            //->setMaxResults(10)
+            ->getQuery()
+            //->getResult()
+        ;
+    }
 
     // /**
     //  * @return User[] Returns an array of User objects
