@@ -184,32 +184,23 @@ class PostController extends AbstractController
         $user = $this->getUser();
         
         if($post->isLikedByUser($user)){
-            $like = $repository->findOneBy(['postedBy' => $user, 'post' => $post]);
             
+            $like = $repository->findOneBy(['postedBy' => $user, 'post' => $post]);
             $manager->remove($like);
             $manager->flush();
 
-            return $this->json([
-                'code' => 200,
-                'message' => 'Like supprimé',
-                'likes' => $repository->count(['post' => $post]) 
-            ], 200);
-
+        }else{
+            
+            $like = new PostLike();
+            $like->setPostedBy($user)
+                ->setPost($post);
+            $manager->persist($like);
+            $manager->flush();
         }
 
-        $like = new PostLike();
-        $like->setPostedBy($user)
-            ->setPost($post);
-
-        $manager->persist($like);
-        $manager->flush();
-        
         return $this->json([
-            'code' => 200,
-            'message' => 'Like ajouté',
             'likes' => $repository->count(['post' => $post]) 
         ], 200);
-    
     }
 
     /**

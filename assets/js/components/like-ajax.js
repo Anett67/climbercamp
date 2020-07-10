@@ -3,36 +3,31 @@ import $ from 'jquery';
 $(function(){
     
 
-    $('.like-button').click(function(e){
+    $('body').on('click', '.like-button', function(e){
 
-            var link = $(this);
-            var id = link.attr('id');
-            var count = $('span#count' + id);
-            var label = $('span.js-postLikes-label' + id);
-
-            e.preventDefault();
-
-            var url = $(this).attr('href');
-                    
-                if(label.hasClass('liked')){
-                    label.removeClass('liked');
-                    label.text('J\'aime');
-                }else{
-                    label.addClass('liked');
-                    label.text('Je n\'aime plus');
-                    
-                }
-            
-            $.post(
-                url,
-                {},
-                function(response){
-                    count.html(response.likes);
-                }
-
-            );
-
-       });
+        e.preventDefault();
+        
+        var link = $(this);
+        var id = link.attr('id');
+        var count = $('span#count' + id);
+        var label = $('span.js-postLikes-label' + id);
+        var url = $(this).attr('href');
+                
+        if(label.hasClass('liked')){
+            label.removeClass('liked');
+            label.text('J\'aime');
+        }else{
+            label.addClass('liked');
+            label.text('Je n\'aime plus');   
+        }
+    
+        $.post(
+            url,
+            function(response){
+                count.html(response.likes);
+            }
+        );
+    });
 
     $('body').on('click', '.commentLike-button',function(e){
 
