@@ -34,6 +34,7 @@
             <div class="col-md-10">
                 {{ form_row(form.presentation) }}
                 {{ form_row(form.ville) }}
+                <a href="{{ path('ville') }}" class="new-ville-link">Ajouter une ville</a>
                 {{ form_row(form.climbingCategorie) }}
                 {{ form_row(form.level) }} 
                 <h5>Rôle: {{ app.user.getRole }}</h4> 

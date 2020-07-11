@@ -9,8 +9,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VilleRepository")
- * @UniqueEntity(
- * fields={"nom" = "country"},
  * )
  */
 class Ville

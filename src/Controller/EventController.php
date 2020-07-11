@@ -94,24 +94,16 @@ class EventController extends AbstractController
 
     public function newEvent(Request $request, EntityManagerInterface $manager){
 
-        $eventInsert = new EventInsert();
-
-        $form = $this->createForm(EventInsertType::class, $eventInsert);
+        $event = new Event();
+        
+        $form = $this->createForm(EventType::class, $event);
 
         $form->handleRequest($request);
 
-        $event = new Event();
-
         if($form->isSubmitted()  && $form->isValid()){
             
-            $event->setTitle($eventInsert->getTitle())
-                ->setDescription($eventInsert->getDescription())
-                ->setEventDate($eventInsert->getEventDate())
-                ->setVille($eventInsert->getVille())
-                ->setPostedBy($this->getUser())
-                ->setLocation($eventInsert->getLocation())
-                ->setImageFile($eventInsert->getImageFile())
-                ;
+            $event->setPostedBy($this->getUser());
+            $event->setUpdatedAt(new DateTime('now'));
 
             $manager->persist($event);
             $manager->flush();
@@ -168,9 +160,6 @@ class EventController extends AbstractController
      */
     public function singleEvent(Event $event, EventCommentRepository $repo, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator)
     {     
-        //$comments = $repo->findCommentsPagination($event);
-
-        //$comments = $repo->findBy(['event' => $event], ['postedAt' => 'DESC']);
 
         $comments = $paginator->paginate(
             $repo->findCommentsPagination($event), /* query NOT result */
@@ -256,28 +245,14 @@ class EventController extends AbstractController
 
     public function updatePost(Event $event, EntityManagerInterface $manager, Request $request):Response
     {   
-        $eventInsert = new EventInsert();
 
-        $eventInsert->setTitle($event->getTitle())
-                    ->setDescription($event->getDescription())
-                    ->setEventDate($event->getEventDate())
-                    ->setLocation($event->getLocation())
-                    ->setVille($event->getVille())
-                    ->setImage($event->getImage());
-
-       $form = $this->createForm(EventInsertType::class, $eventInsert,  [
+       $form = $this->createForm(EventType::class, $event,  [
            'action' => $this->generateUrl('event-update', [ 'id'=> $event->getId()])
        ]);
 
        $form->handleRequest($request);
 
        if($form->isSubmitted() && $form->isValid()){
-            $event->setTitle($eventInsert->getTitle())
-                    ->setDescription($eventInsert->getDescription())
-                    ->setEventDate($eventInsert->getEventDate())
-                    ->setLocation($eventInsert->getLocation())
-                    ->setVille($eventInsert->getVille())
-                    ->setImageFile($eventInsert->getImageFile());
 
            $manager->persist($event);
            $manager->flush();

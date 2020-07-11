@@ -14,9 +14,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
  *  @Vich\Uploadable
- * @UniqueEntity(
- * fields={"interestedUsers"},
- * )
  */
 class Event
 {
@@ -152,6 +149,11 @@ class Event
     public function getImageFile(): ?File
     {
         return $this->imageFile;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $createdAt)
+    {
+        $this->updatedAt = $createdAt;
     }
 
     public function getVille(): ?Ville
