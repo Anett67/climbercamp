@@ -16,6 +16,7 @@ import 'bootstrap';
 import '../js/components/like-ajax';
 import '../js/components/update';
 import '../js/components/infinite-scroll';
+import '../js/components/navbar';
 import '../js/filereader/filereader';
 
 require('@fortawesome/fontawesome-free/css/all.min.css');

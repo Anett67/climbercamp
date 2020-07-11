@@ -1,9 +1,30 @@
+@media all and (max-width: 991px){
+    header{
+        nav{
+            .menu-block{
+                ul#menu-list{
+                    display: none;
+                }
+                .burger{
+                    display: block;
+                    margin-right: 3vw;
+                    margin-top: 0.5vw;
+                }
+            }
+        }
+        h1#main-title{
+            font-size: 30px;
+        }
+    }
+    
+}
+
 @media (max-width: 976px){
     .title-block{
         order: 1;
         height: 250px;
         h1{
-            font-size: 3rem!important;
+            font-size: 30px;
         }
     }
 
@@ -13,18 +34,13 @@
 }
 
 @media (max-width: 575px){
-    .title-block{
-        height: 130px;
-        margin: 30px 0px;
-        h1{
-            font-size: 2rem;
+    header{
+        h1#main-title{
+            font-size: 24px;
         }
-    }
-    #logo{
-        width: 250px;
-    }
-    h1{
-        font-size: 2rem;
+        #logo{
+            max-width: 200px;
+        }
     }
 }
 
