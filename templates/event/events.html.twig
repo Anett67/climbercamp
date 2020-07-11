@@ -10,8 +10,10 @@
         {% else %}
              Évènements qui intéressent {{ user.firstName }}
         {% endif %}
-    {% elseif ville is defined %}
+    {% elseif ville %}
         Évènements organisés à {{ ville.nom }}
+    {% else %}
+        Évènements
     {% endif %}
 
 

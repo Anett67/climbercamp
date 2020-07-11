@@ -6,8 +6,10 @@
     
     {% if saved is defined and saved %}    
         Vos salles préférées
-    {% else %}
+    {% elseif app.user.ville %}
         Salles d'escalade à {{ app.user.ville.nom }}
+    {% else %}
+        Salles d'escalade
     {% endif %}
         
 {% endblock %}

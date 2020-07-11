@@ -21,30 +21,18 @@ class ClimbingClubRepository extends ServiceEntityRepository
         parent::__construct($registry, ClimbingClub::class);
     }
 
-    public function findWithSearch(ClubSearch $clubSearch){
-
-        $req = $this->createQueryBuilder('c')
+    public function findAllWithPagination(){
+        
+        return $this->createQueryBuilder('c')
             ->innerJoin('c.ville', 'v')
             ->addSelect('v')
             ->leftJoin('c.climbingCategories', 'cc')
             ->addSelect('cc')
             ->orderBy('c.id', 'ASC')
+            //->setMaxResults(10)
+            ->getQuery()
+            //->getResult()
         ;
-
-        if($clubSearch->getName()){
-            $req = $req->andWhere('c.nom LIKE :nom')
-            ->setParameter(':nom', '%' . $clubSearch->getName() . '%');
-        }
-
-        if($clubSearch->getVille()){
-            $req = $req->andWhere('v.nom LIKE :ville')
-            ->setParameter(':ville', '%' . $clubSearch->getVille() . '%');
-        }
-
-        return $req->getQuery()
-                    //->getResult()
-    ;
-
     }
 
     public function findByVille($ville): Query{
@@ -57,7 +45,7 @@ class ClimbingClubRepository extends ServiceEntityRepository
             ->andWhere('c.ville = :val')
             ->setParameter('val', $ville)
             ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            //->setMaxResults(10)
             ->getQuery()
             //->getResult()
         ;
@@ -74,7 +62,7 @@ class ClimbingClubRepository extends ServiceEntityRepository
             ->andWhere('c IN (:val)')
             ->setParameter('val', $clubs)
             ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            //->setMaxResults(10)
             ->getQuery()
             //->getResult()
         ;

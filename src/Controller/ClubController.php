@@ -25,13 +25,19 @@ class ClubController extends AbstractController
 
         $ville = $this->getUser()->getVille();
 
-        $clubs = $repository->findByVille($ville);
-
-        $clubs = $paginator->paginate(
-            $repository->findByVille($ville), /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            3 /*limit per page*/
-        );
+        if($ville){
+            $clubs = $paginator->paginate(
+                $repository->findByVille($ville), /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                3 /*limit per page*/
+            );
+        }else{
+            $clubs = $paginator->paginate(
+                $repository->findAllWithPagination(), /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                3 /*limit per page*/
+            );
+        }
 
         return $this->render('club/clubs.html.twig', [
             'clubs' => $clubs,
