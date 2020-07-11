@@ -73,3 +73,15 @@
         @include buttons(#c82333);
     }
 }
+.new-ville-link{
+    color: $green;
+    text-decoration: underline;
+    &:hover{
+        color: $green;
+        font-family: OpenSemiBold;
+    }
+}
+
+.new-ville-title{
+    color: $yellow;
+}

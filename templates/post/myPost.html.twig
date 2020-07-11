@@ -32,7 +32,7 @@
     <a class="update-link" href="{{ path('post-update', {'id': post.id}) }}">
         <i class="fas fa-edit m-3"></i>
     </a>
-    <a href="{{ path('post-delete', {'id': post.id}) }}" onclick="return confirm('Confirmer la suppression?')">
+    <a href="{{ path('post-delete', {'id': post.id}) }}">
         <form method="POST" style="display:inline-block" action="{{ path('post-delete', {'id': post.id}) }}">
             <input type="hidden" name="_method" value="delete">
             <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ post.id) }}">

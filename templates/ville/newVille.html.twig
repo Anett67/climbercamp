@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une ville{% endblock %}
+
+{% block pageTitle %}Ajouter une ville{% endblock %}
+
+{% block body %}
+
+{% include 'flashMessages.html.twig' %}
+
+<div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
+    <div class="profil-block col-10 col-lg-9 justify-content-center p-lg-3 pt-3 pb-3">
+        <h2 class="new-ville-title">Ajouter une ville</h2>  
+        {{ form_start(villeForm) }}
+            {{ form_widget(villeForm) }}
+            <input type="submit" class="btn submit-button w-30" value="Enregistrer">
+        {{ form_end(villeForm) }}
+    </div>
+</div>
+
+{# <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
+    <div class="profil-block col-10 col-lg-9 justify-content-center p-lg-3 pt-3 pb-3">
+    <h2 class="new-ville-title">Ajouter un pays</h2>  
+        {{ form_start(countryForm) }}
+            {{ form_widget(countryForm) }}
+            <input type="submit" class="btn submit-button w-30" value="Enregistrer">
+        {{ form_end(countryForm) }}
+    </div>
+</div> #}
+
+{% endblock %}
