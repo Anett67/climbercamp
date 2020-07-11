@@ -48,11 +48,20 @@ class EventController extends AbstractController
     {
         $ville = $this->getUser()->getVille();
 
-        $events = $paginator->paginate(
-            $repository->findByVille($ville), /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            5 /*limit per page*/
-        );
+        if($ville){
+           $events = $paginator->paginate(
+                $repository->findByVille($ville), /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                5 /*limit per page*/
+            ); 
+        }else{
+            $events = $paginator->paginate(
+                $repository->findAllWithPagination(), /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                5 /*limit per page*/
+            );  
+        }
+        
 
         $eventSearch = new EventSearch();
 

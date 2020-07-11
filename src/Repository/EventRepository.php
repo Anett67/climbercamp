@@ -50,6 +50,27 @@ class EventRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findAllWithPagination(){
+        
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.eventComments', 'ec')
+            ->addSelect('ec')
+            ->innerJoin('e.ville', 'v')
+            ->addSelect('v')
+            ->leftJoin('e.interestedUsers', 'u')
+            ->addSelect('u')
+            ->innerJoin('e.postedBy', 'pb')
+            ->addSelect('pb')
+            ->andWhere('e.eventDate >= :date')
+            ->setParameter(':date', new DateTime('now'))
+            ->orderBy('e.eventDate', 'ASC')
+            //->setMaxResults(10)
+            ->getQuery()
+            //->getResult()
+        ;
+
+    }
+
     public function findByVille($ville):Query{
 
         return $this->createQueryBuilder('e')
