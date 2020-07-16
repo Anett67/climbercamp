@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\ClubSearch;
 use App\Entity\ClimbingClub;
-use App\Form\ClubSearchType;
 use App\Form\ClubType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ClimbingClubRepository;
@@ -13,7 +11,6 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\VarDumper\Dumper\CliDumper;
 
 class ClubController extends AbstractController
 {
@@ -22,7 +19,6 @@ class ClubController extends AbstractController
      */
     public function localClubs(ClimbingClubRepository $repository, Request $request, PaginatorInterface $paginator)
     {
-
         $ville = $this->getUser()->getVille();
 
         if($ville){
@@ -117,7 +113,7 @@ class ClubController extends AbstractController
     }
 
     /**
-     * @Route("/club/save/{id}", name="club-save")
+     * @Route("/club/save/{id}", name="club-save", requirements={"id":"\d+"})
      */
 
     public function saveClub(ClimbingClub $club, EntityManagerInterface $manager){
@@ -134,7 +130,7 @@ class ClubController extends AbstractController
     }
 
     /**
-     * @Route("/club/remove/{id}", name="club-remove")
+     * @Route("/club/remove/{id}", name="club-remove", requirements={"id":"\d+"})
      */
 
     public function removeClub(ClimbingClub $club, EntityManagerInterface $manager){
@@ -154,7 +150,7 @@ class ClubController extends AbstractController
     }
 
      /**
-     * @Route("/profil/club/{id}/delete", name="club-delete")
+     * @Route("/profil/club/{id}/delete", name="club-delete", requirements={"id":"\d+"}, methods="delete")
      */
 
     public function clubDelete(ClimbingClub $club, EntityManagerInterface $manager, Request $request){
@@ -169,7 +165,7 @@ class ClubController extends AbstractController
     }
 
     /**
-     * @Route("/profil/club/{id}/update", name="club-update")
+     * @Route("/profil/club/{id}/update", name="club-update", requirements={"id":"\d+"})
      */
 
     public function clubUpdate(ClimbingClub $club, EntityManagerInterface $manager, Request $request){

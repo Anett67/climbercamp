@@ -4,7 +4,7 @@
 
 {% block pageTitle %}
 
-    {% if ville %}
+    {% if ville is defined and ville %}
         Grimpeurs à {{ ville.nom }}
     {% elseif likes is defined and likes %}
         Ceux qui aiment cette publication

@@ -33,7 +33,13 @@
                     {% else %}
                         href="{{ path('eventcommentreply-delete', {'id': reply.id}) }}"
                     {% endif %}
-                    class="delete-reply"><i class="fas fa-trash-alt ml-2 ml-md-3"></i></a>
+                    class="delete-post">
+                        <form method="POST" style="display:inline-block" {% if reply.postComment is defined %} action="{{ path('postcommentreply-delete', {'id': reply.id}) }}" {% else %} action="{{ path('eventcommentreply-delete', {'id': reply.id}) }}{% endif %}">
+                            <input type="hidden" name="_method" value="delete">
+                            <input type="hidden" name="_token" value="{{ csrf_token('reply_delete' ~ reply.id) }}">
+                            <button type="submit" class ="comment-delete-btn"><i class="fas fa-trash-alt ml-2 ml-md-3"></i></button> 
+                        </form>
+                    </a>
                 {% endif %}
             </div>
         

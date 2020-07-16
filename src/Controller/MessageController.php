@@ -18,7 +18,7 @@ class MessageController extends AbstractController
     /**
      * @Route("/messages", name="messages")
      */
-    public function index(MessageRepository $repository, UserRepository $userRepo)
+    public function index(MessageRepository $repository)
     {   
         $user = $this->getUser();
      
@@ -49,7 +49,7 @@ class MessageController extends AbstractController
     }
 
     /**
-     * @Route("/conversation/{id}", name="conversation")
+     * @Route("/conversation/{id}", name="conversation", requirements={"id":"\d+"})
      */
 
      public function conversation(User $partner, MessageRepository $repository, EntityManagerInterface $manager, Request $request){
@@ -101,7 +101,7 @@ class MessageController extends AbstractController
      }
 
     /**
-    * @Route("/message/seen/{id}", name="message-seen")
+    * @Route("/message/seen/{id}", name="message-seen", requirements={"id":"\d+"})
     */
 
     public function setMessageSeen(Message $message, EntityManagerInterface $manager){

@@ -26,13 +26,11 @@
                     {% if comment.postedBy.id == app.user.id or is_granted('ROLE_SUPERADMIN') %}
                         <div class="col-6 col-md-4 text-right">
                             <a href="{{ path('eventcomment-delete', {'id': comment.id}) }}" onclick="return confirm('Confirmer la suppression?')">
-                                <i class="fas fa-trash-alt m-2 m-md-3">
-                                    <form method="POST" style="display:inline-block" action="{{ path('eventcomment-delete', {'id': comment.id}) }}">
-                                        <input type="hidden" name="_method" value="delete">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ comment.id) }}">
-                                        <input type="submit" value="" > 
-                                    </form>
-                                </i>
+                                <form method="POST" style="display:inline-block" action="{{ path('eventcomment-delete', {'id': comment.id}) }}">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('comment_delete' ~ comment.id) }}">
+                                    <button type="submit" class ="comment-delete-btn"><i class="fas fa-trash-alt m-2 m-md-3"></i></button> 
+                                </form>
                             </a>
                         </div>
                     {% endif %}

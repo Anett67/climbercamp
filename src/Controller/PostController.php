@@ -7,9 +7,7 @@ use App\Entity\Post;
 use App\Entity\User;
 use App\Form\PostType;
 use App\Entity\PostLike;
-use App\Entity\SearchPost;
 use App\Entity\PostComment;
-use App\Form\SearchPostType;
 use App\Form\PostCommentType;
 use App\Repository\PostRepository;
 use App\Repository\PostLikeRepository;
@@ -48,13 +46,11 @@ class PostController extends AbstractController
             );
         }
 
-        //La dernière page de la pagination pour savoir où le scroll infini doit s'arreter
+        //Last page of pagination where the infinite scroll must stop
         $lastPage = ceil($totalPosts/$postsPerPage);
         
         $post = new Post();
-
         $form = $this->createForm(PostType::class, $post);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
@@ -63,7 +59,6 @@ class PostController extends AbstractController
             $manager->flush();
 
             $this->addFlash('success', 'Votre publication a été enregistré.');
-
             return $this->redirectToRoute('local-posts');
         }
 
@@ -77,7 +72,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/posts/{page}", name="scroll-post")
+     * @Route("/posts/{page}", name="scroll-post", requirements={"page":"\d+"})
      */
 
     public function scroll($page, PaginatorInterface $paginator, PostRepository $repository, Request $request): JsonResponse
@@ -105,7 +100,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/{id}", name="single-post")
+     * @Route("/post/{id}", name="single-post", requirements={"id":"\d+"})
      */
     
     public function singlePost(Post $post, PostCommentRepository $repository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator)
@@ -141,7 +136,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/user/posts/{id}", name="user-posts")
+     * @Route("/user/posts/{id}", name="user-posts", requirements={"id":"\d+"})
      */
     public function userPosts(User $user)
     {   
@@ -156,7 +151,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/likes/{id}", name="post-likes")
+     * @Route("/post/likes/{id}", name="post-likes", requirements={"id":"\d+"})
      */
     public function postLikes(Post $post)
     {   
@@ -176,7 +171,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/like/{id}", name="post-like")
+     * @Route("/post/like/{id}", name="post-like", requirements={"id":"\d+"})
      */
 
     public function like(Post $post, EntityManagerInterface $manager, PostLikeRepository $repository): Response
@@ -207,7 +202,7 @@ class PostController extends AbstractController
      * @Route("/profil/posts", name="my-posts")
      */
 
-    public function myPosts(PostRepository $repository, EntityManagerInterface $manager, Request $request):Response
+    public function myPosts(PostRepository $repository):Response
     {
 
         $user = $this->getUser();
@@ -221,7 +216,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/profil/post/{id}/delete", name="post-delete", methods="delete")
+     * @Route("/profil/post/{id}/delete", name="post-delete", methods="delete", requirements={"id":"\d+"})
      */
 
     public function postDelete(Post $post, EntityManagerInterface $manager, Request $request){
@@ -236,7 +231,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/profil/post/{id}/update", name="post-update")
+     * @Route("/profil/post/{id}/update", name="post-update", requirements={"id":"\d+"})
      */
 
      public function updatePost(Post $post, EntityManagerInterface $manager, Request $request):Response
@@ -268,7 +263,7 @@ class PostController extends AbstractController
      }
 
      /**
-     * @Route("/profil/post/json/{id}", name="post-json")
+     * @Route("/profil/post/json/{id}", name="post-json", requirements={"id":"\d+"})
      */
 
      public function jsonPost(Post $post):Response

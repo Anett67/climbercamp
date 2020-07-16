@@ -6,10 +6,8 @@ use DateTime;
 use App\Entity\User;
 use App\Entity\Event;
 use App\Form\EventType;
-use App\Entity\EventInsert;
 use App\Entity\EventSearch;
 use App\Entity\EventComment;
-use App\Form\EventInsertType;
 use App\Form\EventSearchType;
 use App\Form\EventCommentType;
 use App\Repository\EventRepository;
@@ -25,7 +23,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class EventController extends AbstractController
 {
     /**
-     * @Route("/user/events/{id}", name="saved-events")
+     * @Route("/user/events/{id}", name="saved-events", requirements={"id":"\d+"})
      */
     public function savedEvents(User $user, EventRepository $repository, PaginatorInterface $paginator, Request $request)
     {
@@ -121,7 +119,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/save/{id}", name="event-save")
+     * @Route("/event/save/{id}", name="event-save", requirements={"id":"\d+"})
      */
 
     public function saveEvent(Event $event, EntityManagerInterface $manager){
@@ -138,7 +136,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/remove/{id}", name="event-remove")
+     * @Route("/event/remove/{id}", name="event-remove", requirements={"id":"\d+"})
      */
 
     public function removeEvent(Event $event, EntityManagerInterface $manager){
@@ -156,7 +154,7 @@ class EventController extends AbstractController
 
 
     /**
-     * @Route("/event/{id}", name="single-event")
+     * @Route("/event/{id}", name="single-event", requirements={"id":"\d+"})
      */
     public function singleEvent(Event $event, EventCommentRepository $repo, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator)
     {     
@@ -192,7 +190,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/users/{id}", name="event-users")
+     * @Route("/event/users/{id}", name="event-users", requirements={"id":"\d+"})
      */
     public function eventUsers(Event $event)
     {
@@ -225,7 +223,7 @@ class EventController extends AbstractController
      }
 
      /**
-     * @Route("/profil/event/{id}/delete", name="event-delete")
+     * @Route("/profil/event/{id}/delete", name="event-delete", requirements={"id":"\d+"}, methods="delete")
      */
 
     public function postDelete(Event $event, EntityManagerInterface $manager, Request $request){
@@ -240,7 +238,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/profil/event/{id}/update", name="event-update")
+     * @Route("/profil/event/{id}/update", name="event-update", requirements={"id":"\d+"})
      */
 
     public function updatePost(Event $event, EntityManagerInterface $manager, Request $request):Response
@@ -274,7 +272,7 @@ class EventController extends AbstractController
     }
 
     /**
-    * @Route("/profil/event/json/{id}", name="event-json")
+    * @Route("/profil/event/json/{id}", name="event-json", requirements={"id":"\d+"})
     */
 
     public function jsonEvent(Event $event):Response
