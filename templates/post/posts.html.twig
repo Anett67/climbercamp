@@ -43,8 +43,10 @@
              
      {% endif %}
 
-     <!-- Last page of pagination -->
-     <input class="posts-count" type="hidden" value="{{ lastPage }}">
+    {% if lastPage is defined %}
+        <!-- Last page of pagination -->
+        <input class="posts-count" type="hidden" value="{{ lastPage }}">
+    {% endif %}
 
      {% if posts|length > 0 %}
 

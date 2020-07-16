@@ -37,8 +37,10 @@
 
     {% endif %}
 
-    <!-- La dernière page de la pagination pour savoir où le scroll infini s'arrête -->
-    <input class="users-count" type="hidden" value="{{ lastUsersPage }}">
+    {% if lastUsersPage is defined %}
+        <!-- La dernière page de la pagination pour savoir où le scroll infini s'arrête -->
+        <input class="users-count" type="hidden" value="{{ lastUsersPage }}">
+    {% endif %}
         
         <div class="row justify-content-center justify-content-lg-end">
             <div class="col-10 mt-3 col-lg-9 p-0">
