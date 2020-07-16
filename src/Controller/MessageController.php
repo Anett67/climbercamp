@@ -12,13 +12,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 class MessageController extends AbstractController
 {
     /**
      * @Route("/messages", name="messages")
      */
-    public function index(MessageRepository $repository)
+    public function index(MessageRepository $repository): Response
     {   
         $user = $this->getUser();
      
@@ -52,7 +53,8 @@ class MessageController extends AbstractController
      * @Route("/conversation/{id}", name="conversation", requirements={"id":"\d+"})
      */
 
-     public function conversation(User $partner, MessageRepository $repository, EntityManagerInterface $manager, Request $request){
+     public function conversation(User $partner, MessageRepository $repository, EntityManagerInterface $manager, Request $request): Response
+     {
 
         $user = $this->getUser();
 
@@ -104,7 +106,8 @@ class MessageController extends AbstractController
     * @Route("/message/seen/{id}", name="message-seen", requirements={"id":"\d+"})
     */
 
-    public function setMessageSeen(Message $message, EntityManagerInterface $manager){
+    public function setMessageSeen(Message $message, EntityManagerInterface $manager): Response
+    {
 
         $message->setSeen(true);
         $manager->persist($message);

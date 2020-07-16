@@ -25,7 +25,7 @@ class EventController extends AbstractController
     /**
      * @Route("/user/events/{id}", name="saved-events", requirements={"id":"\d+"})
      */
-    public function savedEvents(User $user, EventRepository $repository, PaginatorInterface $paginator, Request $request)
+    public function savedEvents(User $user, EventRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         $events = $paginator->paginate(
             $repository->getFutureSavedEvents($user), /* query NOT result */
@@ -42,7 +42,7 @@ class EventController extends AbstractController
     /**
      * @Route("/local-events", name="local-events")
      */
-    public function localEvents(EventRepository $repository, Request $request, PaginatorInterface $paginator)
+    public function localEvents(EventRepository $repository, Request $request, PaginatorInterface $paginator): Response
     {
         $ville = $this->getUser()->getVille();
 
@@ -90,7 +90,8 @@ class EventController extends AbstractController
      * @Route("/event/new", name="event-new")
      */
 
-    public function newEvent(Request $request, EntityManagerInterface $manager){
+    public function newEvent(Request $request, EntityManagerInterface $manager): Response
+    {
 
         $event = new Event();
         
@@ -122,7 +123,8 @@ class EventController extends AbstractController
      * @Route("/event/save/{id}", name="event-save", requirements={"id":"\d+"})
      */
 
-    public function saveEvent(Event $event, EntityManagerInterface $manager){
+    public function saveEvent(Event $event, EntityManagerInterface $manager): Response
+    {
 
         $event->addInterestedUser($this->getUser());
 
@@ -139,7 +141,8 @@ class EventController extends AbstractController
      * @Route("/event/remove/{id}", name="event-remove", requirements={"id":"\d+"})
      */
 
-    public function removeEvent(Event $event, EntityManagerInterface $manager){
+    public function removeEvent(Event $event, EntityManagerInterface $manager): Response
+    {
 
         $event->removeInterestedUser($this->getUser());
 
@@ -156,7 +159,7 @@ class EventController extends AbstractController
     /**
      * @Route("/event/{id}", name="single-event", requirements={"id":"\d+"})
      */
-    public function singleEvent(Event $event, EventCommentRepository $repo, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator)
+    public function singleEvent(Event $event, EventCommentRepository $repo, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator): Response
     {     
 
         $comments = $paginator->paginate(
@@ -192,7 +195,7 @@ class EventController extends AbstractController
     /**
      * @Route("/event/users/{id}", name="event-users", requirements={"id":"\d+"})
      */
-    public function eventUsers(Event $event)
+    public function eventUsers(Event $event): Response
     {
         $users = $event->getInterestedUsers();
 
@@ -206,7 +209,8 @@ class EventController extends AbstractController
      * @Route("/profil/events", name="my-events")
      */
 
-     public function myEvents(EventRepository $repository, Request $request, PaginatorInterface $paginator){
+     public function myEvents(EventRepository $repository, Request $request, PaginatorInterface $paginator): Response
+     {
 
         $user = $this->getUser();
 
@@ -226,7 +230,8 @@ class EventController extends AbstractController
      * @Route("/profil/event/{id}/delete", name="event-delete", requirements={"id":"\d+"}, methods="delete")
      */
 
-    public function postDelete(Event $event, EntityManagerInterface $manager, Request $request){
+    public function postDelete(Event $event, EntityManagerInterface $manager, Request $request): Response
+    {
 
         if($this->isCsrfTokenValid('SUP' . $event->getId(), $request->get('_token'))){
             $manager->remove($event);

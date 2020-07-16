@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\Resource_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProfilController extends AbstractController
@@ -13,7 +15,7 @@ class ProfilController extends AbstractController
     /**
      * @Route("/profil", name="profil")
      */
-    public function index(EntityManagerInterface $manager, Request $request)
+    public function index(EntityManagerInterface $manager, Request $request): Response
     {
         $user = $this->getUser();
 

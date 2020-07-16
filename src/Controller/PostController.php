@@ -25,7 +25,7 @@ class PostController extends AbstractController
     /**
      * @Route("/", name="local-posts")
      */
-    public function localPosts(PostRepository $repository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator)
+    public function localPosts(PostRepository $repository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator): Response
     {   
         $ville = $this->getUser()->getVille();
         $postsPerPage = 5;
@@ -103,7 +103,7 @@ class PostController extends AbstractController
      * @Route("/post/{id}", name="single-post", requirements={"id":"\d+"})
      */
     
-    public function singlePost(Post $post, PostCommentRepository $repository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator)
+    public function singlePost(Post $post, PostCommentRepository $repository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator): Response
     {   
         $comments = $paginator->paginate(
             $repository->findByPostWithPagination($post), /* query NOT result */
@@ -138,7 +138,7 @@ class PostController extends AbstractController
     /**
      * @Route("/user/posts/{id}", name="user-posts", requirements={"id":"\d+"})
      */
-    public function userPosts(User $user)
+    public function userPosts(User $user): Response
     {   
         
         $posts = $user->getPosts();
@@ -153,7 +153,7 @@ class PostController extends AbstractController
     /**
      * @Route("/post/likes/{id}", name="post-likes", requirements={"id":"\d+"})
      */
-    public function postLikes(Post $post)
+    public function postLikes(Post $post): Response
     {   
         $postLikes = $post->getPostLikes();
 
@@ -219,7 +219,8 @@ class PostController extends AbstractController
      * @Route("/profil/post/{id}/delete", name="post-delete", methods="delete", requirements={"id":"\d+"})
      */
 
-    public function postDelete(Post $post, EntityManagerInterface $manager, Request $request){
+    public function postDelete(Post $post, EntityManagerInterface $manager, Request $request): Response
+    {
 
         if($this->isCsrfTokenValid('SUP' . $post->getId(), $request->get('_token'))){
             $manager->remove($post);

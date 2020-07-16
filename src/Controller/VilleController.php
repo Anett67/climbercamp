@@ -9,13 +9,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 class VilleController extends AbstractController
 {
     /**
      * @Route("/ville", name="ville")
      */
-    public function index(Request $request, EntityManagerInterface $manager)
+    public function index(Request $request, EntityManagerInterface $manager): Response
     {   
         $ville = new Ville();
         $villeForm = $this->createForm(VilleType::class, $ville);
