@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VilleRepository")
- * )
+ * @UniqueEntity(fields={"nom"}, message="Cette ville est déjà enregistré à la base de données")
  */
 class Ville
 {
