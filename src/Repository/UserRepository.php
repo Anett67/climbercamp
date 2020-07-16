@@ -22,9 +22,9 @@ class UserRepository extends ServiceEntityRepository
 
     public function findWithSearch(UserSearch $userSearch){
 
-        $req = $this->createQueryBuilder('u')
-        ->innerJoin('u.ville', 'v')
-        ->addSelect('v');
+        $req = $this->createQueryBuilder('u');
+        // ->innerJoin('u.ville', 'v')
+        // ->addSelect('v');
 
         if($userSearch->getFirstName()){
             $req = $req->andWhere('u.firstName LIKE :firstname')
@@ -45,9 +45,7 @@ class UserRepository extends ServiceEntityRepository
 
     public function findWithSearchWithPagination(UserSearch $userSearch){
 
-        $req = $this->createQueryBuilder('u')
-        ->innerJoin('u.ville', 'v')
-        ->addSelect('v');
+        $req = $this->createQueryBuilder('u');
 
         if($userSearch->getFirstName()){
             $req = $req->andWhere('u.firstName LIKE :firstname')

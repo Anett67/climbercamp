@@ -11,9 +11,11 @@
         <!-- Nom -->
         <div class="card-title"><a href="{{ path('single-user',{'id' : user.id}) }}">{{ user.firstName }} {{ user.lastName }}</a></div>
         <!-- Ville -->
-        <div class="card-text">
-            <div>{{ user.ville.nom }}</div>
-        </div>
+        {% if user.ville %}
+            <div class="card-text">
+                <div>{{ user.ville.nom }}</div>
+            </div>
+        {% endif %}
         <!-- Présentation -->
         <div class="presentation m-2">
             <p>{{ user.presentation }}</p>
