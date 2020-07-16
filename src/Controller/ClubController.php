@@ -71,6 +71,8 @@ class ClubController extends AbstractController
      * Page to create a new club
      * 
      * @Route("/clubs/new", name="club-new")
+     * 
+     * @IsGranted("ROLE_ADMIN")
      */ 
     
     public function createClub(EntityManagerInterface $manager, Request $request): Response
@@ -192,6 +194,8 @@ class ClubController extends AbstractController
      * Update a climbing club
      * 
      * @Route("/profil/club/{id}/update", name="club-update", requirements={"id":"\d+"})
+     * 
+     * @IsGranted("ROLE_ADMIN")
      */
 
     public function clubUpdate(ClimbingClub $club, EntityManagerInterface $manager, Request $request): Response
