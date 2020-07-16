@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\Response;
 class UserController extends AbstractController
 {
     /**
+     * Shows local users or all users if the current user does not have a town defined
+     * 
      * @Route("/local-users", name="local-users")
      */
     public function localUsers(UserRepository $repository, Request $request, PaginatorInterface $paginator): Response
@@ -76,6 +78,8 @@ class UserController extends AbstractController
     }
 
     /**
+     * The action that loads more users if the current user scrolls on the bottom of the page
+     * 
      * @Route("/users/{page}", name="scroll-user", requirements={"page":"\d+"})
      */
 
@@ -104,6 +108,8 @@ class UserController extends AbstractController
     }
 
     /**
+     * The profil of a user
+     * 
      * @Route("/user/{id}", name="single-user", requirements={"id":"\d+"})
      */
     public function singleUser(User $user, EntityManagerInterface $manager, Request $request): Response

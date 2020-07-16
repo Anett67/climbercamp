@@ -23,6 +23,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class EventController extends AbstractController
 {
     /**
+     * Shows the events saved by the current user
+     * 
      * @Route("/user/events/{id}", name="saved-events", requirements={"id":"\d+"})
      */
     public function savedEvents(User $user, EventRepository $repository, PaginatorInterface $paginator, Request $request): Response
@@ -40,6 +42,8 @@ class EventController extends AbstractController
     }
 
     /**
+     * Shows local events or all events if the user has not defined his town
+     * 
      * @Route("/local-events", name="local-events")
      */
     public function localEvents(EventRepository $repository, Request $request, PaginatorInterface $paginator): Response
@@ -87,6 +91,8 @@ class EventController extends AbstractController
     }
 
     /**
+     * Creation of a new event
+     * 
      * @Route("/event/new", name="event-new")
      */
 
@@ -120,6 +126,8 @@ class EventController extends AbstractController
     }
 
     /**
+     * The action to save an event to the users "interesting events" list
+     * 
      * @Route("/event/save/{id}", name="event-save", requirements={"id":"\d+"})
      */
 
@@ -138,6 +146,8 @@ class EventController extends AbstractController
     }
 
     /**
+     * Remove an event from the users list
+     * 
      * @Route("/event/remove/{id}", name="event-remove", requirements={"id":"\d+"})
      */
 
@@ -157,6 +167,8 @@ class EventController extends AbstractController
 
 
     /**
+     * Shows an event with its comments
+     * 
      * @Route("/event/{id}", name="single-event", requirements={"id":"\d+"})
      */
     public function singleEvent(Event $event, EventCommentRepository $repo, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator): Response
@@ -193,6 +205,8 @@ class EventController extends AbstractController
     }
 
     /**
+     * Shows users interested in the event
+     * 
      * @Route("/event/users/{id}", name="event-users", requirements={"id":"\d+"})
      */
     public function eventUsers(Event $event): Response
@@ -206,6 +220,8 @@ class EventController extends AbstractController
     }
 
     /**
+     * Shows events created by the current user
+     * 
      * @Route("/profil/events", name="my-events")
      */
 
@@ -227,6 +243,8 @@ class EventController extends AbstractController
      }
 
      /**
+      * Delete an event on "My events" page
+      *
      * @Route("/profil/event/{id}/delete", name="event-delete", requirements={"id":"\d+"}, methods="delete")
      */
 
@@ -243,6 +261,8 @@ class EventController extends AbstractController
     }
 
     /**
+     * Update an event on "My events" page
+     * 
      * @Route("/profil/event/{id}/update", name="event-update", requirements={"id":"\d+"})
      */
 
@@ -277,6 +297,8 @@ class EventController extends AbstractController
     }
 
     /**
+     * Load the template of an event on "My events" page
+     * 
     * @Route("/profil/event/json/{id}", name="event-json", requirements={"id":"\d+"})
     */
 
