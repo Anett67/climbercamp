@@ -18,30 +18,26 @@
         
         <!-- Lien de modification et suppression si l'utilisateur connecté est l'auteur du commentaire -->
         
-            <div class="row justify-content-end comment-icons comment-icons no-gutters">
-                {% if comment.postedBy.id == app.user.id %}
-                    <div class="col-6">
-                        <a class="update-link" href="{{ path('post-comment-update', {'id': comment.id}) }}">
-                            <i class="fas fa-edit m-3"></i>
-                        </a>
-                    </div>
-                {% endif %}
-                {% if comment.postedBy.id == app.user.id or is_granted('ROLE_SUPERADMIN') %}    
-                    <div class="col-6 col-md-4 text-right">
-                        <a href="{{ path('postcomment-delete', {'id': comment.id}) }}" onclick="return confirm('Confirmer la suppression?')">
-                            <i class="fas fa-trash-alt m-3">
-                                <form method="POST" style="display:inline-block" action="{{ path('postcomment-delete', {'id': comment.id}) }}">
-                                    <input type="hidden" name="_method" value="delete">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ comment.id) }}">
-                                    <input type="submit" value="" > 
-                                </form>
-                            </i>
-                        </a>
-                    </div>
-                {% endif %}
-            </div>
-        
-    
+        <div class="row justify-content-end comment-icons comment-icons no-gutters">
+            {% if comment.postedBy.id == app.user.id %}
+                <div class="col-6">
+                    <a class="update-link" href="{{ path('post-comment-update', {'id': comment.id}) }}">
+                        <i class="fas fa-edit m-3"></i>
+                    </a>
+                </div>
+            {% endif %}
+            {% if comment.postedBy.id == app.user.id or is_granted('ROLE_SUPERADMIN') %}    
+                <div class="col-6 col-md-4 text-right">
+                    <a href="{{ path('postcomment-delete', {'id': comment.id}) }}" onclick="return confirm('Confirmer la suppression?')">
+                        <form method="POST" style="display:inline-block" action="{{ path('postcomment-delete', {'id': comment.id}) }}">
+                            <input type="hidden" name="_method" value="delete">
+                            <input type="hidden" name="_token" value="{{ csrf_token('comment_delete' ~ comment.id) }}">
+                            <button type="submit" class ="comment-delete-btn"><i class="fas fa-trash-alt m-3"></i></button> 
+                        </form>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
     </div>   
 </div>
 <div class="row">

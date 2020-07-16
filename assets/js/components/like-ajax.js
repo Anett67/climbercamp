@@ -113,25 +113,6 @@ $(function(){
         })  
     });
 
-    $('body').on('click', '.delete-reply', function(e){
-        e.preventDefault();
-
-        var replyUrl = $(this).attr('href');
-        var reply = $(this).closest('.reply'); 
-        
-        if(confirm('Confirmer la suppression?')){
-            $.ajax({
-                url: replyUrl,
-                type: 'DELETE',
-                dataType: 'json',
-                success: function(data){
-                    reply.slideUp();
-                    $('.commentReplyCount').html(data.replies);
-                }
-            })  
-        } 
-    });
-
     $('body').on('click', '.delete-post', function(e){
 
         if(!confirm('Confirmer la suppression?')){

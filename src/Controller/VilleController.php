@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Ville;
-use App\Entity\Country;
 use App\Form\VilleType;
-use App\Form\CountryType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -22,9 +20,6 @@ class VilleController extends AbstractController
         $ville = new Ville();
         $villeForm = $this->createForm(VilleType::class, $ville);
 
-        // $country = new Country();
-        // $countryForm = $this->createForm(CountryType::class, $country);
-
         $villeForm->handleRequest($request);
 
         if($villeForm->isSubmitted() && $villeForm->isValid()){
@@ -37,16 +32,6 @@ class VilleController extends AbstractController
             return $this->redirectToRoute('ville');
         }
 
-        // $countryForm->handleRequest($request);
-
-        // if($countryForm->isSubmitted() && $countryForm->isValid()){
-        //     $manager->persist($country);
-        //     $manager->flush();
-
-        //     $this->addFlash('success', 'Le pays a buen été enregistré');
-
-        //     return $this->redirectToRoute('ville');
-        // }
 
         return $this->render('ville/newVille.html.twig', [
             'villeForm' => $villeForm->createView()

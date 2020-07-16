@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon profile{% endblock %}
+{% block title %}Mon profil{% endblock %}
 
-{% block pageTitle %}Modifier mon profile{% endblock %}
+{% block pageTitle %}Modifier mon profil{% endblock %}
 
 {% block body %}
 
@@ -34,7 +34,7 @@
             <div class="col-md-10">
                 {{ form_row(form.presentation) }}
                 {{ form_row(form.ville) }}
-                <a href="{{ path('ville') }}" class="new-ville-link">Ajouter une ville</a>
+                {# <a href="{{ path('ville') }}" class="new-ville-link">Ajouter une ville</a> #}
                 {{ form_row(form.climbingCategorie) }}
                 {{ form_row(form.level) }} 
                 <h5>Rôle: {{ app.user.getRole }}</h4> 

@@ -75,7 +75,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/users/{page}", name="scroll-user")
+     * @Route("/users/{page}", name="scroll-user", requirements={"page":"\d+"})
      */
 
     public function scroll($page, PaginatorInterface $paginator, UserRepository $repository, Request $request): JsonResponse
@@ -105,7 +105,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/{id}", name="single-user")
+     * @Route("/user/{id}", name="single-user", requirements={"id":"\d+"})
      */
     public function singleUser(User $user, EntityManagerInterface $manager, Request $request)
     {

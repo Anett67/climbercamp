@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use DateTime;
-use App\Entity\User;
 use App\Entity\PostComment;
 use App\Entity\EventComment;
 use App\Entity\PostCommentLike;
@@ -11,13 +10,10 @@ use App\Entity\EventCommentLike;
 use App\Entity\PostCommentReply;
 use App\Entity\EventCommentReply;
 use App\Form\PostCommentReplyType;
-use App\Repository\UserRepository;
 use App\Form\EventCommentReplyType;
 use App\Form\EventCommentType;
 use App\Form\PostCommentType;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\PostCommentRepository;
-use App\Repository\EventCommentRepository;
 use App\Repository\PostCommentLikeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\EventCommentLikeRepository;
@@ -31,7 +27,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CommentController extends AbstractController
 {
     /**
-     * @Route("/post/comment/like/{id}", name="comment-like")
+     * @Route("/post/comment/like/{id}", name="comment-like", requirements={"id":"\d+"})
      */
     public function postCommentLike(PostComment $comment, PostCommentLikeRepository $repository, EntityManagerInterface $manager)
     {   
@@ -70,7 +66,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/event/comment/like/{id}", name="event-comment-like")
+     * @Route("/event/comment/like/{id}", name="event-comment-like", requirements={"id":"\d+"})
      */
     public function eventCommentLike(EventComment $comment, EventCommentLikeRepository $repository, EntityManagerInterface $manager)
     {   
@@ -109,7 +105,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("post/comment/replies/{id}", name="comment-replies")
+     * @Route("post/comment/replies/{id}", name="comment-replies", requirements={"id":"\d+"})
      */
 
     public function commentReplies(PostComment $comment, Request $request, EntityManagerInterface $manager, PostCommentReplyRepository $repository)
@@ -147,7 +143,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("event/comment/replies/{id}", name="event-comment-replies")
+     * @Route("event/comment/replies/{id}", name="event-comment-replies", requirements={"id":"\d+"})
      */
 
     public function eventCommentReplies(EventComment $comment, EventCommentReplyRepository $repository, EntityManagerInterface $manager, Request $request)
@@ -181,77 +177,80 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/event/comment/{id}/delete", name="eventcomment-delete")
+     * @Route("/event/comment/{id}/delete", name="eventcomment-delete", requirements={"id":"\d+"}, methods="delete")
      */
 
     public function eventCommentDelete(EventComment $comment, EntityManagerInterface $manager, Request $request){
 
         $event = $comment->getEvent();
 
-        $manager->remove($comment);
-        $manager->flush();
-        $this->addFlash("success",  "La suppression a été effectuée");
-        return $this->redirectToRoute('single-event',[ 
+        if($this->isCsrfTokenValid('comment_delete' . $comment->getId(), $request->get('_token'))){
+            $manager->remove($comment);
+            $manager->flush();
+            $this->addFlash("success",  "La suppression a été effectuée");
+        }
+
+            return $this->redirectToRoute('single-event',[ 
             'id' => $event->getId()
         ]);
     }
 
     /**
-     * @Route("/post/comment/{id}/delete", name="postcomment-delete")
+     * @Route("/post/comment/{id}/delete", name="postcomment-delete", requirements={"id":"\d+"}, methods="delete")
      */
 
     public function postDelete(PostComment $comment, EntityManagerInterface $manager, Request $request){
 
         $post = $comment->getPost();
 
-        $manager->remove($comment);
-        $manager->flush();
-        $this->addFlash("success",  "La suppression a été effectuée");
+        if($this->isCsrfTokenValid('comment_delete' . $comment->getId(), $request->get('_token'))){
+            $manager->remove($comment);
+            $manager->flush();
+            $this->addFlash("success",  "La suppression a été effectuée");
+        }
         return $this->redirectToRoute('single-post',[ 
             'id' => $post->getId()
         ]);
     }
 
     /**
-     * @Route("/post/reply/{id}/delete", name="postcommentreply-delete")
+     * @Route("/post/reply/{id}/delete", name="postcommentreply-delete", requirements={"id":"\d+"}, methods="delete")
      */
 
-    public function postCommentReplyDelete(PostCommentReply $reply, EntityManagerInterface $manager, Request $request, PostCommentReplyRepository $repository){
+    public function postCommentReplyDelete(PostCommentReply $reply, EntityManagerInterface $manager, Request $request){
 
         $comment = $reply->getPostComment();
 
-        $manager->remove($reply);
-        $manager->flush();
+        if($this->isCsrfTokenValid('reply_delete' . $reply->getId(), $request->get('_token'))){
+            $manager->remove($reply);
+            $manager->flush();
 
-        $response = array(
-            'code' => 200,
-            'replies' => $repository->count(['postComment' => $comment]) 
-        );
+            $this->addFlash('success', 'La réponse a bien été supprimé');
 
-        return new JsonResponse($response);
+            return $this->redirectToRoute('single-post', ['id' => $comment->getPost()->getId()]);
+        }
     }
 
     /**
-     * @Route("/event/reply/{id}/delete", name="eventcommentreply-delete")
+     * @Route("/event/reply/{id}/delete", name="eventcommentreply-delete", requirements={"id":"\d+"}, methods="delete")
      */
 
-    public function eventCommentReplyDelete(EventCommentReply $reply, EntityManagerInterface $manager, Request $request, EventCommentReplyRepository $repository){
+    public function eventCommentReplyDelete(EventCommentReply $reply, EntityManagerInterface $manager, Request $request){
 
         $comment = $reply->getEventComment();
 
-        $manager->remove($reply);
-        $manager->flush();
+        if($this->isCsrfTokenValid('reply_delete' . $reply->getId(), $request->get('_token'))){
+            $manager->remove($reply);
+            $manager->flush();
 
-        $response = array(
-            'code' => 200,
-            'replies' => $repository->count(['eventComment' => $comment]) 
-        );
+            $this->addFlash('success', 'La réponse a bien été supprimé');
 
-        return new JsonResponse($response);
+            return $this->redirectToRoute('single-event', ['id' => $comment->getEvent()->getId()]);            
+        }
     }
 
     /**
-     * @Route("/post/comment/{id}/update", name="post-comment-update")
+     * @Route("/post/comment/{id}/update", name="post-comment-update", requirements={"id":"\d+"})
      */
 
     public function updatePostComment(PostComment $comment, EntityManagerInterface $manager, Request $request):Response
@@ -283,7 +282,7 @@ class CommentController extends AbstractController
     }
 
      /**
-     * @Route("/post/comment/json/{id}", name="post-comment-json")
+     * @Route("/post/comment/json/{id}", name="post-comment-json", requirements={"id":"\d+"})
      */
 
     public function jsonPost(PostComment $comment):Response
@@ -295,7 +294,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/event/comment/{id}/update", name="event-comment-update")
+     * @Route("/event/comment/{id}/update", name="event-comment-update", requirements={"id":"\d+"})
      */
 
     public function updateEventComment(EventComment $comment, EntityManagerInterface $manager, Request $request):Response
@@ -327,7 +326,7 @@ class CommentController extends AbstractController
     }
 
      /**
-     * @Route("/event/comment/json/{id}", name="event-comment-json")
+     * @Route("/event/comment/json/{id}", name="event-comment-json", requirements={"id":"\d+"})
      */
 
     public function jsonEvent(EventComment $comment):Response
@@ -339,7 +338,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/post/reply/{id}/update", name="post-reply-update")
+     * @Route("/post/reply/{id}/update", name="post-reply-update", requirements={"id":"\d+"})
      */
 
     public function updatePostReply(PostCommentReply $reply, EntityManagerInterface $manager, Request $request):Response
@@ -371,7 +370,7 @@ class CommentController extends AbstractController
     }
 
      /**
-     * @Route("/post/reply/json/{id}", name="post-reply-json")
+     * @Route("/post/reply/json/{id}", name="post-reply-json", requirements={"id":"\d+"})
      */
 
     public function jsonPostCommentReply(PostCommentReply $reply):Response
@@ -383,7 +382,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/event/reply/{id}/update", name="event-reply-update")
+     * @Route("/event/reply/{id}/update", name="event-reply-update", requirements={"id":"\d+"})
      */
 
     public function updateEventReply(EventCommentReply $reply, EntityManagerInterface $manager, Request $request):Response
@@ -415,7 +414,7 @@ class CommentController extends AbstractController
     }
 
      /**
-     * @Route("/event/reply/json/{id}", name="event-reply-json")
+     * @Route("/event/reply/json/{id}", name="event-reply-json", requirements={"id":"\d+"})
      */
 
     public function jsonEventCommentReply(EventCommentReply $reply):Response
