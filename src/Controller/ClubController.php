@@ -11,13 +11,14 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 class ClubController extends AbstractController
 {
     /**
      * @Route("/local-clubs", name="local-clubs")
      */
-    public function localClubs(ClimbingClubRepository $repository, Request $request, PaginatorInterface $paginator)
+    public function localClubs(ClimbingClubRepository $repository, Request $request, PaginatorInterface $paginator): Response
     {
         $ville = $this->getUser()->getVille();
 
@@ -44,7 +45,7 @@ class ClubController extends AbstractController
     /**
      * @Route("/clubs/saved-clubs", name="saved-clubs")
      */
-    public function savedClubs(ClimbingClubRepository $repo, PaginatorInterface $paginator, Request $request)
+    public function savedClubs(ClimbingClubRepository $repo, PaginatorInterface $paginator, Request $request): Response
     {   
         $user = $this->getUser();
 
@@ -65,7 +66,8 @@ class ClubController extends AbstractController
      * @Route("/clubs/new", name="club-new")
      */ 
     
-    public function createClub(EntityManagerInterface $manager, Request $request){
+    public function createClub(EntityManagerInterface $manager, Request $request): Response
+    {
 
         $club = new ClimbingClub();
 
@@ -91,7 +93,7 @@ class ClubController extends AbstractController
     /**
      * @Route("/club/{id}", name="single-club", requirements={"id":"\d+"})
      */
-    public function singleClub(ClimbingClub $club)
+    public function singleClub(ClimbingClub $club): Response
     {
         return $this->render('club/singleClub.html.twig', [
             'club' => $club
@@ -101,7 +103,7 @@ class ClubController extends AbstractController
     /**
      * @Route("/clubs/users/{id}", name="club-users", requirements={"id":"\d+"})
      */
-    public function clubUsers(ClimbingClub $club)
+    public function clubUsers(ClimbingClub $club): Response
     {
         $users = $club->getUsers();
 
@@ -116,7 +118,8 @@ class ClubController extends AbstractController
      * @Route("/club/save/{id}", name="club-save", requirements={"id":"\d+"})
      */
 
-    public function saveClub(ClimbingClub $club, EntityManagerInterface $manager){
+    public function saveClub(ClimbingClub $club, EntityManagerInterface $manager): Response
+    {
 
         $club->addUser($this->getUser());
 
@@ -133,7 +136,8 @@ class ClubController extends AbstractController
      * @Route("/club/remove/{id}", name="club-remove", requirements={"id":"\d+"})
      */
 
-    public function removeClub(ClimbingClub $club, EntityManagerInterface $manager){
+    public function removeClub(ClimbingClub $club, EntityManagerInterface $manager): Response
+    {
 
         if($this->getUser()){
             $club->removeUser($this->getUser());
@@ -153,7 +157,8 @@ class ClubController extends AbstractController
      * @Route("/profil/club/{id}/delete", name="club-delete", requirements={"id":"\d+"}, methods="delete")
      */
 
-    public function clubDelete(ClimbingClub $club, EntityManagerInterface $manager, Request $request){
+    public function clubDelete(ClimbingClub $club, EntityManagerInterface $manager, Request $request): Response
+    {
 
         if($this->isCsrfTokenValid('SUP' . $club->getId(), $request->get('_token'))){
             $manager->remove($club);
@@ -168,7 +173,8 @@ class ClubController extends AbstractController
      * @Route("/profil/club/{id}/update", name="club-update", requirements={"id":"\d+"})
      */
 
-    public function clubUpdate(ClimbingClub $club, EntityManagerInterface $manager, Request $request){
+    public function clubUpdate(ClimbingClub $club, EntityManagerInterface $manager, Request $request): Response
+    {
 
         $form = $this->createForm(ClubType::class, $club);
 

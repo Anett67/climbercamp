@@ -13,13 +13,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends AbstractController
 {
     /**
      * @Route("/local-users", name="local-users")
      */
-    public function localUsers(UserRepository $repository, Request $request, PaginatorInterface $paginator)
+    public function localUsers(UserRepository $repository, Request $request, PaginatorInterface $paginator): Response
     {
         $ville = $this->getUser()->getVille();
 
@@ -85,14 +86,12 @@ class UserController extends AbstractController
         $usersPerPage = 9;
 
         if($ville){
-            $totalUsers = count($repository->findByVille($ville));
             $users = $paginator->paginate(
                 $repository->findByVilleWithPagination($ville), /* query NOT result */
                 $request->query->getInt('page', $page), /*page number*/
                 $usersPerPage /*limit per page*/
             );
         }else{
-            $totalUsers = count($repository->findAll());
             $users = $paginator->paginate(
                 $repository->findAllWithPagination($ville), /* query NOT result */
                 $request->query->getInt('page', $page), /*page number*/
@@ -107,7 +106,7 @@ class UserController extends AbstractController
     /**
      * @Route("/user/{id}", name="single-user", requirements={"id":"\d+"})
      */
-    public function singleUser(User $user, EntityManagerInterface $manager, Request $request)
+    public function singleUser(User $user, EntityManagerInterface $manager, Request $request): Response
     {
         $form = $this->createForm(UserRoleType::class, $user);
 
