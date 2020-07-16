@@ -21,7 +21,7 @@
                         <li class="menu-item"><a class="menu-link" href="{{path('profil') }}" title="Mon Profil">Mon Profil</a></li>
                         <li class="menu-item"><a class="menu-link" href="{{path('saved-clubs') }}" title="Mes salles d'escalade">Mes salles préférées</a></li>
                         <li class="menu-item"><a class="menu-link {% if app.user.countNewMessages %}new-messages{% endif %}" href="{{ path('messages') }}" title="Messages">Messages {% if app.user.countNewMessages %}({{ app.user.countNewMessages }}){% endif %}</a></li>
-                        <li class="menu-item"><a class="menu-link" href="{{ path('saved-events', {'id' : app.user.id}) }}" title="Évènenements">Évènements enregistrés</a></li>
+                        <li class="menu-item"><a class="menu-link" href="{{ path('saved-events') }}" title="Évènenements">Évènements enregistrés</a></li>
                         <li class="menu-item"><a class="menu-link" href="{{ path('logout') }}" title="Déconnexion">Déconnexion</li></a>
                     </ul>
                 </div>

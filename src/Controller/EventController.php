@@ -27,10 +27,12 @@ class EventController extends AbstractController
     /**
      * Shows the events saved by the current user
      * 
-     * @Route("/user/events/{id}", name="saved-events", requirements={"id":"\d+"})
+     * @Route("/user/events", name="saved-events", requirements={"id":"\d+"})
      */
-    public function savedEvents(User $user, EventRepository $repository, PaginatorInterface $paginator, Request $request): Response
-    {
+    public function savedEvents(EventRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    {       
+        $user = $this->getUser();
+
         $events = $paginator->paginate(
             $repository->getFutureSavedEvents($user), /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
@@ -66,13 +68,11 @@ class EventController extends AbstractController
             );  
         }
         
-
         $eventSearch = new EventSearch();
 
         $form = $this->createForm(EventSearchType::class, $eventSearch);
-
         $form->handleRequest($request);
-
+        
         if($form->isSubmitted() && $form->isValid()){
             
             $events = $repository->findWithSearch($eventSearch);

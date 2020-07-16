@@ -120,7 +120,6 @@ class PostController extends AbstractController
         $postComment = new PostComment();
 
         $form = $this->createForm(PostCommentType::class, $postComment);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
@@ -236,8 +235,8 @@ class PostController extends AbstractController
      */
 
     public function postDelete(Post $post, EntityManagerInterface $manager, Request $request): Response
-    {
-
+    {   
+        
         if($this->isCsrfTokenValid('SUP' . $post->getId(), $request->get('_token'))){
             $manager->remove($post);
             $manager->flush();
