@@ -23,6 +23,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PostController extends AbstractController
 {
     /**
+     * The page shows the local posts if the user has his town defined or all posts if it's not
+     * 
      * @Route("/", name="local-posts")
      */
     public function localPosts(PostRepository $repository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator): Response
@@ -72,6 +74,8 @@ class PostController extends AbstractController
     }
 
     /**
+     * The action called when th users scrolls on the bottom of the page and loads more posts
+     * 
      * @Route("/posts/{page}", name="scroll-post", requirements={"page":"\d+"})
      */
 
@@ -100,6 +104,8 @@ class PostController extends AbstractController
     }
 
     /**
+     * The page which shows a post with its comments
+     * 
      * @Route("/post/{id}", name="single-post", requirements={"id":"\d+"})
      */
     
@@ -136,6 +142,8 @@ class PostController extends AbstractController
     }
 
     /**
+     * The page which shows all the posts of a user
+     * 
      * @Route("/user/posts/{id}", name="user-posts", requirements={"id":"\d+"})
      */
     public function userPosts(User $user): Response
@@ -151,6 +159,8 @@ class PostController extends AbstractController
     }
 
     /**
+     * The page which shows users who liked a post
+     * 
      * @Route("/post/likes/{id}", name="post-likes", requirements={"id":"\d+"})
      */
     public function postLikes(Post $post): Response
@@ -171,6 +181,8 @@ class PostController extends AbstractController
     }
 
     /**
+     * The action to add or delete a like and send back the total number of likes for the post
+     * 
      * @Route("/post/like/{id}", name="post-like", requirements={"id":"\d+"})
      */
 
@@ -199,6 +211,8 @@ class PostController extends AbstractController
     }
 
     /**
+     * Shows the posts of the current user
+     * 
      * @Route("/profil/posts", name="my-posts")
      */
 
@@ -216,6 +230,8 @@ class PostController extends AbstractController
     }
 
     /**
+     * Delete a post 
+     * 
      * @Route("/profil/post/{id}/delete", name="post-delete", methods="delete", requirements={"id":"\d+"})
      */
 
@@ -232,6 +248,8 @@ class PostController extends AbstractController
     }
 
     /**
+     * Update a post
+     * 
      * @Route("/profil/post/{id}/update", name="post-update", requirements={"id":"\d+"})
      */
 
@@ -264,6 +282,8 @@ class PostController extends AbstractController
      }
 
      /**
+      * AJAX endpoint to send back the templat of a post on "My posts" page 
+      *
      * @Route("/profil/post/json/{id}", name="post-json", requirements={"id":"\d+"})
      */
 

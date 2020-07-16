@@ -12,10 +12,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ClubController extends AbstractController
 {
     /**
+     * This page shows the list of the climbing clubs
+     * 
      * @Route("/local-clubs", name="local-clubs")
      */
     public function localClubs(ClimbingClubRepository $repository, Request $request, PaginatorInterface $paginator): Response
@@ -43,6 +46,8 @@ class ClubController extends AbstractController
     }
 
     /**
+     * This page shows the clubs saved by the user as his favorites
+     * 
      * @Route("/clubs/saved-clubs", name="saved-clubs")
      */
     public function savedClubs(ClimbingClubRepository $repo, PaginatorInterface $paginator, Request $request): Response
@@ -63,6 +68,8 @@ class ClubController extends AbstractController
     }
 
     /**
+     * Page to create a new club
+     * 
      * @Route("/clubs/new", name="club-new")
      */ 
     
@@ -91,6 +98,8 @@ class ClubController extends AbstractController
      }
 
     /**
+     * Page which shows infromation of a climbing club
+     * 
      * @Route("/club/{id}", name="single-club", requirements={"id":"\d+"})
      */
     public function singleClub(ClimbingClub $club): Response
@@ -101,6 +110,8 @@ class ClubController extends AbstractController
     }
 
     /**
+     * This page shows the users who saved this club
+     * 
      * @Route("/clubs/users/{id}", name="club-users", requirements={"id":"\d+"})
      */
     public function clubUsers(ClimbingClub $club): Response
@@ -115,6 +126,8 @@ class ClubController extends AbstractController
     }
 
     /**
+     * This is the action called when the user saves a club
+     * 
      * @Route("/club/save/{id}", name="club-save", requirements={"id":"\d+"})
      */
 
@@ -133,6 +146,8 @@ class ClubController extends AbstractController
     }
 
     /**
+     * This is the action called when the user removes a club form the list of his favorites
+     * 
      * @Route("/club/remove/{id}", name="club-remove", requirements={"id":"\d+"})
      */
 
@@ -154,7 +169,11 @@ class ClubController extends AbstractController
     }
 
      /**
+      * Delete a climbing club from the database 
+      *
      * @Route("/profil/club/{id}/delete", name="club-delete", requirements={"id":"\d+"}, methods="delete")
+     * 
+     * @IsGranted("ROLE_SUPERADMIN")
      */
 
     public function clubDelete(ClimbingClub $club, EntityManagerInterface $manager, Request $request): Response
@@ -170,6 +189,8 @@ class ClubController extends AbstractController
     }
 
     /**
+     * Update a climbing club
+     * 
      * @Route("/profil/club/{id}/update", name="club-update", requirements={"id":"\d+"})
      */
 

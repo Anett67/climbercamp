@@ -13,6 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfilController extends AbstractController
 {
     /**
+     * The page which allows the user to edit his profile
+     * 
      * @Route("/profil", name="profil")
      */
     public function index(EntityManagerInterface $manager, Request $request): Response

@@ -27,6 +27,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CommentController extends AbstractController
 {
     /**
+     * This action saves a new like or deletes one and sends back the total number of likes 
+     * 
      * @Route("/post/comment/like/{id}", name="comment-like", requirements={"id":"\d+"})
      */
     public function postCommentLike(PostComment $comment, PostCommentLikeRepository $repository, EntityManagerInterface $manager): JsonResponse
@@ -66,6 +68,8 @@ class CommentController extends AbstractController
     }
 
     /**
+     * This action saves a new like or deletes one and sends back the total number of likes 
+     * 
      * @Route("/event/comment/like/{id}", name="event-comment-like", requirements={"id":"\d+"})
      */
     public function eventCommentLike(EventComment $comment, EventCommentLikeRepository $repository, EntityManagerInterface $manager): JsonResponse
@@ -105,6 +109,8 @@ class CommentController extends AbstractController
     }
 
     /**
+     * This action loads the replies of a postlike
+     * 
      * @Route("post/comment/replies/{id}", name="comment-replies", requirements={"id":"\d+"})
      */
 
@@ -143,6 +149,8 @@ class CommentController extends AbstractController
     }
 
     /**
+     * This action loads the replies of an eventlike
+     * 
      * @Route("event/comment/replies/{id}", name="event-comment-replies", requirements={"id":"\d+"})
      */
 
@@ -177,6 +185,8 @@ class CommentController extends AbstractController
     }
 
     /**
+     * Delete an event comment
+     * 
      * @Route("/event/comment/{id}/delete", name="eventcomment-delete", requirements={"id":"\d+"}, methods="delete")
      */
 
@@ -197,6 +207,8 @@ class CommentController extends AbstractController
     }
 
     /**
+     * Delete a post comment
+     * 
      * @Route("/post/comment/{id}/delete", name="postcomment-delete", requirements={"id":"\d+"}, methods="delete")
      */
 
@@ -215,6 +227,8 @@ class CommentController extends AbstractController
     }
 
     /**
+     * Deletes a post comment reply
+     * 
      * @Route("/post/reply/{id}/delete", name="postcommentreply-delete", requirements={"id":"\d+"}, methods="delete")
      */
 
@@ -234,6 +248,8 @@ class CommentController extends AbstractController
     }
 
     /**
+     * Deletes an event comment reply
+     * 
      * @Route("/event/reply/{id}/delete", name="eventcommentreply-delete", requirements={"id":"\d+"}, methods="delete")
      */
 
@@ -253,6 +269,8 @@ class CommentController extends AbstractController
     }
 
     /**
+     * Updates a post comment
+     * 
      * @Route("/post/comment/{id}/update", name="post-comment-update", requirements={"id":"\d+"})
      */
 
@@ -285,6 +303,8 @@ class CommentController extends AbstractController
     }
 
      /**
+      * AJAX endpoint to send back the template of a post comment 
+      *
      * @Route("/post/comment/json/{id}", name="post-comment-json", requirements={"id":"\d+"})
      */
 
@@ -297,6 +317,8 @@ class CommentController extends AbstractController
     }
 
     /**
+     * Update an event comment
+     * 
      * @Route("/event/comment/{id}/update", name="event-comment-update", requirements={"id":"\d+"})
      */
 
@@ -329,6 +351,8 @@ class CommentController extends AbstractController
     }
 
      /**
+      * AJAX endpoint to send back the template of a event comment 
+      * 
      * @Route("/event/comment/json/{id}", name="event-comment-json", requirements={"id":"\d+"})
      */
 
@@ -341,6 +365,8 @@ class CommentController extends AbstractController
     }
 
     /**
+     * Update a reply on a post comment
+     * 
      * @Route("/post/reply/{id}/update", name="post-reply-update", requirements={"id":"\d+"})
      */
 
@@ -373,6 +399,8 @@ class CommentController extends AbstractController
     }
 
      /**
+      * Sends back the template of a comment reply 
+      *
      * @Route("/post/reply/json/{id}", name="post-reply-json", requirements={"id":"\d+"})
      */
 
@@ -385,6 +413,8 @@ class CommentController extends AbstractController
     }
 
     /**
+     * Update an event comment reply
+     * 
      * @Route("/event/reply/{id}/update", name="event-reply-update", requirements={"id":"\d+"})
      */
 
@@ -417,6 +447,8 @@ class CommentController extends AbstractController
     }
 
      /**
+      * Sends back the template of an event comment reply 
+      *
      * @Route("/event/reply/json/{id}", name="event-reply-json", requirements={"id":"\d+"})
      */
 

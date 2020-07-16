@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Response;
 class MessageController extends AbstractController
 {
     /**
+     * The page which shows the last sent message of each conversation
+     * 
      * @Route("/messages", name="messages")
      */
     public function index(MessageRepository $repository): Response
@@ -50,6 +52,8 @@ class MessageController extends AbstractController
     }
 
     /**
+     * Page which shows a conversation with another user
+     * 
      * @Route("/conversation/{id}", name="conversation", requirements={"id":"\d+"})
      */
 
@@ -103,6 +107,8 @@ class MessageController extends AbstractController
      }
 
     /**
+     * The action to make a new message "seen"
+     * 
     * @Route("/message/seen/{id}", name="message-seen", requirements={"id":"\d+"})
     */
 
