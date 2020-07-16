@@ -13,6 +13,7 @@
         <h2 class="new-ville-title">Ajouter une ville</h2>  
         {{ form_start(villeForm) }}
             {{ form_widget(villeForm) }}
+            {{ form_errors(villeForm) }}
             <input type="submit" class="btn submit-button w-30" value="Enregistrer">
         {{ form_end(villeForm) }}
     </div>
