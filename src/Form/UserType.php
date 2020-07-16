@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Level;
 use App\Entity\Ville;
 use App\Entity\ClimbingCategorie;
+use App\Repository\VilleRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -29,7 +30,11 @@ class UserType extends AbstractType
             ->add('presentation')
             ->add('ville', EntityType::class,[
                 'class' => Ville::class,
-                'choice_label' => 'nom'
+                'choice_label' => 'nom',
+                'query_builder' => function(VilleRepository $re){
+                    return $re->createQueryBuilder('v')
+                        ->orderBy('v.nom', 'ASC');
+                }
             ])
             ->add('climbingCategorie', EntityType::class, [
                 'class' => ClimbingCategorie::class,
