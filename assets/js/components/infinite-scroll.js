@@ -7,7 +7,7 @@ var usersLastPage = $('.users-count').val();
 
 if(lastPage){
     $(window).scroll(function() {
-        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+        if($(window).scrollTop() + $(window).innerHeight() >= $('body').height() - 100) {
             currentPage++;
             
             if(currentPage <= lastPage){
@@ -29,7 +29,8 @@ if(lastPage){
 
 if(usersLastPage){
     $(window).scroll(function() {
-        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+        if($(window).scrollTop() + $(window).innerHeight() >= $('body').height() - 100) {
+            
             currentPage++;
             
             if(currentPage <= usersLastPage){
