@@ -18,7 +18,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 class EventController extends AbstractController
 {
@@ -94,6 +96,8 @@ class EventController extends AbstractController
      * Creation of a new event
      * 
      * @Route("/event/new", name="event-new")
+     * 
+     * @IsGranted("ROLE_ADMIN")
      */
 
     public function newEvent(Request $request, EntityManagerInterface $manager): Response
@@ -223,6 +227,8 @@ class EventController extends AbstractController
      * Shows events created by the current user
      * 
      * @Route("/profil/events", name="my-events")
+     * 
+     * @IsGranted("ROLE_ADMIN")
      */
 
      public function myEvents(EventRepository $repository, Request $request, PaginatorInterface $paginator): Response
@@ -246,6 +252,8 @@ class EventController extends AbstractController
       * Delete an event on "My events" page
       *
      * @Route("/profil/event/{id}/delete", name="event-delete", requirements={"id":"\d+"}, methods="delete")
+     * 
+     * @IsGranted("ROLE_ADMIN")
      */
 
     public function postDelete(Event $event, EntityManagerInterface $manager, Request $request): Response
@@ -264,6 +272,8 @@ class EventController extends AbstractController
      * Update an event on "My events" page
      * 
      * @Route("/profil/event/{id}/update", name="event-update", requirements={"id":"\d+"})
+     * 
+     * @IsGranted("ROLE_ADMIN")
      */
 
     public function updatePost(Event $event, EntityManagerInterface $manager, Request $request):Response
@@ -300,6 +310,8 @@ class EventController extends AbstractController
      * Load the template of an event on "My events" page
      * 
     * @Route("/profil/event/json/{id}", name="event-json", requirements={"id":"\d+"})
+    *
+    * @IsGranted("ROLE_ADMIN")
     */
 
     public function jsonEvent(Event $event):Response

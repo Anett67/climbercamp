@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\Ville;
 use App\Form\VilleType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
-
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +17,8 @@ class VilleController extends AbstractController
      * The page to add a town to the database
      * 
      * @Route("/ville", name="ville")
+     * 
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(Request $request, EntityManagerInterface $manager): Response
     {   
