@@ -68,7 +68,7 @@ class PostController extends AbstractController
             'posts' => $posts,
             'ville' => $ville,
             'form' => $form->createView(),
-            'hideLocalPostsButton' => true, 
+            'localPostsPage' => true, 
             'lastPage' => $lastPage
         ]);
     }

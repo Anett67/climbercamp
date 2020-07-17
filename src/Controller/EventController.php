@@ -88,7 +88,7 @@ class EventController extends AbstractController
             'events' => $events,
             'ville' => $ville,
             'form' => $form->createView(),
-            'hideLocalEventsButton' => true
+            'localEventsPage' => true
         ]);
     }
 

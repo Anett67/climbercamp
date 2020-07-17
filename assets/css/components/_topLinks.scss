@@ -13,14 +13,26 @@
     .event-button{
         @include buttons($orange);
     }
+    .event-button.current-link{
+        @include buttons-colored($orange);
+    }
     .grimpeur-button{
         @include buttons($yellow);
+    }
+    .grimpeur-button.current-link{
+        @include buttons-colored($yellow);
     }
     .post-button{
         @include buttons($grey);
     }
+    .post-button.current-link{
+        @include buttons-colored($grey);
+    }
     .club-button{
         @include buttons($green);
+    }
+    .club-button.current-link{
+        @include buttons-colored($green);
     }
     
 }
