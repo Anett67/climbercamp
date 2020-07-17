@@ -38,7 +38,7 @@ class ProfilController extends AbstractController
 
         return $this->render('profil/profil.html.twig', [
            'form' => $form->createView(),
-           'hideProfilButton' => true
+           'profilPage' => true
         ]);
     }
 
