@@ -41,7 +41,8 @@ class EventController extends AbstractController
 
         return $this->render('event/events.html.twig', [
             'events' => $events,
-            'user' => $user
+            'user' => $user,
+            'savedEventsPage' => true
         ]);
     }
 

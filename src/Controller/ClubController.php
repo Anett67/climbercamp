@@ -63,7 +63,7 @@ class ClubController extends AbstractController
         return $this->render('club/clubs.html.twig', [
             'search' => false,
             'clubs' => $clubs,
-            'saved' => true
+            'savedClubsPage' => true
         ]);
     }
 

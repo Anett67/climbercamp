@@ -47,7 +47,8 @@ class MessageController extends AbstractController
         }
 
         return $this->render('message/messages.html.twig', [
-            'messages' => $messages
+            'messages' => $messages,
+            'messagesPage' => true
         ]);
     }
 
@@ -101,7 +102,8 @@ class MessageController extends AbstractController
         return $this->render('message/conversation.html.twig',[
             'partner' => $partner,
             'messages' => $messages,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'messagesPage' => true
         ]);
 
      }

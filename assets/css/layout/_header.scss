@@ -60,9 +60,16 @@ header{
                             }
                         }
                     }
+                    .menu-link.current-link{
+                        color: $green;
+                        font-family: OpenBold;
+                    }
                     .menu-link.new-messages{
                         color: $orange;
                         font-family: OpenBold;
+                    }
+                    .menu-link.current-link.new-messages{
+                        color: $green;
                     }
                 }
             }
