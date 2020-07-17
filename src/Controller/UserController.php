@@ -7,13 +7,14 @@ use App\Entity\UserSearch;
 use App\Form\UserRoleType;
 use App\Form\UserSearchType;
 use App\Repository\UserRepository;
+use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends AbstractController
 {
@@ -127,6 +128,26 @@ class UserController extends AbstractController
         return $this->render('user/singleUser.html.twig', [
             'user' => $user,
             'form' => $form->createView()
+        ]);
+    }
+     
+    /**
+     * Shows the events saved by the current user
+     * 
+     * @Route("/user/events/{id}", name="saved-events", requirements={"id":"\d+"})
+     */
+    public function savedEvents(User $user,EventRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    {       
+        $events = $paginator->paginate(
+            $repository->getFutureSavedEvents($user), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            2 /*limit per page*/
+        );
+
+        return $this->render('event/events.html.twig', [
+            'events' => $events,
+            'user' => $user,
+            'savedEventsPage' => true
         ]);
     }
 

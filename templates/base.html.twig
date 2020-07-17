@@ -38,7 +38,7 @@
                         <li class="menu-item"><a class="menu-link {% if profilPage is defined and profilPage %}current-link{% endif %}" href="{{path('profil') }}" title="Mon Profil">Mon Profil</a></li>
                         <li class="menu-item"><a class="menu-link {% if savedClubsPage is defined and savedClubsPage %}current-link{% endif %}" href="{{path('saved-clubs') }}" title="Mes salles d'escalade">Mes salles préférées</a></li>
                         <li class="menu-item"><a class="menu-link {% if messagesPage is defined and messagesPage %}current-link{% endif %} {% if app.user.countNewMessages %}new-messages{% endif %}" href="{{ path('messages') }}" title="Messages">Messages {% if app.user.countNewMessages %}({{ app.user.countNewMessages }}){% endif %}</a></li>
-                        <li class="menu-item"><a class="menu-link {% if savedEventsPage is defined and savedEventsPage %}current-link{% endif %}" href="{{ path('saved-events') }}" title="Évènenements">Évènements enregistrés</a></li>
+                        <li class="menu-item"><a class="menu-link {% if savedEventsPage is defined and savedEventsPage %}current-link{% endif %}" href="{{ path('saved-events', {'id': app.user.id}) }}" title="Évènenements">Évènements enregistrés</a></li>
                         <li class="menu-item"><a class="menu-link" href="{{ path('logout') }}" title="Déconnexion">Déconnexion</li></a>
                     </ul>
                 </div>

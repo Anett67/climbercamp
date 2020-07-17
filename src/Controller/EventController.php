@@ -24,28 +24,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class EventController extends AbstractController
 {
-    /**
-     * Shows the events saved by the current user
-     * 
-     * @Route("/user/events", name="saved-events", requirements={"id":"\d+"})
-     */
-    public function savedEvents(EventRepository $repository, PaginatorInterface $paginator, Request $request): Response
-    {       
-        $user = $this->getUser();
-
-        $events = $paginator->paginate(
-            $repository->getFutureSavedEvents($user), /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            2 /*limit per page*/
-        );
-
-        return $this->render('event/events.html.twig', [
-            'events' => $events,
-            'user' => $user,
-            'savedEventsPage' => true
-        ]);
-    }
-
+   
     /**
      * Shows local events or all events if the user has not defined his town
      * 
