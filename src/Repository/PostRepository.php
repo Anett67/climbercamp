@@ -83,6 +83,17 @@ class PostRepository extends ServiceEntityRepository
         
     }
 
+    public function findUsersPostsWithPagination($user){
+        
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.postedBy = :val')
+            ->setParameter('val', $user)
+            ->orderBy('p.createdAt', 'DESC')
+            ->getQuery()
+            //->getResult()
+            ;
+    }
+
     // /**
     //  * @return Post[] Returns an array of Post objects
     //  */

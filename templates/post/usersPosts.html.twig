@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Publications{% endblock %}
+
+{% block pageTitle %}Les publications de {{ user.firstName }}{% endblock %}
+
+{% block body %}
+
+    {% include 'topLinks.html.twig' %} 
+
+    {% if posts|length > 0 %}
+
+        <!-- Liste des publications -->
+        {% include 'post/post.html.twig' %}
+
+    {% else %}
+        <!-- Le bloc qui s'affiche quand on veut voir les publications d'un utilisateur et il n'en a aucune -->
+        <div class="row justify-content-center justify-content-lg-end">
+            <div class="post-form-block col-10 col-lg-9 mt-3 p-2 ">
+                <p class="p-2">L'utilisateur n'a aucune publication</p>
+            </div>
+        </div>
+    
+    {% endif %}
+
+    <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
+        <div class="navigation">
+            {{ knp_pagination_render(posts) }}
+        </div>  
+    </div> 
+
+{% endblock %}
