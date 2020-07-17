@@ -82,18 +82,11 @@
                         </div>
 
                         <div class="buttons">
-
-                            {% if hideProfilButton is not defined %}
-                                <a href="{{ path('profil') }}" class="btn event-button">Voir mon profil</a>
-                            {% endif %}
+                            <a href="{{ path('profil') }}" class="btn my-profil-button {% if profilPage is defined and profilPage %}current-link{% endif %}">Voir mon profil</a>
                             {% if is_granted('ROLE_ADMIN') %}
-                                {% if hideMyEventsButton is not defined %}
-                                    <a href="{{ path('my-events') }}" class="btn grimpeur-button">Mes évènements</a>
-                                {% endif %}
+                                <a href="{{ path('my-events') }}" class="btn my-events-button {% if myEventsPage is defined and myEventsPage %}current-link{% endif %}">Mes évènements</a>   
                             {% endif %}
-                            {% if hideMyPostsButton is not defined %}
-                                <a href="{{ path('my-posts') }}" class="btn club-button">Mes publications</a>
-                            {% endif %}
+                                <a href="{{ path('my-posts') }}" class="btn my-posts-button {% if myPostsPage is defined and myPostsPage %}current-link{% endif %}">Mes publications</a>
                         </div>
                     </div>
 

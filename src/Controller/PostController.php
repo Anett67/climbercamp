@@ -224,7 +224,7 @@ class PostController extends AbstractController
 
         return $this->render('post/myPosts.html.twig', [
             'myPosts' => $posts,
-            'hideMyPostsButton' => true
+            'myPostsPage' => true
         ]);
     }
 

@@ -158,17 +158,23 @@ header{
                     margin: 10px 0;
                     width: 100%;
                 }
-                .event-button{
-                    @include buttons($orange);
-                }
-                .grimpeur-button{
+                .my-events-button{
                     @include buttons($yellow);
                 }
-                .club-button{
+                .my-events-button.current-link{
+                    @include buttons-colored($yellow);
+                }
+                .my-profil-button{
+                    @include buttons($orange);
+                }
+                .my-profil-button.current-link{
+                    @include buttons-colored($orange);
+                }
+                .my-posts-button{
                     @include buttons($green);
                 }
-                .post-button{
-                    @include buttons($grey);
+                .my-posts-button.current-link{
+                    @include buttons-colored($green);
                 }
             }
         }

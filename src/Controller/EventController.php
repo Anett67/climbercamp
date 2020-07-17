@@ -244,7 +244,7 @@ class EventController extends AbstractController
 
         return $this->render('event/myEvents.html.twig', [
             'myEvents' => $myEvents,
-            'hideMyEventsButton' => true
+            'myEventsPage' => true
         ]);
      }
 
