@@ -34,30 +34,38 @@
         <div class="row justify-content-center user-data m-2">
             <!-- Ville -->
             <div class="col text-center ville">
-                <h4>Ville</h4>
-                <h5>{{ user.ville.nom }}</h5>
+                {% if user.ville %}
+                    <h4>Ville</h4>
+                    <h5>{{ user.ville.nom }}</h5>
+                {% endif %}
             </div>
             <!-- Niveau -->
+            {% if user.level %}
             <div class="col text-center">
                 <h4 class="niveau">Niveau</h4>
                 <h5>{{ user.level.label }}</h5>
             </div>
+            {% endif %}
         </div>
         <div class="row justify-content-center user-data m-2">
             <!-- Type d'escalade -->
-            <div class="col text-center climbing-categorie">
-                <h4>Types d'escalade</h4>
-                {% for category in user.climbingCategorie %}
-                    <h5>{{ category.label }}</h5> 
-                {% endfor %}
-            </div>
-            <!-- Salles d'escalade -->
-            <div class="col text-center">
-                <h4 class="salles">Salles d'escalade préférées</h4>
-                {% for club in user.climbingClub %}
-                    <h5>{{ club.nom }}</h5>
-                {% endfor %}
-            </div>
+            {% if user.climbingCategorie|length > 0 %}
+                <div class="col text-center climbing-categorie">
+                    <h4>Types d'escalade</h4>
+                    {% for category in user.climbingCategorie %}
+                        <h5>{{ category.label }}</h5> 
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if user.climbingClub|length > 0 %}
+                <!-- Salles d'escalade -->
+                <div class="col text-center">
+                    <h4 class="salles">Salles d'escalade préférées</h4>
+                    {% for club in user.climbingClub %}
+                        <h5>{{ club.nom }}</h5>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
 
         <div class="row justify-content-around user-data m-3 mb-5">
