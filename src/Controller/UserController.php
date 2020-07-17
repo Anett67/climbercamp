@@ -54,17 +54,13 @@ class UserController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
 
-            $totalUsers = count($repository->findWithSearch($userSearch));
-            $users = $paginator->paginate(
-                $repository->findWithSearchWithPagination($userSearch), /* query NOT result */
-                $request->query->getInt('page', 1), /*page number*/
-                $usersPerPage /*limit per page*/
-            );
+            $totalSearchedUsers = count($repository->findWithSearch($userSearch));
+            $SearchedUsers = $repository->findWithSearch($userSearch);
 
-            return $this->render('user/users.html.twig', [
-                'users' => $users,
+            return $this->render('user/userSearch.html.twig', [
+                'users' => $SearchedUsers,
                 'form' => $form->createView(),
-                'lastUsersPage' => $lastUsersPage
+                'totalSearchedUsers' => $totalSearchedUsers
             ]); 
         }
 

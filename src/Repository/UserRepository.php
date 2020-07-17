@@ -23,8 +23,6 @@ class UserRepository extends ServiceEntityRepository
     public function findWithSearch(UserSearch $userSearch){
 
         $req = $this->createQueryBuilder('u');
-        // ->innerJoin('u.ville', 'v')
-        // ->addSelect('v');
 
         if($userSearch->getFirstName()){
             $req = $req->andWhere('u.firstName LIKE :firstname')
