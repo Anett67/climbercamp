@@ -33,7 +33,10 @@ class EventRepository extends ServiceEntityRepository
             ->addSelect('u')
             ->innerJoin('e.postedBy', 'pb')
             ->addSelect('pb')
+            ->andWhere('e.eventDate > :eventdate')
+            ->setParameter(':eventdate', new DateTime('now'))
             ->orderBy('e.eventDate', 'ASC');
+            
 
             if($eventSearch->getTitle()){
                 $req = $req->andWhere('e.title LIKE :title')

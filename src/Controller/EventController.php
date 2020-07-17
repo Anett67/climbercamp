@@ -55,10 +55,12 @@ class EventController extends AbstractController
         
         if($form->isSubmitted() && $form->isValid()){
             
+            $totalevents = count($repository->findWithSearch($eventSearch));
             $events = $repository->findWithSearch($eventSearch);
 
-            return $this->render('event/events.html.twig', [
+            return $this->render('event/eventSearch.html.twig', [
                 'events' => $events,
+                'totalEvents' => $totalevents,
                 'ville' => $ville,
                 'form' => $form->createView()
             ]);
