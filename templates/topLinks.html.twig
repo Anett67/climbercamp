@@ -2,38 +2,30 @@
 <div class="row justify-content-center justify-content-lg-end">
     <div class="button-block col-10 col-lg-9 mt-3">
         <div class="row justify-content-center">
-            {% if hideLocalEventsButton is not defined %}
-                <a class="col-10 col-lg-2 btn event-button" href="{{ path('local-events') }}">
-                    Évènements
-                    {% if app.user.ville %}
-                        à {{app.user.ville.nom}}
-                    {% endif %}    
-                    </a>
-            {% endif %}
-            {% if hideLocalUsersButton is not defined %}
-                <a class="col-10 col-lg-2 btn grimpeur-button" href="{{ path('local-users') }}">
-                    Grimpeurs
-                    {% if app.user.ville %}
-                        à {{app.user.ville.nom}}
-                    {% endif %}
-                </a>
-            {% endif %}
-            {% if hideLocalClubsButton is not defined %}
-                <a class="col-10 col-lg-2 btn club-button" href="{{ path('local-clubs') }}">
-                    Salles d'escalade
-                    {% if app.user.ville %}
-                        à {{app.user.ville.nom}}
-                    {% endif %}
-                </a>
-            {% endif %}
-            {% if hideLocalPostsButton is not defined %}
-                <a class="col-10 col-lg-2 btn post-button" href="{{ path('local-posts') }}">
-                    Publications
-                    {% if app.user.ville %}
-                        à {{app.user.ville.nom}}
-                    {% endif %}
-                </a>
-            {% endif %}
+            <a class="col-10 col-lg-2 btn event-button {% if localEventsPage is defined and localEventsPage %}current-link{% endif %}" href="{{ path('local-events') }}">
+                Évènements
+                {% if app.user.ville %}
+                    à {{app.user.ville.nom}}
+                {% endif %}    
+            </a>
+            <a class="col-10 col-lg-2 btn grimpeur-button {% if localUsersPage is defined and localUsersPage %}current-link{% endif %}" href="{{ path('local-users') }}">
+                Grimpeurs
+                {% if app.user.ville %}
+                    à {{app.user.ville.nom}}
+                {% endif %}
+            </a>
+            <a class="col-10 col-lg-2 btn club-button {% if localClubsPage is defined and localClubsPage %}current-link{% endif %}" href="{{ path('local-clubs') }}">
+                Salles d'escalade
+                {% if app.user.ville %}
+                    à {{app.user.ville.nom}}
+                {% endif %}
+            </a>
+            <a class="col-10 col-lg-2 btn post-button {% if localPostsPage is defined and localPostsPage %}current-link{% endif %}" href="{{ path('local-posts') }}">
+                Publications
+                {% if app.user.ville %}
+                    à {{app.user.ville.nom}}
+                {% endif %}
+            </a>
         </div> 
     </div> 
 </div>

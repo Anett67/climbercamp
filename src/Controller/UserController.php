@@ -72,7 +72,7 @@ class UserController extends AbstractController
             'users' => $users,
             'ville' => $ville,
             'form' => $form->createView(),
-            'hideLocalUsersButton' => true,
+            'localUsersPage' => true,
             'lastUsersPage' => $lastUsersPage
         ]);
     }

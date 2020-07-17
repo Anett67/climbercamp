@@ -41,7 +41,7 @@ class ClubController extends AbstractController
 
         return $this->render('club/clubs.html.twig', [
             'clubs' => $clubs,
-            'hideLocalClubsButton' => true
+            'localClubsPage' => true
         ]);
     }
 
