@@ -23,7 +23,9 @@
         <!-- Liens -->
         <div class="buttons">
             <a class="m-2 btn profil-button" href="{{ path('single-user',{'id' : user.id}) }}">Voir profile</a>
-            <a class="m-2 btn message-button" href="{{ path('conversation', {'id': user.id }) }}">Envoyer un message</a>
+            {% if user.id != app.user.id %}
+                <a class="m-2 btn message-button" href="{{ path('conversation', {'id': user.id }) }}">Envoyer un message</a>
+            {% endif %}
         </div>
     </div>
 {% endfor %}
