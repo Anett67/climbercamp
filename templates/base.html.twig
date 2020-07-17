@@ -96,7 +96,9 @@
             {% endblock %}
         </header>
         <div class="container">
-        {% block body %}{% endblock %}
+            {% block body %}
+            {% endblock %}
+            <div id="scrolltop-div"><img id="scrolltop-icon" src="{{ asset('build/images/icons/upload.png') }}" /></div>
         </div>
         {% block javascripts %}{% endblock %}
         {{ encore_entry_script_tags('app') }}
