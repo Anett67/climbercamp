@@ -24,7 +24,13 @@
     {% include 'topLinks.html.twig' %}
 
     {% include 'flashMessages.html.twig' %}
-    
+
+    <div class="row justify-content-center justify-content-lg-end mt-5">
+        <div class=" events-block col-10 col-lg-9 justify-content-center">
+            {% include 'event/eventSearchForm.html.twig' %}
+        </div>
+    </div>
+        
     <div class="row justify-content-center justify-content-lg-end mt-5">
         <div class=" events-block col-10 col-lg-9 justify-content-center">
 
@@ -43,9 +49,9 @@
 
             <div class="row justify-content-center pb-5">
                 <!-- La liste des évènements -->
-                    {% for event in events %}
-                        {% include 'event/eventsList.html.twig' %}
-                    {% endfor %}  
+                {% for event in events %}
+                    {% include 'event/eventsList.html.twig' %}
+                {% endfor %}  
             </div>
             
         </div>

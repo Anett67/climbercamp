@@ -64,7 +64,7 @@
                         <a class="commentsAndUsers" href="{{ path('event-users', {'id': event.id}) }}">{{ event.interestedUsers|length }} Personnes sont intéressées</a>
                     </div>
                     <div class=" col-11">
-                        <a class="commentsAndUsers" href="">{{ event.eventComments|length }} Commentaires</a>
+                        <a class="commentsAndUsers" href="{{ path('single-event', {'id': event.id}) }}">{{ event.eventComments|length }} Commentaires</a>
                     </div>
                 </div>
             </div>
