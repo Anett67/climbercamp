@@ -141,19 +141,23 @@ class PostController extends AbstractController
     }
 
     /**
-     * The page which shows all the posts of a user
+     * The page which shows all the posts of a user with pagination
      * 
      * @Route("/user/posts/{id}", name="user-posts", requirements={"id":"\d+"})
      */
-    public function userPosts(User $user): Response
-    {   
-        
-        $posts = $user->getPosts();
+    public function userPosts(User $user, PostRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    {    
+        $postsPerPage = 10;
+        $posts = $paginator->paginate(
+            $repository->findUsersPostsWithPagination($user), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            $postsPerPage /*limit per page*/
+        );
 
-        return $this->render('post/posts.html.twig', [
+        return $this->render('post/usersPosts.html.twig', [
             'posts' => $posts,
             'user' => $user,
-            'search' => false
+            'search' => false,
         ]);
     }
 

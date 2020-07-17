@@ -8,6 +8,7 @@ use App\Form\UserRoleType;
 use App\Form\UserSearchType;
 use App\Repository\UserRepository;
 use App\Repository\EventRepository;
+use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -103,6 +104,8 @@ class UserController extends AbstractController
         $response = $this->render('user/user.html.twig', ['users' => $users])->getContent();
         return new JsonResponse($response);
     }
+
+
 
     /**
      * The profil of a user
