@@ -65,48 +65,57 @@ class MessageController extends AbstractController
 
         $messages = [];
 
-        $allMessages = $repository->findUsersMessages($user);
+        if($user->getId() != $partner->getId()){
+        
+            $allMessages = $repository->findUsersMessages($user);
 
-        foreach($allMessages as $message){
-            $fromUserId = $message->getFromUser()->getId();
-            $toUserId = $message->getToUser()->getId();
-            if($fromUserId === $partner->getId() || $toUserId === $partner->getId()){
-                $messages[] = $message;
-                if($toUserId === $user->getId() && $fromUserId === $partner->getId()){
-                    $message->setSeen(true);
-                    $manager->persist($message);
-                    $manager->flush();
+            foreach($allMessages as $message){
+                $fromUserId = $message->getFromUser()->getId();
+                $toUserId = $message->getToUser()->getId();
+                if($fromUserId === $partner->getId() || $toUserId === $partner->getId()){
+                    $messages[] = $message;
+                    if($toUserId === $user->getId() && $fromUserId === $partner->getId()){
+                        $message->setSeen(true);
+                        $manager->persist($message);
+                        $manager->flush();
+                    }
                 }
             }
+
+            $newMessage = new Message();
+
+            $form = $this->createForm(MessageType::class, $newMessage);
+
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $newMessage->setFromUser($user)
+                            ->setToUser($partner)
+                            ->setSendDate(new DateTime('now'))
+                            ->setSeen(false);
+                $manager->persist($newMessage);
+                $manager->flush();
+
+                $this->addFlash('success', 'Votre message a été envoyé avec succès');
+
+                return $this->redirectToRoute('conversation', ['id' => $partner->getId()]);
+            }
+            return $this->render('message/conversation.html.twig',[
+                'partner' => $partner,
+                'messages' => $messages,
+                'form' => $form->createView(),
+                'messagesPage' => true
+            ]);
+
+        }else{
+            return $this->render('message/conversation.html.twig',[
+                'partner' => $partner,
+                'messages' => $messages,
+                'messagesPage' => true
+            ]); 
         }
-
-        $newMessage = new Message();
-
-        $form = $this->createForm(MessageType::class, $newMessage);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            $newMessage->setFromUser($user)
-                        ->setToUser($partner)
-                        ->setSendDate(new DateTime('now'))
-                        ->setSeen(false);
-            $manager->persist($newMessage);
-            $manager->flush();
-
-            $this->addFlash('success', 'Votre message a été envoyé avec succès');
-
-            return $this->redirectToRoute('conversation', ['id' => $partner->getId()]);
-        }
-
-        return $this->render('message/conversation.html.twig',[
-            'partner' => $partner,
-            'messages' => $messages,
-            'form' => $form->createView(),
-            'messagesPage' => true
-        ]);
-
-     }
+        
+    }
 
     /**
      * The action to make a new message "seen"

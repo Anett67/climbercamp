@@ -35,14 +35,16 @@
                     </h6>
                 </th>
             </tr>
-            <tr>
-                <td class="new-message-form-block">
-                    {{ form_start(form) }}
-                        {{form_row(form.body, {'attr' : { 'placeholder' : 'Nouveau message', 'autofocus': true }})}}
-                        <input class="new-message-button" type="submit" value="Envoyer">
-                    {{ form_end(form) }}
-                </td>
-            </tr>
+            {% if form is defined %}
+                <tr>
+                    <td class="new-message-form-block">
+                        {{ form_start(form) }}
+                            {{form_row(form.body, {'attr' : { 'placeholder' : 'Nouveau message', 'autofocus': true }})}}
+                            <input class="new-message-button" type="submit" value="Envoyer">
+                        {{ form_end(form) }}
+                    </td>
+                </tr>
+            {% endif %}
             {% for message in messages %}
                 <tr>
                     <td class="single-message {% if message.fromUser.id is same as(app.user.id) %}currentuser{% else %}partner{% endif %}">

@@ -69,11 +69,13 @@
         </div>
 
         <div class="row justify-content-around user-data m-3 mb-5">
-            <div class="col-lg-3 text-center m-2">
-                <a href="{{ path('conversation', {'id' : user.id }) }}" class="btn contact-button">
-                    Envoyer un message
-                </a>
-            </div>
+            {% if user.id != app.user.id %}
+                <div class="col-lg-3 text-center m-2">
+                    <a href="{{ path('conversation', {'id' : user.id }) }}" class="btn contact-button">
+                        Envoyer un message
+                    </a>
+                </div>
+            {% endif %}
             <div class="col-lg-3 text-center m-2">
                 <a href="{{ path('saved-events', {'id': user.id} ) }}" class="btn user-events-button">
                     Evènements qui l'intéressent
