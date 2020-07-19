@@ -9,12 +9,12 @@
 {% include 'topLinks.html.twig' %}    
 
 <div class="row justify-content-center justify-content-lg-end">
-    <div class="club-block col-10 col-lg-9 mt-3 p-2 pt-5 ">
+    <div class="club-block col-11 col-sm-10 col-lg-9 mt-3 p-1 pt-3 pt-md-5">
 
         <!-- La photo de la salle d'escalade si il y en a -->
         <div class="row justify-content-center">
             {% if club.image %}
-                <div class="col-10">
+                <div class="col-11 col-md-10">
                     <img class="club-image" src="{{ asset('upload/clubs/' ~ club.image) }}" alt="">
                 </div>
             {% endif %}
@@ -22,27 +22,32 @@
 
         <!-- Ville -->
         <div class="row justify-content-center p-2">
-            <h4 class="col text-center">{{ club.ville.nom }}</h4>
+            <h4 class="club-name col text-center">{{ club.nom }}</h4>
+        </div>
+
+        <!-- Ville -->
+        <div class="row justify-content-center p-2">
+            <h4 class="ville col text-center">{{ club.ville.nom }}</h4>
         </div>
 
         <!-- Addresse -->
         <div class="row justify-content-center p-2">
-            <h5 class="col text-center">{{ club.addresse }}</h5>
+            <h5 class="address col text-center">{{ club.addresse }}</h5>
         </div>  
 
         <!-- Numéro de téléphone -->
         <div class="row justify-content-center p-2">   
-            <h5 class="col text-center">{{ club.telephone }}</h5>
+            <h5 class="phone col text-center">{{ club.telephone }}</h5>
         </div>
 
         <!-- Email -->
         <div class="row justify-content-center p-2">   
-            <h5 class="col text-center">{{ club.email }}</h5>
+            <h5 class="mail col text-center">{{ club.email }}</h5>
         </div>
 
         <!-- Categories d'escalade -->
         <div class="row justify-content-center p-2">
-            <div class="col-12 text-center">Types d'escalade dans cette salle:</div> 
+            <div class="categorie-label col-12 text-center">Types d'escalade dans cette salle:</div> 
             {% for category in club.climbingCategories %}   
                 <div class="badge m-2">{{ category.label }}</div>
             {% endfor %}
