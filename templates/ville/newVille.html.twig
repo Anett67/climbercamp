@@ -6,15 +6,21 @@
 
 {% block body %}
 
+{% include 'topLinks.html.twig' %}    
+
 {% include 'flashMessages.html.twig' %}
 
 <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
-    <div class="profil-block col-10 col-lg-9 justify-content-center p-lg-3 pt-3 pb-3">
+    <div class="profil-block col-11 col-sm-10 col-lg-9 justify-content-center p-lg-3 pt-3 pb-3">
         <h2 class="new-ville-title">Ajouter une ville</h2>  
         {{ form_start(villeForm) }}
             {{ form_widget(villeForm) }}
             {{ form_errors(villeForm) }}
-            <input type="submit" class="btn submit-button w-30" value="Enregistrer">
+            <div class="row justify-content-end">
+                <div class="col-12 col-md-6 col-lg-3">
+                    <input type="submit" class="btn submit-button w-100" value="Enregistrer">
+                </div>
+            </div>
         {{ form_end(villeForm) }}
     </div>
 </div>

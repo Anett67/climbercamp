@@ -17,6 +17,7 @@ class VilleType extends AbstractType
         $builder
             ->add('nom', TextType::class)
             ->add('country',  EntityType::class,[
+                'label' => 'Pays',
                 'class' => Country::class,
                 'choice_label' => 'nom'
             ])
