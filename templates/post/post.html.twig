@@ -1,26 +1,24 @@
 {% for post in posts %}
 <div class="row justify-content-center justify-content-lg-end">
-    <div class="post-block col-10 col-lg-9 p-5 mt-3">
-        <div class="row postedByAt-block align-items-center">
-            <div class="col-8 col-lg-6">
-
-            <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
-            <div class="row align-items-center">
-                <div class="img-cadre">
-                    {% if post.postedBy.image %}
-                        <img class="postedByProfil img-fluid" src="{{ asset('upload/users/' ~ post.postedBy.image) }}" alt="Photo de profile">
-                    {% else %}
-                        <img class="postedByProfil img-fluid" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
-                    {% endif %}
+    <div class="post-block col-11 col-sm-10 col-lg-9 p-2 p-sm-4 p-md-5 mt-3">
+        <div class="row postedByAt-block align-items-center no-gutters">
+            <div class="col-7 col-sm-8 col-lg-6">
+                <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
+                <div class="row align-items-center no-gutters">
+                    <div class="img-cadre">
+                        {% if post.postedBy.image %}
+                            <img class="postedByProfil img-fluid" src="{{ asset('upload/users/' ~ post.postedBy.image) }}" alt="Photo de profile">
+                        {% else %}
+                            <img class="postedByProfil img-fluid" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
+                        {% endif %}
+                    </div>
+                    <div class="col-7 col-md-8 col-lg-9 pl-2">
+                        <a class="postedByName" href="{{ path('single-user',{'id' : post.postedBy.id}) }}">{{ post.postedBy.firstName }} {{ post.postedBy.lastName }}</a>
+                    </div>
                 </div>
-                <div class="col-7 col-md-8 col-lg-9">
-                    <a class="postedByName" href="{{ path('single-user',{'id' : post.postedBy.id}) }}">{{ post.postedBy.firstName }} {{ post.postedBy.lastName }}</a>
-                </div>
-            </div>
-
             </div>
             <!-- Le bloc qui affiche le temps passé depuis la publication -->
-            <div class="col-4 col-lg-6 text-right">
+            <div class="col-5 col-sm-4 col-lg-6 text-right">
                 <div class="row justify-content-end align-items-center">
                     {{ post.createdAt|ago }}
                     {# Le formulaire de suppression sur cette page s'affiche seulement pour les administrateurs #}
@@ -47,7 +45,7 @@
                 <div class="row">
                     <p class="postBody">{{ post.body }}</p>
                 </div>
-                <div class="row justify-content-end align-items-end">
+                <div class="row justify-content-center align-items-end no-gutters">
                     <!-- Bouton j'aime -->
                     <div class="col-12 {% if post.image %}col-md-6{% else %}col-md-6 col-lg-3 {% endif %} m-2 mt-lg-5">
                         <a id="{{ post.id }}" class="btn like-button" href="{{ path('post-like', {'id': post.id}) }}">
