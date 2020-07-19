@@ -1,14 +1,14 @@
 <div class="cancel" data-url="{{ path('post-json', {'id': post.id }) }}">
     Annuler
 </div>
-<div class="col-12 col-md-8">
+<div class="col-12 col-md-8 update-form-block">
     {{form_start(form)}}
         {{form_row(form.body, { 'label': false })}}
         {{form_row(form.imageFile, {'attr': {'data-id' : post.id}})}}
         <input type="submit" class="btn submit-button post-update w-100">
     {{form_end(form)}}
 </div>
-<div class="col-12 col-md-4">
+<div class="col-12 col-md-4 update-image-block">
     <div class="row">
         <div class="col-12">
             {% if post.image %}
