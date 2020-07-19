@@ -18,6 +18,20 @@
         h5,h6, span, p{
             font-family: OpenLight;
         }
+        h5{
+            color: $green;
+            text-transform: uppercase;
+            font-family: OpenRegular;
+        }
+        span.date{
+            font-family: OpenRegular;
+            font-size: 1.5rem;
+        }
+        p.event-date-label{
+            text-transform: uppercase;
+            font-family: OpenRegular;
+            color: $green;
+        }
     }
     .interested-persons{
         color: $green;
