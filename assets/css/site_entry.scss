@@ -37,7 +37,7 @@ body{
                         border: 2px solid $yellow;
                         background-color: $black;
                         border-radius: 0;
-                        color: $orange;
+                        color: $green;
 
                     }
                     .submit-button{
@@ -51,6 +51,7 @@ body{
                             transition: 0.2s;
                         }
                     }
+                    
                 }
                 .error-message{
                     color: $orange;
@@ -85,8 +86,13 @@ body{
             .logo-icon{
                 width: 100%;
             }
-        }
-        
+        }   
     }
-    
+}
+
+span.form-error-icon{
+    background-color: $orange;
+}
+span.form-error-message{
+    color: $orange;
 }
