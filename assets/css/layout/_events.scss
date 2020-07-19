@@ -135,6 +135,9 @@
     }
     #output{
         width: 80%;
+    }
+    textarea{
+        height: 200px;
     } 
     @include upload_button($green, $black, 'Télécharger une photo', auto, 100%, 1px solid $green);
 
