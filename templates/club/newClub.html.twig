@@ -11,12 +11,14 @@
     {% include 'topLinks.html.twig' %}
     
     <div class="row justify-content-center justify-content-lg-end">
-        <div class="new-club-form col-10 col-lg-9 mt-3">
+        <div class="new-club-form col-11 col-sm-10 col-lg-9 mt-3">
             <div class="row justify-content-center pt-5 pb-3">
                 {{ form_start(form) }}
                     {{form_row(form.nom)}}
                     <div class="row justify-content-center mb-2">
-                        <img src="{% if club is defined %}{{ asset('upload/clubs/' ~  club.image) }}{% endif %}" id="output" class="w-50">
+                        <div class="col-12">
+                            <img src="{% if club is defined %}{{ asset('upload/clubs/' ~  club.image) }}{% endif %}" id="output" class="w-100">
+                        </div>
                     </div>
                     {{ form_widget(form) }}
                     <button type="submit" class="btn new-club-submit mt-3 mb-3 w-100">Enregistrer</button>
