@@ -26,10 +26,12 @@
         }
         
         .card-title{
+            text-align: center;
             a{
                 color: $yellow;
                 font-family: OpenSemiBold;
                 font-size: 1.2rem;
+                text-emphasis: center;
             } 
         }
         .card-text{
@@ -69,33 +71,28 @@
 }
 
 
-
-.user-search-form{
-    form{
-       width: 100%;
-       display: flex;
-       justify-content: space-between;
-       background-color: $blackrgba;
-       padding: 10px;
-       #user_search{
-           display: flex;
-           justify-content: space-around;
-           width: 80%;
-           .form-group{
-                width: 45%;
-                margin: 0;
-                input{
-                    border-radius: 0px;
-                    color: $green;
-                    background-color: transparent;
-                    border-color: $yellow;
-                }
-            }     
+.user-search-block{
+    .user-search-form{
+        background-color: $blackrgba;
+        form{
+            width: 100%;
+            padding: 10px;
+        #user_search{
+            .form-group{
+                    input{
+                        border-radius: 0px;
+                        color: $green;
+                        background-color: transparent;
+                        border-color: $yellow;
+                    }
+                }     
+            }
+            input[type="submit"]{
+                @include buttons-colored($orange);
+                font-family: OpenSemiBold;
+            }    
         }
-        input[type="submit"]{
-            @include buttons-colored($orange);
-            font-family: OpenSemiBold;
-        }    
     }
 }
+
 
