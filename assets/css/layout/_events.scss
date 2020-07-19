@@ -142,3 +142,9 @@
         @include buttons-colored($orange);
     }
 }
+
+.event-update-form{
+    select{
+        margin: 3px;
+    }
+}

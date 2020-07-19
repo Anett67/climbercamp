@@ -1,19 +1,19 @@
 <div class="cancel" data-url="{{ path('event-json', {'id': event.id }) }}">
     Annuler
 </div>
-<div class="col-10">
-{{ form_start(form) }}
-    {{ form_row(form.title,{ 'label' : 'Titre' })}}
-    {{ form_row(form.description,{ 'label' : 'Détails' })}}
-    {{ form_row(form.location,{ 'label' : 'Addresse' })}}
-    {{ form_row(form.eventDate,{ 'label' : 'Date et heure' })}}
-    {{ form_row(form.ville,{ 'label' : 'Ville' })}}
-    <div class="row justify-content-center">
-        <img id="{{event.id}}" class="w-50" {% if event.image %} src="{{ asset('upload/events/' ~ event.image) }}" {% endif %}>
-    </div>
-    {{ form_row(form.imageFile, {'attr': {'data-id' : event.id}})}}
-    <input type="submit" class="btn btn-block submit-button mt-4 mb-3" value="Enregistrer">  
-{{ form_end(form) }}
+<div class="col-12 col-sm-11 col-md-10 event-update-form">
+    {{ form_start(form) }}
+        {{ form_row(form.title,{ 'label' : 'Titre' })}}
+        {{ form_row(form.description,{ 'label' : 'Détails' })}}
+        {{ form_row(form.location,{ 'label' : 'Addresse' })}}
+        {{ form_row(form.eventDate,{ 'label' : 'Date et heure' })}}
+        {{ form_row(form.ville,{ 'label' : 'Ville' })}}
+        <div class="row justify-content-center">
+            <img id="{{event.id}}" class="w-75" {% if event.image %} src="{{ asset('upload/events/' ~ event.image) }}" {% endif %}>
+        </div>
+        {{ form_row(form.imageFile, {'attr': {'data-id' : event.id}})}}
+        <input type="submit" class="btn btn-block submit-button mt-4 mb-3" value="Enregistrer">  
+    {{ form_end(form) }}
 </div>
 
 {% block javascripts %}
