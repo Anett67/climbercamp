@@ -11,21 +11,22 @@
 {% include 'flashMessages.html.twig' %}
 
 <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
-    <div class=" event-block col-11 col-md-9 justify-content-center">
+    <div class=" event-block col-11 col-sm-10 col-md-9 justify-content-center">
 
         <div class="row event-header {% if event.image %} justify-content-center {% endif %}">
             <!-- Afficher l'image lié à l'évènement si il y en a -->
             {% if event.image %}
-                <div class="col-10 col-md-5 pt-2 pb-2">
+                <div class="col-12 col-sm-11 col-md-6 pt-2 pb-2">
                     <img src="{{ asset('upload/events/' ~ event.image) }}" alt="" class="event-image">
                 </div>
             {% endif %}
 
-            <div class="col-10 col-md-5 d-flex flex-column justify-content-around p-2">
+            <div class="col-11 col-sm-10 col-md-5 d-flex flex-column justify-content-around p-2">
                 <!-- Ville, lieu et date -->
                 <h5>{{ event.ville.nom }}</h5>
                 <h6>{{ event.location }}</h6>
-                <span class="date mb-2" >le {{ event.eventDate|date("d/m/Y à H:i") }}</span>
+                <p class="event-date-label">Date: </p>
+                <span class="date mb-2" >{{ event.eventDate|date("d/m/Y à H:i") }}</span>
 
                 <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
                 <p>Partagé par: <a class="postedBy-link" href="{{ path('single-user', {'id': event.postedBy.id}) }}">{{ event.postedBy.firstName }} {{ event.postedBy.LastName }} </a></p>
@@ -42,17 +43,17 @@
 
         <!-- Le nombre des personnes intéressées -->
         <div class="row justify-content-center">
-            <div class="col-10">
+            <div class="col-11">
                 <a class="interested-persons" href="{{ path('event-users', {'id': event.id}) }}">{{ event.interestedUsers|length }} personnes sont intéressées </a>
             </div>
         </div>
 
         <!-- Description de l'évènement -->
         <div class="row justify-content-center description mt-5 mb-5">
-            <div class="col-10">
+            <div class="col-11">
                <h3>Détails</h3> 
             </div>
-            <div class="col-10">
+            <div class="col-11">
                 <p>{{ event.description }}</p>
             </div>
         </div>
