@@ -58,20 +58,13 @@
     }
 
     .my-posts-button{
-        @include buttons($grey);
+        @include buttons($green);
     }
 
     .my-events-button{
         @include buttons($yellow);
     }
 
-    .my-comments-button{
-        @include buttons($green);
-    }
-
-    .delete-account-button{
-        @include buttons(#c82333);
-    }
 }
 .new-ville-link{
     color: $green;

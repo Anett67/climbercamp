@@ -11,10 +11,10 @@
 {% include 'flashMessages.html.twig' %}
 
 <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
-    <div class="profil-block col-10 col-lg-9 justify-content-center p-lg-3 pt-3">
+    <div class="profil-block col-11 col-sm-10 col-lg-9 justify-content-center p-lg-3 pt-3">
 
         <div class="row justify-content-center align-items-center">
-            <div class="col-10 col-md-4 profile-picture">
+            <div class="col-12 col-sm-10 col-md-4 profile-picture">
                 {% if app.user.image %}
                     <img id="output" src="{{ asset('upload/users/' ~ app.user.image ) }}" alt="">
                 {% else %}
