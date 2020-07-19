@@ -2,7 +2,7 @@
 
 {% block title %}Grimpeurs{% endblock %}
 
-{% block pageTitle %}{{ totalSearchedUsers }} résultat{% if totalEvents > 1 %}s{% endif %}{% endblock %}
+{% block pageTitle %}{{ totalSearchedUsers }} résultat{% if totalSearchedUsers > 1 %}s{% endif %}{% endblock %}
 
 {% block body %}
 
@@ -14,11 +14,9 @@
     {% endif %}
 
     <div class="row justify-content-center justify-content-lg-end">
-        <div class="col-10 mt-3 col-lg-9 p-0">
-            <div class="card-container">
-                <!-- La liste des utilisateur -->
-                {% include 'user/user.html.twig' %}
-            </div>
+        <div class="card-container col-11 col-sm-10 col-lg-9 p-0">
+            <!-- La liste des utilisateur -->
+            {% include 'user/user.html.twig' %}
         </div>    
     </div>
       
