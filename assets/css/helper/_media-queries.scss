@@ -36,6 +36,18 @@
 
 }
 
+@media all and (max-width: 768px){
+    .update-block{
+        .update-form-block{
+            order: 2;
+        }
+        .update-image-block{
+            order: 1;
+            margin-bottom: 10px;
+        }
+    }
+}
+
 @media (max-width: 575px){
     header{
         h1#main-title{
