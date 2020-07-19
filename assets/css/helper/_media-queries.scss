@@ -46,6 +46,11 @@
             margin-bottom: 10px;
         }
     }
+    .new-club-form{
+        form{
+            width: 80%;
+        }
+    }
 }
 
 @media (max-width: 575px){
@@ -85,6 +90,11 @@
                     }
                 }     
             }  
+        }
+        .new-club-form{
+            form{
+                width: 90%;
+            }
         }
     }
     
