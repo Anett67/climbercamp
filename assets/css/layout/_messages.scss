@@ -8,6 +8,8 @@
             height: 40px;
             display: inline-block;
             margin: 8px;
+            border-radius: 50%;
+            overflow: hidden;
             img{
                 height:100%;
                 width: 100%;
@@ -17,8 +19,13 @@
         }
         .name{
         color: $green;
-        font-size: 0.8rem;
-        font-family: OpenLight;
+        font-size: 1.2rem;
+        font-family: OpenRegular;
+        }   
+    }
+    .chat-users.to-user{
+        .name{
+            text-align: right;
         }
     }
     
