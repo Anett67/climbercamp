@@ -17,4 +17,25 @@
             color: $orange;
         }
     }
+    .club-name{
+        padding-top: 20px;
+        font-family: OpenSemiBold;
+        text-transform: uppercase;
+        font-size: 1.8rem;
+        color: $orange;
+    }
+    .ville{
+        text-transform: uppercase;
+        color: $green;
+    }
+    .address{
+        font-family: OpenLight;
+        color: $green;
+    }
+    .categorie-label{
+        color: $orange;
+    }
+    .mail{
+        font-size: 1rem;
+    }
 }

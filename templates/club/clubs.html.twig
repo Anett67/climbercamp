@@ -4,7 +4,7 @@
 
 {% block pageTitle %}
     
-    {% if saved is defined and saved %}    
+    {% if savedClubsPage is defined and savedClubsPage %}    
         Vos salles préférées
     {% elseif app.user.ville %}
         Salles d'escalade à {{ app.user.ville.nom }}
