@@ -8,24 +8,24 @@
 
 {% include 'topLinks.html.twig' %}
 
-        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
-            <div class="row justify-content-center justify-content-lg-end">
-                <div class="events-block col-10 col-lg-9 mt-3 p-3 mb-1">
-                    <div class="row justify-content-center">
-                        <div class="col-10 mt-3 p-2 text-center">
-                            <a class="new-event-button btn" href="{{ path('event-new') }}">Créer un évènement</a>
-                        </div>
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
+        <div class="row justify-content-center justify-content-lg-end">
+            <div class="events-block col-11 col-sm-10 col-lg-9 mt-3 p-3 mb-1">
+                <div class="row justify-content-center">
+                    <div class="col-11 col-sm-10 col-md-6 col-lg-3 p-2 text-center">
+                        <a class="new-event-button btn w-100" href="{{ path('event-new') }}">Créer un évènement</a>
                     </div>
                 </div>
-            </div>    
-        {% endif %}
+            </div>
+        </div>    
+    {% endif %}
 
 {% include 'flashMessages.html.twig' %}
 
 {% if myEvents|length > 0 %}
     {% for event in myEvents %}
     <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
-        <div class="profil-block col-10 col-lg-9 justify-content-center p-lg-3 pt-3">
+        <div class="profil-block col-11 col-sm-10 col-lg-9 justify-content-center p-lg-3 pt-3">
             <div class="row justify-content-center align-items-center update-block">
                 
                 {% include 'event/myEvent.html.twig' %}
