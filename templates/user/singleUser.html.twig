@@ -12,8 +12,8 @@
 
 {% include 'topLinks.html.twig' %}
  
-<div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
-    <div class=" events-block col-10 col-lg-9 justify-content-center pb-5">
+<div class="row justify-content-center justify-content-lg-end mt-5 mb-5 ">
+    <div class="user-block col-11 col-sm-10 col-lg-9 justify-content-center pt-3 pb-5">
 
         <div class="row justify-content-center align-items-center">
             <!-- Photo de profil -->
@@ -25,7 +25,7 @@
                 {% endif %}
             </div>
             <!-- Présentation -->
-            <div class="col-lg-6 presentation user-data m-5">
+            <div class="col-12 col-sm-10 col-lg-6 presentation user-data m-2 m-sm-5">
                 <h4>{{ user.username }}</h4>
                 <p>{{ user.presentation }}</p>
             </div>
@@ -33,7 +33,7 @@
         
         <div class="row justify-content-center user-data m-2">
             <!-- Ville -->
-            <div class="col text-center ville">
+            <div class="col-12 col-md-6 text-center ville">
                 {% if user.ville %}
                     <h4>Ville</h4>
                     <h5>{{ user.ville.nom }}</h5>
@@ -41,8 +41,8 @@
             </div>
             <!-- Niveau -->
             {% if user.level %}
-            <div class="col text-center">
-                <h4 class="niveau">Niveau</h4>
+            <div class="col-12 col-md-6 text-center">
+                <h4 class="niveau pt-3 pt-md-0">Niveau</h4>
                 <h5>{{ user.level.label }}</h5>
             </div>
             {% endif %}
@@ -50,8 +50,8 @@
         <div class="row justify-content-center user-data m-2">
             <!-- Type d'escalade -->
             {% if user.climbingCategorie|length > 0 %}
-                <div class="col text-center climbing-categorie">
-                    <h4>Types d'escalade</h4>
+                <div class="col-12 col-md-6 text-center climbing-categorie">
+                    <h4 class="pt-3 pt-md-0">Types d'escalade</h4>
                     {% for category in user.climbingCategorie %}
                         <h5>{{ category.label }}</h5> 
                     {% endfor %}
@@ -59,8 +59,8 @@
             {% endif %}
             {% if user.climbingClub|length > 0 %}
                 <!-- Salles d'escalade -->
-                <div class="col text-center">
-                    <h4 class="salles">Salles d'escalade préférées</h4>
+                <div class="col-12 col-md-6 text-center">
+                    <h4 class="salles pt-3 pt-md-0">Salles d'escalade préférées</h4>
                     {% for club in user.climbingClub %}
                         <h5>{{ club.nom }}</h5>
                     {% endfor %}
@@ -70,18 +70,18 @@
 
         <div class="row justify-content-around user-data m-3 mb-5">
             {% if user.id != app.user.id %}
-                <div class="col-lg-3 text-center m-2">
+                <div class="col-12 col-md-10 col-lg-3 text-center m-2">
                     <a href="{{ path('conversation', {'id' : user.id }) }}" class="btn contact-button">
                         Envoyer un message
                     </a>
                 </div>
             {% endif %}
-            <div class="col-lg-3 text-center m-2">
+            <div class="col-12 col-md-10 col-lg-3 text-center m-2">
                 <a href="{{ path('saved-events', {'id': user.id} ) }}" class="btn user-events-button">
                     Evènements qui l'intéressent
                 </a>
             </div>
-            <div class="col-lg-3 text-center m-2">
+            <div class="col-12 col-md-10 col-lg-3 text-center m-2">
                 <a href="{{ path('user-posts', {'id': user.id}) }}" class="btn user-posts-button">
                    Voir ses publications
                 </a>
@@ -97,11 +97,15 @@
             <hr class="separator">
         {% endif %}
         {% if is_granted('ROLE_SUPERADMIN') %}
-            <div class="row role-form justify-content-around align-items-center">
-                <div class="col role-form">
+            <div class="row role-form justify-content-center align-items-center">
+                <div class="col-12 col-sm-10 role-form">
                     {{ form_start(form) }}
                         {{ form_widget(form) }}
-                        <input type="submit" class="btn role-submit">
+                        <div class="row justify-content-end">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <input type="submit" class="btn role-submit w-100">
+                            </div>
+                        </div>
                     {{ form_end(form) }}
                 </div>
             </div>
