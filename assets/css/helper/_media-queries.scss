@@ -33,6 +33,11 @@
         order: 2;
         width: 70%;
     }
+    .card-container{
+        .cardd{
+            width: 40%;
+        }
+    }
 
 }
 
@@ -60,6 +65,19 @@
         }
         #logo{
             max-width: 200px;
+        }
+    }
+    .card-container{
+        .cardd{
+            width: 40%;
+        }
+    }
+}
+
+@media all and (max-width: 445px){
+    .card-container{
+        .cardd{
+            width: 100%;
         }
     }
 }
