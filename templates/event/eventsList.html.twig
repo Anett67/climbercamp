@@ -1,10 +1,10 @@
-<div class="event-block col-10 mt-3 mb-3">
+<div class="event-block col-11 col-sm-10 mt-3 mb-3">
     <div class="row">
         <div class="col-12 col-lg-8">
             <div class="row justify-content-center justify-content-lg-start">
                 <!-- Afficher l'image lié à l'évènement si il y en a -->
                 {% if event.image %}
-                    <div class="col-11 col-md-4 mb-2">
+                    <div class="col-12 col-md-4 mb-2">
                         <img class="event-image" src="{{ asset('upload/events/' ~ event.image ) }}" alt="Image">
                     </div>
                 {% endif %}
@@ -27,8 +27,8 @@
         </div>
         <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
         <div class="col-12 col-lg-4">
-            <div class="row align-items-center mb-1 mt-5 mt-lg-0">
-                <div class="col-9 col-md-10 col-lg-8 text-right pr-0">
+            <div class="row align-items-center mb-1 mt-2 mt-lg-5 mt-lg-0">
+                <div class="col-9 col-sm-10 col-lg-8 text-right pr-0">
                     <div class="postedByName">
                         <div>
                             <a href="{{ path('single-user',{'id' : event.postedBy.id}) }}" class="m-0">{{ event.postedBy.firstName }} {{ event.postedBy.lastName }}</a>
@@ -46,7 +46,7 @@
             </div>
             <div class="row justify-content-end">
                 {% if is_granted('ROLE_SUPERADMIN') %}
-                    <form class="mr-3 delete-form" method="POST" style="display:inline-block" action="{{ path('event-delete', {'id': event.id}) }}">
+                    <form class="mr-1 mr-sm-2 mr-md-3 pt-0 delete-form" method="POST" style="display:inline-block" action="{{ path('event-delete', {'id': event.id}) }}">
                         <input type="hidden" name="_method" value="delete">
                         <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ event.id) }}">
                         <button class="delete-post" type="submit"><i class="fas fa-trash-alt m-3"></i></button>
