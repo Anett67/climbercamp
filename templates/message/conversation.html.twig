@@ -9,7 +9,7 @@
 {% include "flashMessages.html.twig" %}
 
 <div class="row justify-content-center justify-content-lg-end mt-5  ">
-    <div class="col-11 col-lg-9 justify-content-center conversation-message-block">
+    <div class="col-11 col-lg-9 justify-content-center conversation-message-block p-0">
         <table class="table conversation-table">
             <tr>
                 <th>
@@ -20,7 +20,7 @@
                             <img class="partner-image" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
                         {% endif %}
                     </div>
-                    <h6 class="partner">{{partner.username}}</h6>
+                    <h6 class="partner"><a href="{{ path('single-user', {'id': partner.id }) }}">{{partner.username}}</a></h6>
                 </th>
                 <th>
                     <div class="conversation-img-cadre">
@@ -31,16 +31,20 @@
                         {% endif %}
                     </div>
                     <h6 class="currentuser">
-                        {{ app.user.username }}
+                        <a href="{{ path('profil') }}">{{ app.user.username }}</a>
                     </h6>
                 </th>
             </tr>
             {% if form is defined %}
                 <tr>
-                    <td class="new-message-form-block">
+                    <td class="new-message-form-block p-0">
                         {{ form_start(form) }}
                             {{form_row(form.body, {'attr' : { 'placeholder' : 'Nouveau message', 'autofocus': true }})}}
-                            <input class="new-message-button" type="submit" value="Envoyer">
+                            <div class="row justify-content-end">
+                                <div class="col-12 col-md-6 col-lg-3">
+                                <input class="new-message-button w-100" type="submit" value="Envoyer">
+                                </div>
+                            </div>
                         {{ form_end(form) }}
                     </td>
                 </tr>
