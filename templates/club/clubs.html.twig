@@ -21,7 +21,7 @@
     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
     
     <div class="row justify-content-center justify-content-lg-end">
-        <div class="club-block col-10 col-lg-9 mt-3 p-3 text-center">
+        <div class="club-block col-11 col-sm-10 col-lg-9 mt-3 p-3 text-center">
             <a class="new-club-button btn" href="{{ path('club-new') }}">Ajouter une salle d'escalade</a>
         </div>
     </div>  
@@ -32,7 +32,7 @@
     <!-- La liste des salles d'escalade -->
     {% for club in clubs %}
     <div class="row justify-content-center justify-content-lg-end">
-        <div class="club-block col-10 col-lg-9 mt-3 pt-2">
+        <div class="club-block col-11 col-sm-10 col-lg-9 mt-3 pt-2">
 
             <div class="row">
                 {% if club.image %}
