@@ -13,6 +13,7 @@ use App\Form\EventCommentType;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\EventCommentRepository;
+use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

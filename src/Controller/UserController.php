@@ -135,7 +135,7 @@ class UserController extends AbstractController
     }
      
     /**
-     * Shows the events saved by the current user
+     * Shows the events saved by the user
      * 
      * @Route("/user/events/{id}", name="saved-events", requirements={"id":"\d+"})
      */
@@ -144,13 +144,19 @@ class UserController extends AbstractController
         $events = $paginator->paginate(
             $repository->getFutureSavedEvents($user), /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
-            2 /*limit per page*/
+            5 /*limit per page*/
         );
+
+        if($this->getUser()->getId() === $user->getId()){
+            $savedEventsPage = true;
+        }else{
+            $savedEventsPage = false;
+        }
 
         return $this->render('event/events.html.twig', [
             'events' => $events,
             'user' => $user,
-            'savedEventsPage' => true
+            'savedEventsPage' => $savedEventsPage
         ]);
     }
 

@@ -37,6 +37,7 @@ body{
                         border: 2px solid $yellow;
                         background-color: $black;
                         border-radius: 0;
+                        color: $orange;
 
                     }
                     .submit-button{
@@ -51,6 +52,11 @@ body{
                         }
                     }
                 }
+                .error-message{
+                    color: $orange;
+                    text-align: center;
+                    font-family: OpenLight;
+                }
                 .forgot-password-block{
                     padding: 1.5rem 0;
                     a{
@@ -60,7 +66,7 @@ body{
                 .link-block{
                     color: $green;
                     a{
-                        color: $green;
+                        color: $orange;
                         text-decoration: underline;
                     }
                 }

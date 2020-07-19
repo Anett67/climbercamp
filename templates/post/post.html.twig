@@ -4,25 +4,26 @@
         <div class="row postedByAt-block align-items-center">
             <div class="col-8 col-lg-6">
 
-                <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
-                <div class="row align-items-center">
-                    <div class="img-cadre">
-                        {% if post.postedBy.image %}
-                            <img class="postedByProfil img-fluid" src="{{ asset('upload/users/' ~ post.postedBy.image) }}" alt="Photo de profile">
-                        {% else %}
-                            <img class="postedByProfil img-fluid" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
-                        {% endif %}
-                    </div>
-                    <div class="col-7 col-md-8 col-lg-9">
-                        <a class="postedByName" href="{{ path('single-user',{'id' : post.postedBy.id}) }}">{{ post.postedBy.firstName }} {{ post.postedBy.lastName }}</a>
-                    </div>
+            <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
+            <div class="row align-items-center">
+                <div class="img-cadre">
+                    {% if post.postedBy.image %}
+                        <img class="postedByProfil img-fluid" src="{{ asset('upload/users/' ~ post.postedBy.image) }}" alt="Photo de profile">
+                    {% else %}
+                        <img class="postedByProfil img-fluid" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
+                    {% endif %}
                 </div>
+                <div class="col-7 col-md-8 col-lg-9">
+                    <a class="postedByName" href="{{ path('single-user',{'id' : post.postedBy.id}) }}">{{ post.postedBy.firstName }} {{ post.postedBy.lastName }}</a>
+                </div>
+            </div>
 
             </div>
             <!-- Le bloc qui affiche le temps passé depuis la publication -->
             <div class="col-4 col-lg-6 text-right">
                 <div class="row justify-content-end align-items-center">
                     {{ post.createdAt|ago }}
+                    {# Le formulaire de suppression sur cette page s'affiche seulement pour les administrateurs #}
                     {% if is_granted('ROLE_SUPERADMIN') %}
                         <form method="POST" class="delete-form" style="display:inline-block" action="{{ path('post-delete', {'id': post.id}) }}">
                             <input type="hidden" name="_method" value="delete">
@@ -48,7 +49,7 @@
                 </div>
                 <div class="row justify-content-end align-items-end">
                     <!-- Bouton j'aime -->
-                    <div class="col-12 {% if post.image %}col-md-6{% else %}col-md-6 col-lg-3 {% endif %}  m-2 mt-lg-5">
+                    <div class="col-12 {% if post.image %}col-md-6{% else %}col-md-6 col-lg-3 {% endif %} m-2 mt-lg-5">
                         <a id="{{ post.id }}" class="btn like-button" href="{{ path('post-like', {'id': post.id}) }}">
                             <span class="js-postLikes-label{{post.id}} {% if post.isLikedByUser(app.user) %}liked{% endif %}">
                                 {% if post.isLikedByUser(app.user) %}
