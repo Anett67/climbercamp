@@ -40,6 +40,7 @@
                         border: none;
                         background-color: $greyrgbadark;
                         color: $orange;
+                        height: 100px;
                     }
                     .new-message-button{
                         @include buttons($green);
@@ -59,9 +60,15 @@
         }
         .partner{
             color: $yellow;
+            a{
+                color: $yellow;
+            }
         }
         .currentuser{
             color: $green;
+            a{
+                color: $green;
+            }
         }
     }
 }
