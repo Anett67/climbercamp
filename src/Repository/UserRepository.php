@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Event;
 use App\Entity\User;
 use App\Entity\UserSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -36,27 +37,6 @@ class UserRepository extends ServiceEntityRepository
         
         return $req->getQuery()
                     ->getResult()
-        ;
-
-    }
-
-
-    public function findWithSearchWithPagination(UserSearch $userSearch){
-
-        $req = $this->createQueryBuilder('u');
-
-        if($userSearch->getFirstName()){
-            $req = $req->andWhere('u.firstName LIKE :firstname')
-                        ->setParameter(':firstname', '%' . $userSearch->getFirstName() . '%');
-        }
-
-        if($userSearch->getLastName()){
-            $req = $req->andWhere('u.lastName LIKE :lastname')
-                        ->setParameter(':lastname', '%' . $userSearch->getLastName() . '%');
-        }
-        
-        return $req->getQuery()
-                    //->getResult()
         ;
 
     }
@@ -99,6 +79,12 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             //->getResult()
         ;
+    }
+
+    public function findInterestedUsers(Event $event){
+
+        $users = $event->getInterestedUsers();
+
     }
 
     // /**

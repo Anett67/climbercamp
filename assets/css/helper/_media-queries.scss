@@ -19,7 +19,7 @@
     
 }
 
-@media (max-width: 976px){
+@media (max-width: 992px){
     .title-block{
         order: 1;
         height: 250px;
@@ -30,7 +30,9 @@
 
     .block-formulaire{
         order: 2;
+        width: 70%;
     }
+
 }
 
 @media (max-width: 575px){
@@ -42,5 +44,36 @@
             max-width: 200px;
         }
     }
+}
+
+@media all and(max-width: 425px){
+    body{
+        .container-fluid{
+            background-image: none;
+            background-color: $black;
+            .row{
+                .block-formulaire{
+                    width: 100%;
+                    padding: 13vw 6.5vw!important;
+                    min-width: 200px!important;
+                }
+                .title-block{
+                    text-align: center;
+                    height: 100px;
+                    .row{
+                        display: flex;
+                        justify-content: center;
+                        h1#login-title{
+                            font-size: 13.3vw;
+                        }
+                        .logo-icon{
+                            padding: 0;
+                        }
+                    }
+                }     
+            }  
+        }
+    }
+    
 }
 

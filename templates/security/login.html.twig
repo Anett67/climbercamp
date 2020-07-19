@@ -8,7 +8,7 @@
 
     <div class="row justify-content-center d-flex">
 
-        <div class="col-10 col-md-5 col-lg-3 block-formulaire">
+        <div class="col-12 col-sm-10 col-md-7 col-lg-3 block-formulaire">
             {% for message in app.flashes('success') %}
                 <div>
                     {{ message }}
@@ -39,32 +39,27 @@
                     <label for="remember_me">Se souvenir de moi</label>
                 </div> #}
                 <div class="form-group text-center">
-                    <input type="submit" class="submit-button">
+                    <input type="submit" class="submit-button" value="Se connecter">
                 </div>
             </form>
-
-            <div class="forgot-password-block text-center">
-                <a class="forgot-password-link" href="">J'ai oublié mon mot de passe</a>
-            </div>
-
 
             <div class="col link-block">
                 <div class="text-center">Vous n'est pas encore isncrit?</div>
                 <div class="text-center">
-                    <a href="{{ path('inscription') }}">Cliquez ici pour créer un compte</a>
+                    <a href="{{ path('inscription') }}" class="signup-link">Cliquez ici pour créer un compte</a>
                 </div>
             </div>
    
         </div>
 
-        <div class="col-lg-6 col-md-7 title-block">
+        <div class="col-12 col-lg-6 col-md-7 title-block">
 
-            <div class="row align-items-center justify-content-center">
+            <div class="row align-items-center justify-content-center no-gutters">
                 <div class="col-2 col-sm-2">
                     <img class="logo-icon img-responsive" src="{{ asset('build/images/icons/climbing-1.png') }}" alt="">
                 </div>
                 <div class="col-10 col-sm-10">
-                    <h1>ClimberCamp</h1>
+                    <h1 id="login-title">ClimberCamp</h1>
                     <p class="sous-titre d-none d-sm-block" >Une communauté pour les passionnés de l'escalade</p>
                 </div>
             </div>
