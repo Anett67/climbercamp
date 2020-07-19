@@ -27,22 +27,22 @@
 
     {% if form is defined %}
         <div class="row justify-content-center justify-content-lg-end mt-5">
-            <div class=" events-block col-10 col-lg-9 justify-content-center">
+            <div class=" events-block col-11 col-sm-10 col-lg-9 justify-content-center">
                 {% include 'event/eventSearchForm.html.twig' %}
             </div>
         </div>
     {% endif %}
         
     <div class="row justify-content-center justify-content-lg-end mt-5">
-        <div class=" events-block col-10 col-lg-9 justify-content-center">
+        <div class=" events-block col-11 col-sm-10 col-lg-9 justify-content-center">
 
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
                 <!-- Lien pour créer un nouveau évènements -->
                 <div class="row justify-content-center">
-                    <div class="col-10 mt-3 p-2 text-center">
-                        <a class="new-event-button btn" href="{{ path('event-new') }}">Créer un évènement</a>
+                    <div class="col-11 col-sm-10 col-md-6 col-lg-3 mt-3 p-2 text-center">
+                        <a class="new-event-button btn w-100" href="{{ path('event-new') }}">Créer un évènement</a>
                     </div>
-                    <div class="col-10">
+                    <div class="col-11 col-sm-10">
                         <hr>
                     </div>
                 </div>

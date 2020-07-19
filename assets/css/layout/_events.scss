@@ -3,6 +3,8 @@
     color: $orange;
     .new-event-button{
         @include buttons($green);
+        font-family: OpenRegular;
+        text-transform: uppercase;
     }
     hr{
         border-color: $orange;
@@ -39,7 +41,7 @@
             }
             h4{
                 color: $green!important;
-                font-family: OpenLight;
+                font-family: OpenSemiBold;
                 &:hover{
                     text-decoration: none;
                 }
