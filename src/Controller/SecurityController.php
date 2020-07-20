@@ -33,7 +33,7 @@ class SecurityController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('inscription-success');
 
         }
 
@@ -43,6 +43,16 @@ class SecurityController extends AbstractController
 
         ]);
     }
+    /**
+     * @Route("/inscription/success", name="inscription-success")
+     */
+
+    public function success(){
+
+        return $this->render('security/successfulSignUp.html.twig');
+
+    }
+
 
     /**
      * @Route("/login", name="login")
