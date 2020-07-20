@@ -1,0 +1,18 @@
+{% extends 'baseSecurity.html.twig' %}
+
+{% block title %}Page introuvable{% endblock %}
+
+{% block body %}
+
+<div class="container success">
+
+    <div class="row justify-content-center success-title mt-5 p-5">
+        <h1>Oups! La page que vous recherchez semble introuvable.</h1>
+    </div>
+    <div class="row justify-content-center mb-5 p-5">    
+        <a href="{{ path('local-posts') }}" class="return-to-login btn">Retour à l'acceuil</a>
+    </div>
+
+</div>
+
+{% endblock %}
