@@ -64,3 +64,8 @@ DirectoryIndex index.php
         # RedirectTemp cannot be used instead
     </IfModule>
 </IfModule>
+
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^climbercamp.anettdavid\.fr [NC]
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://www.climbercamp.anettdavid.fr/$1 [R,L]
