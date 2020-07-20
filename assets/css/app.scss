@@ -39,3 +39,9 @@ body {
         padding: 5px;
     }
 }
+span.form-error-icon{
+    background-color: $orange;
+}
+span.form-error-message{
+    color: $orange;
+}

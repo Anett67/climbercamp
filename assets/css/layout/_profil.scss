@@ -66,7 +66,8 @@
     }
 
 }
-.new-ville-link{
+.new-ville-link,
+.new-password-link{
     color: $green;
     text-decoration: underline;
     &:hover{
@@ -74,7 +75,13 @@
         font-family: OpenSemiBold;
     }
 }
+.new-password-link{
+    line-height: 40px;
+}
 
 .new-ville-title{
     color: $yellow;
+}
+.btn.btn-submit-password{
+    @include buttons-colored($green);
 }
