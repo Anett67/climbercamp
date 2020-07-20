@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ChangePasswordType;
 use App\Form\RegistrationType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -63,6 +64,35 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', [
             'lastUserName' => $util->getLastUsername(),
             "error" =>$util->getLastAuthenticationError()
+        ]);
+    }
+
+    /**
+     * @Route("/profil/password", name="password-change")
+     */
+
+    public function changePassword(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder){
+
+        $user = $this->getUser();
+
+        $form = $this->createForm(ChangePasswordType::class, $user);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $password = $form['password']->getData();
+            $passwordCrypte = $encoder->encodePassword($user, $password);
+            $user->setPassword($passwordCrypte)->setUpdatedAt(new DateTime('now'));
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash('success', 'Votre mot de passe a été modifié avec succès');
+
+            return $this->redirectToRoute('profil');
+        }
+
+        return $this->render('profil/passwordChange.html.twig', [
+            'form' => $form->createView()
         ]);
 
     }

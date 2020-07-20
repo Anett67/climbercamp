@@ -25,6 +25,7 @@
             </div>
             <div class="col-md-6">
                 {{ form_row(form.email) }}
+                <a href="{{ path('password-change') }}" class="new-password-link">Changer mon mot de passe</a>
                 {{ form_row(form.firstName) }}
                 {{ form_row(form.lastName) }}
                     
@@ -63,11 +64,7 @@
                 </div>
             {% endif %}
         </div>
-
     </div>
-    
-
-
 </div>
 
 
