@@ -65,7 +65,7 @@
         <!-- Le nombre des personnes qui aiment cette salle -->
         <div class="row justify-content-center users-block mb-5 mt-3">
             <div class="col-12 text-center">
-                <a href="{{ path('club-users', {'id': club.id}) }}">{{ club.users|length }} personnes aiment cette salle</a>
+                <a href="{{ path('club-users', {'id': club.id}) }}">{{ clubUsers(club.users|length) }}</a>
             </div>
         </div>
     </div>

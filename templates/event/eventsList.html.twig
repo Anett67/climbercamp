@@ -61,10 +61,10 @@
             <div class="col-12 col-lg-6 ">
                 <div class="row justify-content-center justify-content-md-start">
                     <div class=" col-11">
-                        <a class="commentsAndUsers" href="{{ path('event-users', {'id': event.id}) }}">{{ event.interestedUsers|length }} Personnes sont intéressées</a>
+                        <a class="commentsAndUsers" href="{{ path('event-users', {'id': event.id}) }}">{{ interestedPersons(event.interestedUsers|length) }}</a>
                     </div>
                     <div class=" col-11">
-                        <a class="commentsAndUsers" href="{{ path('single-event', {'id': event.id}) }}">{{ event.eventComments|length }} Commentaires</a>
+                        <a class="commentsAndUsers" href="{{ path('single-event', {'id': event.id}) }}">{{ pluralize(event.eventComments|length, 'Commentaire') }}</a>
                     </div>
                 </div>
             </div>

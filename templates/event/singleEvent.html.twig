@@ -44,7 +44,7 @@
         <!-- Le nombre des personnes intéressées -->
         <div class="row justify-content-center">
             <div class="col-11">
-                <a class="interested-persons" href="{{ path('event-users', {'id': event.id}) }}">{{ event.interestedUsers|length }} personnes sont intéressées </a>
+                <a class="interested-persons" href="{{ path('event-users', {'id': event.id}) }}">{{ interestedPersons(event.interestedUsers|length) }}</a>
             </div>
         </div>
 
