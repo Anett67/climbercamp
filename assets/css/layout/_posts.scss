@@ -1,3 +1,4 @@
+//Posts page
 
 .post-form-block{
     background-color: $blackrgba;
@@ -16,15 +17,12 @@
         @include buttons-colored($orange);
         width: 100%;
     }
-
     @include upload_button($orange, $black, 'Télécharger une photo', 100%, 100%, 1px solid $orange);
 }
-
 .posts-header{
     background-color: $blackrgba;
     color: $orange;
 }
-
 .post-block{
     background-color: $blackrgba;
     color: $orange;
@@ -54,7 +52,6 @@
        margin: 20px;
        color: $green; 
     }
-
     .like-button{
         background-color: $orange;
         padding: 5px 20px;
@@ -67,7 +64,6 @@
             border: 1px solid $orange;
         }
     }
-
     .comment-button{
         background-color: transparent;
         color: $orange;

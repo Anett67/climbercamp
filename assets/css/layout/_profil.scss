@@ -1,9 +1,9 @@
+//Styling the page where the user can edit his profil
 
 .flash-message{
         background-color: $green;
         color: $black;
 }
-
 .profil-block{
     background-color: $blackrgba;
     img{
@@ -23,48 +23,36 @@
             color: $green;
         }
     }
-
     @include upload_button($black, $green, 'Changer ma photo', 100%, 180%, none);
-
     textarea{
         min-height: 150px;
         height: 200px;
     }
-
     textarea::-webkit-scrollbar {
         width: 1em;
         background-color: $green;
     }
-
     textarea::-webkit-scrollbar-thumb {
         background-color: $green;
-        // outline: 1px solid slategrey;
     }
-
     h5{
         color: $yellow;
     }
-
     .submit-button{
         @include buttons-colored($green);
     }
-
     hr{
         border-color: $orange;
     }
-
     .buttons{
         margin: 10px 0;
     }
-
     .my-posts-button{
         @include buttons($green);
     }
-
     .my-events-button{
         @include buttons($yellow);
     }
-
 }
 .new-ville-link,
 .new-password-link{
@@ -78,7 +66,6 @@
 .new-password-link{
     line-height: 40px;
 }
-
 .new-ville-title{
     color: $yellow;
 }
