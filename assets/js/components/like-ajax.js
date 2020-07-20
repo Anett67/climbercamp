@@ -109,6 +109,12 @@ $(function(){
                 replyBlock.html(data.response);
                 $('#post_comment_reply_body, #event_comment_reply_body').val('');
                 $('.commentReplyCount').html(data.replies);
+                    if(data.replies == 1){
+                        $('.responses-label-js').html(' Réponse');
+                    }else{
+                        $('.responses-label-js').html(' Réponses'); 
+                    }
+                
             }
         })  
     });

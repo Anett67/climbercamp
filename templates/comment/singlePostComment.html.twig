@@ -51,7 +51,7 @@
     <div class="col-12 col-md-6 commentLike-count">
         <span class="like-count">{{ comment.postCommentLikes|length }}</span>
         J'aimes | 
-        <span class="commentReplyCount">{{ comment.postCommentReplies|length }}</span> Réponses
+        <span class="commentReplyCount">{{ comment.postCommentReplies|length }}</span><span class="responses-label-js"> Réponse{% if comment.postCommentReplies|length != 1 %}s{% endif %}</span>
     </div>
     <div class="col-12 col-md-3 text-right mt-2">
         <!-- Bouton j'aime -->

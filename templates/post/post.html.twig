@@ -74,7 +74,7 @@
                 </a>
                 </div>
             <div class="col-12 col-lg-3 m-1">
-                <span class="js-postComments">{{ post.postComments|length }} Commentaires</span>
+                <span class="js-postComments">{{ pluralize(post.postComments|length, 'Commentaire') }}</span>
             </div>
         </div>
     </div>

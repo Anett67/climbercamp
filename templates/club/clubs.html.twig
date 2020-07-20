@@ -76,7 +76,7 @@
                 
                 <!-- Le nombre des personnes qui aiment cette salle -->
                 <div class="col-6">
-                    <a class="users-link" href="{{ path('club-users', {'id': club.id}) }}">{{ club.users|length }} Personnes aiment cette salle</a>
+                    <a class="users-link" href="{{ path('club-users', {'id': club.id}) }}">{{ clubUsers(club.users|length)}}</a>
                 </div>
 
                 <!-- Le lien vers la page de la salle d'escalade -->

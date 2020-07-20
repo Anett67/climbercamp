@@ -24,7 +24,7 @@
         <a href="{{ path('single-event', {'id': event.id}) }}">
             Voir les commentaires ({{ event.eventComments|length }})
         </a>
-        <a href="{{ path('event-users', {'id': event.id}) }}"><p class="event-description mt-2">{{ event.interestedUsers|length }} personnes sont intéressées</p></a>
+        <a href="{{ path('event-users', {'id': event.id}) }}"><p class="event-description mt-2">{{ interestedPersons(event.interestedUsers|length) }}</p></a>
     </div>
 </div>
 
