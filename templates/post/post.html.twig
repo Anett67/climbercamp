@@ -39,7 +39,7 @@
                 <!-- Photo of the post if it has one -->
                 {% if post.image %}
                     <div class="col-12 col-lg-6">
-                        <img class="postImage" src="{{ asset('upload/posts/' ~ post.image) }}" alt="">
+                        <img class="postImage" src="{{ asset('upload/posts/' ~ post.image) }}" alt="Image de la publication">
                     </div>
                 {% endif %}
                 <div class="col-12 {% if post.image %}col-lg-6{% endif %} ">
@@ -47,7 +47,7 @@
                     <div class="row">
                         <p class="postBody">{{ post.body }}</p>
                     </div>
-                    <div class="row justify-content-center align-items-end no-gutters">
+                    <div class="row justify-content-center justify-content-md-end align-items-end no-gutters">
                         <!-- Like button -->
                         <div class="col-12 {% if post.image %}col-md-6{% else %}col-md-6 col-lg-3 {% endif %} m-2 mt-lg-5">
                             <a id="{{ post.id }}" class="btn like-button" href="{{ path('post-like', {'id': post.id}) }}">
