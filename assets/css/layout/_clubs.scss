@@ -52,6 +52,10 @@
             color: $green;
             border: 1px solid $green;
             border-radius: 0px;
+            &:focus{
+                background-color: $blackrgba;
+                color: $green;
+            }
         }
         @include upload_button($orange, $black, 'Télécharger une photo', auto, 100%, 2px solid $orange);
         .new-club-submit{
