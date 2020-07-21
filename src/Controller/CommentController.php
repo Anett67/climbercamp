@@ -32,9 +32,7 @@ class CommentController extends AbstractController
      * @Route("/post/comment/like/{id}", name="comment-like", requirements={"id":"\d+"})
      */
     public function postCommentLike(PostComment $comment, PostCommentLikeRepository $repository, EntityManagerInterface $manager): JsonResponse
-    {   
-        $post = $comment->getPost();
-
+    {  
         $user = $this->getUser();
 
         if($comment->isLikedByUser($user)){
@@ -109,15 +107,13 @@ class CommentController extends AbstractController
     }
 
     /**
-     * This action loads the replies of a postlike
+     * This action loads the replies of a postcomment
      * 
      * @Route("post/comment/replies/{id}", name="comment-replies", requirements={"id":"\d+"})
      */
 
     public function commentReplies(PostComment $comment, Request $request, EntityManagerInterface $manager, PostCommentReplyRepository $repository): JsonResponse
     {   
-        $post = $comment->getPost();
-
         $postCommentReply = new PostCommentReply();
 
         $form = $this->createForm(PostCommentReplyType::class, $postCommentReply, [
@@ -149,7 +145,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * This action loads the replies of an eventlike
+     * This action loads the replies of an eventcomment
      * 
      * @Route("event/comment/replies/{id}", name="event-comment-replies", requirements={"id":"\d+"})
      */

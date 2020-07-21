@@ -25,6 +25,7 @@ class ClubController extends AbstractController
     {
         $ville = $this->getUser()->getVille();
 
+        //Checking if the user has defined a city on his profil or not
         if($ville){
             $clubs = $paginator->paginate(
                 $repository->findByVille($ville), /* query NOT result */
