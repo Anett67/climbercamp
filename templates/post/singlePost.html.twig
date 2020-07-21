@@ -16,7 +16,7 @@
         <div class="post-block col-11 col-sm-10 col-lg-9 mt-3 p-2 p-sm-4 p-md-5">
             <div class="row postedByAt-block align-items-center">
                 <div class="col-7 col-sm-8 col-lg-6">
-                    <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
+                    <!-- Name and photo of the author -->
                     <div class="row align-items-center no-gutters">
                         <div class="img-cadre">
                             {% if post.postedBy.image %}
@@ -30,25 +30,25 @@
                         </div>
                     </div>
                 </div>
-                <!-- Le bloc qui affiche le temps passé depuis la publication -->
+                <!-- Time passed since creation -->
                 <div class="col-4 col-lg-6 text-right">
                     {{ post.createdAt|ago }}
                 </div>
             </div>
             <div class="row content-block">
-                <!-- On vérifie si la publication a une photo ou pas et on affiche l'image si oui -->
+                <!-- Photo of the post if it has one -->
                 {% if post.image %}
                     <div class="col-12 col-lg-6">
                         <img class="postImage" src="{{ asset('upload/posts/' ~ post.image) }}" alt="">
                     </div>
                 {% endif %}
                 <div class="col-12 {% if post.image %}col-lg-6{% endif %} ">
-                    <!-- Texte de la publication -->
+                    <!-- Text of the post -->
                     <div class="row">
                         <p class="postBody">{{ post.body }}</p>
                     </div>
                     <div class="row justify-content-end align-items-end no-gutters">
-                        <!-- Bouton j'aime -->
+                        <!-- Like button -->
                         <div class="col-12 {% if post.image %}col-md-6{% else %}col-md-6 col-lg-3 {% endif %} mt-lg-5">
                             <a id="{{ post.id }}" class="btn like-button" href="{{ path('post-like', {'id': post.id}) }}">
                                 <span class="js-postLikes-label{{post.id}} {% if post.isLikedByUser(app.user) %}liked{% endif %}">
@@ -63,7 +63,7 @@
                     </div>
                 </div>  
             </div>
-            <!-- Nombre de j'aime -->
+            <!-- Number of likes -->
             <div class="commentsLikes-block row mb-5">
                 <div class="col-5 col-md-3 col-lg-2 m-1">
                     <a class="likes-link" href="{{ path('post-likes', {'id': post.id}) }}">
@@ -72,9 +72,8 @@
                     </a>
                 </div>
             </div>
-            
+            <!-- Comments -->
             {% include 'commentSection.html.twig' %}
-
         </div>
     </div> 
 

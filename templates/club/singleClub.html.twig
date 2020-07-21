@@ -10,8 +10,7 @@
 
 <div class="row justify-content-center justify-content-lg-end">
     <div class="club-block col-11 col-sm-10 col-lg-9 mt-3 p-1 pt-3 pt-md-5">
-
-        <!-- La photo de la salle d'escalade si il y en a -->
+        <!-- Photo of the club if it has one -->
         <div class="row justify-content-center">
             {% if club.image %}
                 <div class="col-11 col-md-10">
@@ -20,12 +19,12 @@
             {% endif %}
         </div>
 
-        <!-- Ville -->
+        <!-- Name -->
         <div class="row justify-content-center p-2">
             <h4 class="club-name col text-center">{{ club.nom }}</h4>
         </div>
 
-        <!-- Ville -->
+        <!-- City -->
         <div class="row justify-content-center p-2">
             <h4 class="ville col text-center">{{ club.ville.nom }}</h4>
         </div>
@@ -35,7 +34,7 @@
             <h5 class="address col text-center">{{ club.addresse }}</h5>
         </div>  
 
-        <!-- Numéro de téléphone -->
+        <!-- Phone Nulber -->
         <div class="row justify-content-center p-2">   
             <h5 class="phone col text-center">{{ club.telephone }}</h5>
         </div>
@@ -45,7 +44,7 @@
             <h5 class="mail col text-center">{{ club.email }}</h5>
         </div>
 
-        <!-- Categories d'escalade -->
+        <!-- Climbing categories -->
         <div class="row justify-content-center p-2">
             <div class="categorie-label col-12 text-center">Types d'escalade dans cette salle:</div> 
             {% for category in club.climbingCategories %}   
@@ -53,7 +52,7 @@
             {% endfor %}
         </div>
 
-        <!-- Liens pour enregistrer ou supprimer la salle d'escalade -->
+        <!-- Links to save the club to the list of the favorites or remove it from the list -->
         <div class="row justify-content-center m-2">
             {% if club in app.user.climbingClub %} 
                 <a class="btn save-button" href="{{ path('club-remove', {'id': club.id}) }}">SUPPRIMER DE MA LISTE</a>
@@ -62,7 +61,7 @@
             {% endif %}
         </div>
 
-        <!-- Le nombre des personnes qui aiment cette salle -->
+        <!-- The number of interested users -->
         <div class="row justify-content-center users-block mb-5 mt-3">
             <div class="col-12 text-center">
                 <a href="{{ path('club-users', {'id': club.id}) }}">{{ clubUsers(club.users|length) }}</a>

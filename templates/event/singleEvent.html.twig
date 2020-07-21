@@ -6,62 +6,60 @@
 
 {% block body %}
 
-{% include 'topLinks.html.twig' %}    
+    {% include 'topLinks.html.twig' %}    
 
-{% include 'flashMessages.html.twig' %}
+    {% include 'flashMessages.html.twig' %}
 
-<div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
-    <div class=" event-block col-11 col-sm-10 col-lg-9 justify-content-center">
-
-        <div class="row event-header {% if event.image %} justify-content-center {% endif %}">
-            <!-- Afficher l'image lié à l'évènement si il y en a -->
-            {% if event.image %}
-                <div class="col-12 col-sm-11 col-md-6 pt-2 pb-2">
-                    <img src="{{ asset('upload/events/' ~ event.image) }}" alt="" class="event-image">
-                </div>
-            {% endif %}
-
-            <div class="col-11 col-sm-10 col-md-5 d-flex flex-column justify-content-around p-2">
-                <!-- Ville, lieu et date -->
-                <h5>{{ event.ville.nom }}</h5>
-                <h6>{{ event.location }}</h6>
-                <p class="event-date-label">Date: </p>
-                <span class="date mb-2" >{{ event.eventDate|date("d/m/Y à H:i") }}</span>
-
-                <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
-                <p>Partagé par: <a class="postedBy-link" href="{{ path('single-user', {'id': event.postedBy.id}) }}">{{ event.postedBy.firstName }} {{ event.postedBy.LastName }} </a></p>
-                
-                <!-- Lien pour enregistrer ou supprimer l'évènement -->
-                {% if event in app.user.savedEvents %}
-                    <span class="saved-message mt-2">Vous avez sauvegardé cet évènement</span> 
-                    <a class="btn save-button mt-2" href="{{ path('event-remove', {'id': event.id}) }}">SUPPRIMER DE MA LISTE</a>
-                {% else %}
-                    <a class="btn save-button" href="{{ path('event-save', {'id': event.id}) }}">ENREGISTRER</a>
+    <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
+        <div class=" event-block col-11 col-sm-10 col-lg-9 justify-content-center">
+            <div class="row event-header {% if event.image %} justify-content-center {% endif %}">
+                <!-- Show event image if it has one -->
+                {% if event.image %}
+                    <div class="col-12 col-sm-11 col-md-6 pt-2 pb-2">
+                        <img src="{{ asset('upload/events/' ~ event.image) }}" alt="" class="event-image">
+                    </div>
                 {% endif %}
-            </div>
-        </div>
 
-        <!-- Le nombre des personnes intéressées -->
-        <div class="row justify-content-center">
-            <div class="col-11">
-                <a class="interested-persons" href="{{ path('event-users', {'id': event.id}) }}">{{ interestedPersons(event.interestedUsers|length) }}</a>
-            </div>
-        </div>
+                <div class="col-11 col-sm-10 col-md-5 d-flex flex-column justify-content-around p-2">
+                    <!-- City, address, date -->
+                    <h5>{{ event.ville.nom }}</h5>
+                    <h6>{{ event.location }}</h6>
+                    <p class="event-date-label">Date: </p>
+                    <span class="date mb-2" >{{ event.eventDate|date("d/m/Y à H:i") }}</span>
 
-        <!-- Description de l'évènement -->
-        <div class="row justify-content-center description mt-5 mb-5">
-            <div class="col-11">
-               <h3>Détails</h3> 
+                    <!-- Photo and name of the author -->
+                    <p>Partagé par: <a class="postedBy-link" href="{{ path('single-user', {'id': event.postedBy.id}) }}">{{ event.postedBy.firstName }} {{ event.postedBy.LastName }} </a></p>
+                    
+                    <!-- Link to save events to the users list or to remove it from the list -->
+                    {% if event in app.user.savedEvents %}
+                        <span class="saved-message mt-2">Vous avez sauvegardé cet évènement</span> 
+                        <a class="btn save-button mt-2" href="{{ path('event-remove', {'id': event.id}) }}">SUPPRIMER DE MA LISTE</a>
+                    {% else %}
+                        <a class="btn save-button" href="{{ path('event-save', {'id': event.id}) }}">ENREGISTRER</a>
+                    {% endif %}
+                </div>
             </div>
-            <div class="col-11">
-                <p>{{ event.description }}</p>
-            </div>
-        </div>
 
-        {% include 'commentSection.html.twig' %}
-        
+            <!-- Number of interested persons -->
+            <div class="row justify-content-center">
+                <div class="col-11">
+                    <a class="interested-persons" href="{{ path('event-users', {'id': event.id}) }}">{{ interestedPersons(event.interestedUsers|length) }}</a>
+                </div>
+            </div>
+
+            <!-- Events description -->
+            <div class="row justify-content-center description mt-5 mb-5">
+                <div class="col-11">
+                <h3>Détails</h3> 
+                </div>
+                <div class="col-11">
+                    <p>{{ event.description }}</p>
+                </div>
+            </div>
+            <!-- Comments -->
+            {% include 'commentSection.html.twig' %}
+        </div>
     </div>
-</div>
 
 
 {% endblock %}

@@ -1,6 +1,8 @@
- {% for user in users %}
+<!-- Template of one single user on user's page -->
+
+{% for user in users %}
     <div class="cardd">
-        <!-- Photo de profil -->
+        <!-- Phrofil picture -->
         <div class="img-cadre m-5">
             {% if user.image %}
                 <img class="card-image" src="{{ asset('upload/users/' ~ user.image) }}" alt="">
@@ -8,21 +10,22 @@
                 <img class="card-image" src="{{ asset('upload/default.png') }}" alt="">
             {% endif %}
         </div>
-        <!-- Nom -->
+        <!-- Name -->
         <div class="card-title"><a href="{{ path('single-user',{'id' : user.id}) }}">{{ user.firstName }} {{ user.lastName }}</a></div>
-        <!-- Ville -->
+        <!-- City -->
         {% if user.ville %}
             <div class="card-text">
                 <div>{{ user.ville.nom }}</div>
             </div>
         {% endif %}
-        <!-- Présentation -->
+        <!-- Introduction -->
         <div class="presentation m-2">
             <p>{{ user.presentation }}</p>
         </div>
-        <!-- Liens -->
         <div class="buttons">
+            <!-- Link to user's profil -->
             <a class="m-2 btn profil-button" href="{{ path('single-user',{'id' : user.id}) }}">Voir profile</a>
+            <!-- Link to send a message to the user -->
             {% if user.id != app.user.id %}
                 <a class="m-2 btn message-button" href="{{ path('conversation', {'id': user.id }) }}">Envoyer un message</a>
             {% endif %}

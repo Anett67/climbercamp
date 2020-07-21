@@ -2,7 +2,9 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <!-- Viewport -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no">
+        <!-- Favicons -->
         <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('build/images/favicons/apple-icon-57x57.png') }}">
         <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('build/images/favicons/apple-icon-60x60.png') }}">
         <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('build/images/favicons/apple-icon-72x72.png') }}">
@@ -21,12 +23,14 @@
         <meta name="msapplication-TileImage" content="build/images/favicons/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <!-- Webpack entry point -->
         {{ encore_entry_link_tags('app') }}
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
         <header>
             {% block navbar %}
+            <!-- Navigation menu -->
             <nav>
                 <div class="logo">
                     <a href="{{ path('local-posts') }}"><img id="logo" src="{{ asset('build/images/icons/Logo.png') }}" alt=""></a> 
@@ -46,8 +50,9 @@
             {% endblock %}
             {% block header %}
                 <div class="header row justify-content-center align-items-center">
-                    
+                    <!-- Card on the left side with currents user's data -->
                     <div class="card d-none d-lg-block col-2 text-center">
+                        <!-- Profil picture -->
                         <div class="row justify-content-center">
                             <div class="img-cadre m-3">
                                 {% if app.user.image %}
@@ -59,14 +64,15 @@
                         </div>
                         <div class="card-title"><a href="{{path('profil') }}">{{ app.user.firstName }} {{ app.user.lastName }}</a></div>    
                         <div class="card-text">
-
+                            <!-- City -->
                             {% if app.user.ville.nom is defined %}
                                 <div>{{ app.user.ville.nom }}</div>
                             {% endif %}
-                            
+                            <!-- Level -->
                             {% if app.user.level.label is defined %}
                                 <div>Niveau: <span class="level">{{ app.user.level.label }}</span></div>
                             {% endif %}
+                            <!-- Favourit climbing clubs -->
                             {% if app.user.climbingClub|length > 0 %}
                                 <div>Salles d'escalade:
                                     {% for salle in app.user.climbingClub %}
@@ -74,6 +80,7 @@
                                     {% endfor %}
                                 </div>
                             {% endif %}
+                            <!-- Favourit climbing types -->
                             <div class="row justify-content-center">
                                 {% for type in app.user.climbingCategorie %}
                                     <div class="badge">{{ type.label }}</div>
@@ -82,14 +89,18 @@
                         </div>
 
                         <div class="buttons mt-2">
+                            <!-- Link to profil page -->
                             <a href="{{ path('profil') }}" class="btn my-profil-button {% if profilPage is defined and profilPage %}current-link{% endif %}">Voir mon profil</a>
+                            <!-- Link to user's events -->
                             {% if is_granted('ROLE_ADMIN') %}
                                 <a href="{{ path('my-events') }}" class="btn my-events-button {% if myEventsPage is defined and myEventsPage %}current-link{% endif %}">Mes évènements</a>   
                             {% endif %}
-                                <a href="{{ path('my-posts') }}" class="btn my-posts-button {% if myPostsPage is defined and myPostsPage %}current-link{% endif %}">Mes publications</a>
+                            <!-- Link to user's posts -->
+                            <a href="{{ path('my-posts') }}" class="btn my-posts-button {% if myPostsPage is defined and myPostsPage %}current-link{% endif %}">Mes publications</a>
                         </div>
                     </div>
 
+                    <!-- Title of the pages -->
                     <h1 id="main-title" class="col-8 text-center">{% block pageTitle %}{% endblock %}</h1>
                 
                 </div>
@@ -98,9 +109,11 @@
         <div class="container">
             {% block body %}
             {% endblock %}
+            <!-- Link to go back to the top of the page -->
             <div id="scrolltop-div"><img id="scrolltop-icon" src="{{ asset('build/images/icons/upload.png') }}" /></div>
         </div>
         {% block javascripts %}{% endblock %}
+        <!-- Webpack entry point -->
         {{ encore_entry_script_tags('app') }}
     </body>
 </html>

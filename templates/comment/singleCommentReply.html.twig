@@ -1,52 +1,52 @@
+<!-- The template of a single comment reply -->
 
-    <!-- La photo et le nom de l'auteur -->
-    <div class="row align-items-start">
-        <div class="img-cadre">
-            {% if reply.postedBy.image %}
-                <img class="postedByImage" src="{{ asset('upload/users/' ~ reply.postedBy.image) }}" alt="">
+<!-- Photo and name of the author and the time passed since creation -->
+<div class="row align-items-start">
+    <div class="img-cadre">
+        {% if reply.postedBy.image %}
+            <img class="postedByImage" src="{{ asset('upload/users/' ~ reply.postedBy.image) }}" alt="">
+        {% else %}
+            <img src="{{ asset('upload/default.png') }}" alt="" class="postedByImage">
+        {% endif %}
+    </div>
+    <div class="col-10">
+        <a class="postedByUsername" href="{{ path('single-user', {'id': reply.postedBy.id}) }}">{{ reply.postedBy.username }} | {{ reply.postedAt|ago }}</a>
+    </div>
+</div>
+<div class="row">
+    <div class="comment-icons col-12 text-right">
+        <!-- Update link -->
+        {% if reply.postedBy.id == app.user.id %}
+            <a class="update-link"
+                {% if reply.postComment is defined %}
+                    href="{{ path('post-reply-update', {'id': reply.id}) }}"
+                {% elseif reply.eventComment is defined %}
+                    href="{{ path('event-reply-update', {'id': reply.id}) }}"
+                {% endif %}>
+                <i class="fas fa-edit ml-2 ml-md-3"></i>
+            </a>
+        {% endif %}
+        <!-- Delete link -->
+        {% if reply.postedBy.id == app.user.id or is_granted('ROLE_SUPERADMIN') %}
+            <a
+            {% if reply.postComment is defined %}
+                href="{{ path('postcommentreply-delete', {'id': reply.id}) }}"
             {% else %}
-                <img src="{{ asset('upload/default.png') }}" alt="" class="postedByImage">
+                href="{{ path('eventcommentreply-delete', {'id': reply.id}) }}"
             {% endif %}
-        </div>
-        <div class="col-10">
-            <a class="postedByUsername" href="{{ path('single-user', {'id': reply.postedBy.id}) }}">{{ reply.postedBy.username }} | {{ reply.postedAt|ago }}</a>
-        </div>
-        <!-- Le temps passé depuis la publication -->
-        
+            class="delete-post">
+                <form method="POST" style="display:inline-block" {% if reply.postComment is defined %} action="{{ path('postcommentreply-delete', {'id': reply.id}) }}" {% else %} action="{{ path('eventcommentreply-delete', {'id': reply.id}) }}{% endif %}">
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="hidden" name="_token" value="{{ csrf_token('reply_delete' ~ reply.id) }}">
+                    <button type="submit" class ="comment-delete-btn"><i class="fas fa-trash-alt ml-2 ml-md-3"></i></button> 
+                </form>
+            </a>
+        {% endif %}
     </div>
-    <div class="row">
-            <div class="comment-icons col-12 text-right">
-                {% if reply.postedBy.id == app.user.id %}
-                    <a class="update-link"
-                        {% if reply.postComment is defined %}
-                            href="{{ path('post-reply-update', {'id': reply.id}) }}"
-                        {% elseif reply.eventComment is defined %}
-                            href="{{ path('event-reply-update', {'id': reply.id}) }}"
-                        {% endif %}>
-                        <i class="fas fa-edit ml-2 ml-md-3"></i>
-                    </a>
-                {% endif %}
-                {% if reply.postedBy.id == app.user.id or is_granted('ROLE_SUPERADMIN') %}
-                    <a
-                    {% if reply.postComment is defined %}
-                        href="{{ path('postcommentreply-delete', {'id': reply.id}) }}"
-                    {% else %}
-                        href="{{ path('eventcommentreply-delete', {'id': reply.id}) }}"
-                    {% endif %}
-                    class="delete-post">
-                        <form method="POST" style="display:inline-block" {% if reply.postComment is defined %} action="{{ path('postcommentreply-delete', {'id': reply.id}) }}" {% else %} action="{{ path('eventcommentreply-delete', {'id': reply.id}) }}{% endif %}">
-                            <input type="hidden" name="_method" value="delete">
-                            <input type="hidden" name="_token" value="{{ csrf_token('reply_delete' ~ reply.id) }}">
-                            <button type="submit" class ="comment-delete-btn"><i class="fas fa-trash-alt ml-2 ml-md-3"></i></button> 
-                        </form>
-                    </a>
-                {% endif %}
-            </div>
-        
+</div>
+<!-- Text of the reply -->
+<div class="row justify-content-center">
+    <div class="col-10 mb-2">
+        <p class="reply-body">{{ reply.body }}</p>
     </div>
-    <!-- Texte de la réponse -->
-    <div class="row justify-content-center">
-        <div class="col-10 mb-2">
-            <p class="reply-body">{{ reply.body }}</p>
-        </div>
-    </div>
+</div>

@@ -8,14 +8,14 @@
 
     {% include 'topLinks.html.twig' %}
 
-    <!-- Formulaire pour chercher des utilisateurs -->
+    <!-- User search form -->
     {% if form is defined %}
         {% include 'user/userSearchForm.html.twig' %}
     {% endif %}
 
     <div class="row justify-content-center justify-content-lg-end">
         <div class="card-container col-11 col-sm-10 col-lg-9 p-0">
-            <!-- La liste des utilisateur -->
+            <!-- Users list -->
             {% include 'user/user.html.twig' %}
         </div>    
     </div>

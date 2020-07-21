@@ -3,7 +3,7 @@
 {% block title %}Évènements{% endblock %}
 
 {% block pageTitle %}
-    <!-- On vérifie si on afficher les publications d'une certaine ville ou d'un certain utilisateur -->
+    <!-- The title changes depending on what page the user is on -->
     {% if user is defined %}
         {% if app.user.id == user.id %}
             Évènements qui vous intéressent
@@ -15,8 +15,6 @@
     {% else %}
         Évènements
     {% endif %}
-
-
 {% endblock %}
 
 {% block body %}
@@ -25,19 +23,18 @@
 
     {% include 'flashMessages.html.twig' %}
 
+    <!-- Search form for events -->
     {% if form is defined %}
         <div class="row justify-content-center justify-content-lg-end mt-5">
             <div class=" events-block col-11 col-sm-10 col-lg-9 justify-content-center">
                 {% include 'event/eventSearchForm.html.twig' %}
             </div>
         </div>
-    {% endif %}
-        
+    {% endif %}  
     <div class="row justify-content-center justify-content-lg-end mt-5">
         <div class=" events-block col-11 col-sm-10 col-lg-9 justify-content-center">
-
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
-                <!-- Lien pour créer un nouveau évènements -->
+                <!-- Link to create new events -->
                 <div class="row justify-content-center">
                     <div class="col-11 col-sm-10 col-md-6 col-lg-3 mt-3 p-2 text-center">
                         <a class="new-event-button btn w-100" href="{{ path('event-new') }}">Créer un évènement</a>
@@ -47,24 +44,18 @@
                     </div>
                 </div>
             {% endif %}
-
-
             <div class="row justify-content-center pb-5">
-                <!-- La liste des évènements -->
+                <!-- List of the events -->
                 {% for event in events %}
                     {% include 'event/eventsList.html.twig' %}
                 {% endfor %}  
-            </div>
-            
+            </div> 
         </div>
-        
     </div>
-
-    
+    <!-- Pagination -->
     <div class="row justify-content-center justify-content-lg-end mt-5">
         <div class="navigation">
             {{ knp_pagination_render(events) }}
         </div>  
     </div>
-
 {% endblock %}

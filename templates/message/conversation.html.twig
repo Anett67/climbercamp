@@ -6,58 +6,63 @@
 
 {% block body %}
 
-{% include "flashMessages.html.twig" %}
+    {% include "flashMessages.html.twig" %}
 
-<div class="row justify-content-center justify-content-lg-end mt-5  ">
-    <div class="col-11 col-lg-9 justify-content-center conversation-message-block p-0">
-        <table class="table conversation-table">
-            <tr>
-                <th>
-                    <div class="conversation-img-cadre">
-                        {% if partner.image %}
-                            <img class="partner-image" src="{{ asset('upload/users/' ~ partner.image) }}" alt="Photo de profile">
-                        {% else %}
-                            <img class="partner-image" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
-                        {% endif %}
-                    </div>
-                    <h6 class="partner"><a href="{{ path('single-user', {'id': partner.id }) }}">{{partner.username}}</a></h6>
-                </th>
-                <th>
-                    <div class="conversation-img-cadre">
-                        {% if app.user.image %}
-                            <img class="current-user-image" src="{{ asset('upload/users/' ~ app.user.image) }}" alt="Photo de profile">
-                        {% else %}
-                            <img class="current-user-image" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
-                        {% endif %}
-                    </div>
-                    <h6 class="currentuser">
-                        <a href="{{ path('profil') }}">{{ app.user.username }}</a>
-                    </h6>
-                </th>
-            </tr>
-            {% if form is defined %}
+    <div class="row justify-content-center justify-content-lg-end mt-5  ">
+        <div class="col-11 col-lg-9 justify-content-center conversation-message-block p-0">
+            <table class="table conversation-table">
                 <tr>
-                    <td class="new-message-form-block p-0">
-                        {{ form_start(form) }}
-                            {{form_row(form.body, {'attr' : { 'placeholder' : 'Nouveau message', 'autofocus': true }})}}
-                            <div class="row justify-content-end">
-                                <div class="col-12 col-md-6 col-lg-3">
-                                <input class="new-message-button w-100" type="submit" value="Envoyer">
+                    <th>
+                        <!-- Partner's photo and name -->
+                        <div class="conversation-img-cadre">
+                            {% if partner.image %}
+                                <img class="partner-image" src="{{ asset('upload/users/' ~ partner.image) }}" alt="Photo de profile">
+                            {% else %}
+                                <img class="partner-image" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
+                            {% endif %}
+                        </div>
+                        <h6 class="partner"><a href="{{ path('single-user', {'id': partner.id }) }}">{{partner.username}}</a></h6>
+                    </th>
+                    <th>
+                        <!-- Current users photo and name -->
+                        <div class="conversation-img-cadre">
+                            {% if app.user.image %}
+                                <img class="current-user-image" src="{{ asset('upload/users/' ~ app.user.image) }}" alt="Photo de profile">
+                            {% else %}
+                                <img class="current-user-image" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
+                            {% endif %}
+                        </div>
+                        <h6 class="currentuser">
+                            <a href="{{ path('profil') }}">{{ app.user.username }}</a>
+                        </h6>
+                    </th>
+                </tr>
+                {% if form is defined %}
+                    <tr>
+                        <!-- Form to send a new message -->
+                        <td class="new-message-form-block p-0">
+                            {{ form_start(form) }}
+                                {{form_row(form.body, {'attr' : { 'placeholder' : 'Nouveau message', 'autofocus': true }})}}
+                                <div class="row justify-content-end">
+                                    <div class="col-12 col-md-6 col-lg-3">
+                                    <input class="new-message-button w-100" type="submit" value="Envoyer">
+                                    </div>
                                 </div>
-                            </div>
-                        {{ form_end(form) }}
-                    </td>
-                </tr>
-            {% endif %}
-            {% for message in messages %}
-                <tr>
-                    <td class="single-message {% if message.fromUser.id is same as(app.user.id) %}currentuser{% else %}partner{% endif %}">
-                        <span class="date">{{ message.sendDate|ago }}</span>
-                        <p class="body">{{ message.body }}</p>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
+                            {{ form_end(form) }}
+                        </td>
+                    </tr>
+                {% endif %}
+                <!-- List of messages -->
+                {% for message in messages %}
+                    <tr>
+                        <td class="single-message {% if message.fromUser.id is same as(app.user.id) %}currentuser{% else %}partner{% endif %}">
+                            <span class="date">{{ message.sendDate|ago }}</span>
+                            <p class="body">{{ message.body }}</p>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
-</div>
+    
 {% endblock %}

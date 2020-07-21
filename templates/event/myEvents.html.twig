@@ -8,6 +8,7 @@
 
 {% include 'topLinks.html.twig' %}
 
+    <!-- Link to create a new event -->
     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
         <div class="row justify-content-center justify-content-lg-end">
             <div class="events-block col-11 col-sm-10 col-lg-9 mt-3 p-3 mb-1">
@@ -20,41 +21,36 @@
         </div>    
     {% endif %}
 
-{% include 'flashMessages.html.twig' %}
+    {% include 'flashMessages.html.twig' %}
 
-{% if myEvents|length > 0 %}
-    {% for event in myEvents %}
-    <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
-        <div class="profil-block col-11 col-sm-10 col-lg-9 justify-content-center p-lg-3 pt-3">
-            <div class="row justify-content-center align-items-center update-block">
-                
-                {% include 'event/myEvent.html.twig' %}
-
+    {% if myEvents|length > 0 %}
+        <!-- List of the events created by current user -->
+        {% for event in myEvents %}
+            <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
+                <div class="profil-block col-11 col-sm-10 col-lg-9 justify-content-center p-lg-3 pt-3">
+                    <div class="row justify-content-center align-items-center update-block">
+                        {% include 'event/myEvent.html.twig' %}
+                    </div>
+                </div>
             </div>
-            
+        {% endfor %}
+        <!-- Pagination -->
+        <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
+            <div class="navigation">
+                {{ knp_pagination_render(myEvents) }}
+            </div>  
         </div>
-    </div>
-    {% endfor %}
-    
-    <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
-        <div class="navigation">
-            {{ knp_pagination_render(myEvents) }}
-        </div>  
-    </div>
-         
-{% else %}
-<div class="row justify-content-center justify-content-lg-end pb-5">
-    <div class="events-block col-10 col-lg-9 mt-3 p-3 mb-3">
-
-        <div class="row justify-content-center">
-            <div class="col-10 text-center">
-                <p>Vou n'avez pas encore créé d'évènement</p>
+    {% else %}
+    <!-- Text shown if there are no events on the list -->
+        <div class="row justify-content-center justify-content-lg-end pb-5">
+            <div class="events-block col-10 col-lg-9 mt-3 p-3 mb-3">
+                <div class="row justify-content-center">
+                    <div class="col-10 text-center">
+                        <p>Vous n'avez pas encore créé d'évènement</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-
-</div>
-
-{% endif %}
+    {% endif %}
 
 {% endblock %}
