@@ -16,9 +16,9 @@
         <div class="row justify-content-center align-items-center">
             <div class="col-12 col-sm-10 col-md-4 profile-picture">
                 {% if app.user.image %}
-                    <img id="output" src="{{ asset('upload/users/' ~ app.user.image ) }}" alt="">
+                    <img id="output" src="{{ asset('upload/users/' ~ app.user.image ) }}" alt="Photo de profil de l'utilisateur actuel">
                 {% else %}
-                    <img id="output" src="{{ asset('upload/default.png' ) }}" alt="">
+                    <img id="output" src="{{ asset('upload/default.png' ) }}" alt="Photo qui s'affiche quand l'utilisatuer n'a pas de photo de profil">
                 {% endif %}
                 {{ form_start(form) }}
                 {{ form_row(form.imageFile)}}

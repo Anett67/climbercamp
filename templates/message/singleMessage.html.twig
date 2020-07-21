@@ -7,9 +7,9 @@
         <div class="row align-items-center">
             <div class="img-cadre">
                 {% if message.fromUser.image %}
-                    <img class="from-user-image img-fluid" src="{{ asset('upload/users/' ~ message.fromUser.image) }}" alt="Photo de profile">
+                    <img class="from-user-image img-fluid" src="{{ asset('upload/users/' ~ message.fromUser.image) }}" alt="Photo de profile de l'expéditeur">
                 {% else %}
-                    <img class="from-user-image img-fluid" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
+                    <img class="from-user-image img-fluid" src="{{ asset('upload/default.png') }}" alt="Photo de profile de l'expéditeur">
                 {% endif %}
             </div>
             <a class="name" href="{{ path('single-user', {'id': message.fromUser.id }) }}">{{ message.fromUser.username }}</a>
@@ -21,9 +21,9 @@
             <a class="name" href="{{ path('single-user', {'id': message.toUser.id }) }}">à {{ message.toUser.username }}</a>
             <div class="img-cadre">
                 {% if message.toUser.image %}
-                    <img class="from-user-image img-fluid" src="{{ asset('upload/users/' ~ message.toUser.image) }}" alt="Photo de profile">
+                    <img class="from-user-image img-fluid" src="{{ asset('upload/users/' ~ message.toUser.image) }}" alt="Photo de profile du destinataire">
                 {% else %}
-                    <img class="from-user-image img-fluid" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
+                    <img class="from-user-image img-fluid" src="{{ asset('upload/default.png') }}" alt="Photo de profile du destinataire">
                 {% endif %}
             </div>
         </div>

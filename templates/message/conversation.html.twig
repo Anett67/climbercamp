@@ -16,9 +16,9 @@
                         <!-- Partner's photo and name -->
                         <div class="conversation-img-cadre">
                             {% if partner.image %}
-                                <img class="partner-image" src="{{ asset('upload/users/' ~ partner.image) }}" alt="Photo de profile">
+                                <img class="partner-image" src="{{ asset('upload/users/' ~ partner.image) }}" alt="Photo de profile du partenaire">
                             {% else %}
-                                <img class="partner-image" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
+                                <img class="partner-image" src="{{ asset('upload/default.png') }}" alt="Photo de profile du partenaire">
                             {% endif %}
                         </div>
                         <h6 class="partner"><a href="{{ path('single-user', {'id': partner.id }) }}">{{partner.username}}</a></h6>
@@ -27,9 +27,9 @@
                         <!-- Current users photo and name -->
                         <div class="conversation-img-cadre">
                             {% if app.user.image %}
-                                <img class="current-user-image" src="{{ asset('upload/users/' ~ app.user.image) }}" alt="Photo de profile">
+                                <img class="current-user-image" src="{{ asset('upload/users/' ~ app.user.image) }}" alt="Photo de profile de l'utilisateur actuel">
                             {% else %}
-                                <img class="current-user-image" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
+                                <img class="current-user-image" src="{{ asset('upload/default.png') }}" alt="Photo de profile de l'utilisateur actuel">
                             {% endif %}
                         </div>
                         <h6 class="currentuser">

@@ -5,7 +5,7 @@
     {% if post.image %}
         <img src="{{ asset('upload/posts/' ~ post.image) }}" class="w-100" alt="Photo liée à la publication">
     {% else %}
-        <img src="{{ asset('upload/placeholder-image.png') }}" class="w-100" alt="Placeholder image">
+        <img src="{{ asset('upload/placeholder-image.png') }}" class="w-100" alt="Imge qui s'affiche si la publication n'a pas de photo">
     {% endif %}
 </div>
 {# Post Content #}

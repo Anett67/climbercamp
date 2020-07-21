@@ -4,9 +4,9 @@
 <div class="row align-items-start">
     <div class="img-cadre">
         {% if reply.postedBy.image %}
-            <img class="postedByImage" src="{{ asset('upload/users/' ~ reply.postedBy.image) }}" alt="">
+            <img class="postedByImage" src="{{ asset('upload/users/' ~ reply.postedBy.image) }}" alt="Image de l'auteur">
         {% else %}
-            <img src="{{ asset('upload/default.png') }}" alt="" class="postedByImage">
+            <img src="{{ asset('upload/default.png') }}" alt="Image de l'auteur" class="postedByImage">
         {% endif %}
     </div>
     <div class="col-10">

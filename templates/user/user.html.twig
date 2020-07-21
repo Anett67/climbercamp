@@ -5,9 +5,9 @@
         <!-- Phrofil picture -->
         <div class="img-cadre m-5">
             {% if user.image %}
-                <img class="card-image" src="{{ asset('upload/users/' ~ user.image) }}" alt="">
+                <img class="card-image" src="{{ asset('upload/users/' ~ user.image) }}" alt="Photo de profil">
             {% else %}
-                <img class="card-image" src="{{ asset('upload/default.png') }}" alt="">
+                <img class="card-image" src="{{ asset('upload/default.png') }}" alt="Photo qui s'affiche quand l'utilisatuer n'a pas de photo de profil">
             {% endif %}
         </div>
         <!-- Name -->
