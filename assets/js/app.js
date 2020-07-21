@@ -17,8 +17,8 @@ import '../js/components/like-ajax';
 import '../js/components/update';
 import '../js/components/infinite-scroll';
 import '../js/components/navbar';
+import '../js/components/commentReplies';
 import '../js/components/scrollTop';
-import '../js/filereader/filereader';
 
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
