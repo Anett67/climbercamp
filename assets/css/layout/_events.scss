@@ -131,6 +131,11 @@
         border: none;
         border-radius: 0;
         color: $orange;
+        &:focus{
+            color: $orange;
+            background-color: $blackrgba;
+            border: 1px solid $green;
+        }
     }
     select{
         margin: 3px;

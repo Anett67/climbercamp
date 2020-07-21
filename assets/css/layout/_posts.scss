@@ -9,6 +9,12 @@
         min-height: 100px;
         border-radius: 0;
         border: none;
+        color: $green;
+        &:focus{
+            background-color: $blackrgba;
+            border: 1px solid $green;
+            color: $green;
+        }
     }
     #output{
         width: 100%;

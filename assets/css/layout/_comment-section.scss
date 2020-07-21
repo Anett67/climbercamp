@@ -37,7 +37,7 @@
         }
         .commentBody{
             color: $green;
-            font-family: OpenLight;
+            font-family: OpenRegular;
             p{
                 font-size: 1.2rem;
             }
@@ -67,6 +67,11 @@
             border-radius: 0;
             border: none;
             height: 100px;
+            &:focus{
+                background-color: $blackrgba;
+                color: $green;
+                border: 1px solid $green;
+            }
         }
         .submit-button{
             @include buttons-colored($orange);
@@ -112,10 +117,13 @@
         textarea{
             border-radius: 0;
             background-color: transparent;
-            border: 1px solid $green;
+            border: 2px solid $green;
             color: $green;
             width: 100%;
             height: 100px;
+            &:focus{
+                background-color: $blackrgba;
+            }
         }
         .new-reply-submit-button, .update-reply-submit-button{
             @include buttons-colored($green);
@@ -124,6 +132,7 @@
         }
         .reply-body{
             color: $green;
+            font-family: OpenRegular;
         }
         .img-cadre{
             width: 25px;
@@ -151,13 +160,18 @@
             textarea{
                 height: 100px;
                 background: transparent;
-                border: 1px solid $green;
+                border: 2px solid $green;
                 border-radius: 0;
+                font-family: OpenRegular;
+                &:focus{
+                    background-color: $blackrgba;
+                    color: $green;
+                }
             }
             .cancel{
-                color: $green;
-                background: transparent;
-                border: 1px solid $green;
+                color: $black;
+                background-color: $orange;
+                border: 1px solid $orange;
                 border-bottom: none;
             }
         }
