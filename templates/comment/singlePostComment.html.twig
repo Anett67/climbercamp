@@ -5,9 +5,9 @@
     <div class="col-2 col-md-1">
         <div class="img-cadre">
             {% if comment.postedBy.image %}
-                <img src="{{ asset('upload/users/' ~ comment.postedBy.image) }}" alt="" class="postedByImage">
+                <img src="{{ asset('upload/users/' ~ comment.postedBy.image) }}" alt="Image de l'auteur" class="postedByImage">
             {% else %}
-                <img class="postedByImage" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
+                <img class="postedByImage" src="{{ asset('upload/default.png') }}" alt="Image de l'auteur">
             {% endif %}
         </div>
     </div>

@@ -16,7 +16,7 @@
                 <!-- Show event image if it has one -->
                 {% if event.image %}
                     <div class="col-12 col-sm-11 col-md-6 pt-2 pb-2">
-                        <img src="{{ asset('upload/events/' ~ event.image) }}" alt="" class="event-image">
+                        <img src="{{ asset('upload/events/' ~ event.image) }}" alt="Image de l'évènement" class="event-image">
                     </div>
                 {% endif %}
 
@@ -27,7 +27,7 @@
                     <p class="event-date-label">Date: </p>
                     <span class="date mb-2" >{{ event.eventDate|date("d/m/Y à H:i") }}</span>
 
-                    <!-- Photo and name of the author -->
+                    <!-- Name of the author -->
                     <p>Partagé par: <a class="postedBy-link" href="{{ path('single-user', {'id': event.postedBy.id}) }}">{{ event.postedBy.firstName }} {{ event.postedBy.LastName }} </a></p>
                     
                     <!-- Link to save events to the users list or to remove it from the list -->

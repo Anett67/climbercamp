@@ -7,7 +7,7 @@
                 <!-- Photo of the event if it has one -->
                 {% if event.image %}
                     <div class="col-12 col-md-4 mb-2">
-                        <img class="event-image" src="{{ asset('upload/events/' ~ event.image ) }}" alt="Image">
+                        <img class="event-image" src="{{ asset('upload/events/' ~ event.image ) }}" alt="Image de l'évènement">
                     </div>
                 {% endif %}
                 <div class="col-11 {% if event.image %}col-md-8{% endif %}">
@@ -39,9 +39,9 @@
                 </div>
                 <div class="img-cadre ml-2">
                     {% if event.postedBy.image %}
-                        <img class="postedByImage" src="{{ asset('upload/users/' ~ event.postedBy.image ) }}" alt="">
+                        <img class="postedByImage" src="{{ asset('upload/users/' ~ event.postedBy.image ) }}" alt="Image de l'auteur">
                     {% else %}
-                        <img src="{{ asset('upload/default.png') }}" alt="" class="postedByImage">
+                        <img src="{{ asset('upload/default.png') }}" alt="Image de l'auteur" class="postedByImage">
                     {% endif %}
                 </div>
             </div>

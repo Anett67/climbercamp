@@ -20,9 +20,9 @@
                     <div class="row align-items-center no-gutters">
                         <div class="img-cadre">
                             {% if post.postedBy.image %}
-                                <img class="postedByProfil img-fluid" src="{{ asset('upload/users/' ~ post.postedBy.image) }}" alt="Photo de profile">
+                                <img class="postedByProfil img-fluid" src="{{ asset('upload/users/' ~ post.postedBy.image) }}" alt="Photo de profile de l'auteur">
                             {% else %}
-                                <img class="postedByProfil img-fluid" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
+                                <img class="postedByProfil img-fluid" src="{{ asset('upload/default.png') }}" alt="Photo de profile de l'auteur">
                             {% endif %}
                         </div>
                         <div class="col-7 col-md-8 col-lg-9 pl-2">
@@ -39,7 +39,7 @@
                 <!-- Photo of the post if it has one -->
                 {% if post.image %}
                     <div class="col-12 col-lg-6">
-                        <img class="postImage" src="{{ asset('upload/posts/' ~ post.image) }}" alt="">
+                        <img class="postImage" src="{{ asset('upload/posts/' ~ post.image) }}" alt="Image de la publication">
                     </div>
                 {% endif %}
                 <div class="col-12 {% if post.image %}col-lg-6{% endif %} ">

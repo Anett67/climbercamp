@@ -5,7 +5,7 @@
     {% if event.image %}
         <img src="{{ asset('upload/events/' ~ event.image) }}" class="w-100" alt="Photo liée à la publication">
     {% else %}
-        <img src="{{ asset('upload/placeholder-image.png') }}" class="w-100" alt="Placeholder image">
+        <img src="{{ asset('upload/placeholder-image.png') }}" class="w-100" alt="Image qui s'affiche si l'évènement n'a pas de photo">
     {% endif %}
 </div>
 {# Title and description #}
