@@ -12,7 +12,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class UserType extends AbstractType
 {
@@ -20,15 +21,21 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('lastName')
-            ->add('firstName')
+            ->add('lastName', TextType::class, [
+                'label' => 'Nom'
+            ])
+            ->add('firstName', TextType::class, [
+                'label' => 'Prénom'
+            ])
             ->add('imageFile', FileType::class, ['required' => false, 'label' => false,
                 'attr' => [
                     'accept' => 'image/*',
                     'onchange' => 'openFile(event)'
                 ]
             ])
-            ->add('presentation')
+            ->add('presentation', TextareaType::class, [
+                'label' => 'Présentation'
+            ])
             ->add('ville', EntityType::class,[
                 'class' => Ville::class,
                 'choice_label' => 'nom',
@@ -38,12 +45,14 @@ class UserType extends AbstractType
                 }
             ])
             ->add('climbingCategorie', EntityType::class, [
+                'label' => "Types d'escalade",
                 'class' => ClimbingCategorie::class,
                 'multiple' => true,
                 'expanded' => true,
                 'choice_label' => 'label'
             ])
             ->add('level', EntityType::class, [
+                'label' => 'Niveau',
                 'class' => Level::class,
                 'choice_label' => 'label'
             ]);

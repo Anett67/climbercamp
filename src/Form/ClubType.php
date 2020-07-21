@@ -27,6 +27,7 @@ class ClubType extends AbstractType
             ->add('addresse')
             ->add('ville', EntityType::class, ['class' => Ville::class, 'choice_label' => 'nom', 'required' => true ])
             ->add('climbingCategories', EntityType::class, [
+                'label' => "Types d'escalade",
                 'class' => ClimbingCategorie::class,
                 'multiple' => true,
                 'expanded' => true,
