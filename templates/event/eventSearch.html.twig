@@ -1,3 +1,5 @@
+<!-- Template to show the result of an event search -->
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Évènements{% endblock %}
@@ -6,25 +8,24 @@
 
 {% block body %}
 
-{% include 'topLinks.html.twig' %}
-
-<div class="row justify-content-center justify-content-lg-end mt-5">
-    <div class=" events-block col-10 col-lg-9 justify-content-center">
-        {% include 'event/eventSearchForm.html.twig' %}
-    </div>
-</div>
-
-{% if totalEvents > 0 %}
+    {% include 'topLinks.html.twig' %}
+    <!-- Event search form -->
     <div class="row justify-content-center justify-content-lg-end mt-5">
         <div class=" events-block col-10 col-lg-9 justify-content-center">
-            <div class="row justify-content-center pb-5">
-                <!-- La liste des évènements -->
-                {% for event in events %}
-                    {% include 'event/eventsList.html.twig' %}
-                {% endfor %}  
-            </div>
+            {% include 'event/eventSearchForm.html.twig' %}
         </div>
     </div>
-{% endif %}
-
+    {% if totalEvents > 0 %}
+        <div class="row justify-content-center justify-content-lg-end mt-5">
+            <div class=" events-block col-10 col-lg-9 justify-content-center">
+                <div class="row justify-content-center pb-5">
+                    <!-- List of search results -->
+                    {% for event in events %}
+                        {% include 'event/eventsList.html.twig' %}
+                    {% endfor %}  
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    
 {% endblock %}

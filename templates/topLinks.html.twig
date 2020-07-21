@@ -1,4 +1,4 @@
-<!-- Liens qui amènent vers les pages de recherche -->
+<!-- Links on top to events, posts, users, and climbing clubs -->
 <div class="row justify-content-center justify-content-lg-end">
     <div class="button-block col-11 col-sm-10 col-lg-9 mt-3">
         <div class="row justify-content-center">
@@ -29,6 +29,7 @@
         </div> 
     </div> 
 </div>
+<!-- Link to profil page if the user's has no city defines on his/her profil -->
 {% if not app.user.ville %}
     <div class="row justify-content-center justify-content-lg-end">
         <div class="button-block col-10 col-lg-9 mt-3 text-center">

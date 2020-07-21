@@ -6,33 +6,35 @@
 
 {% block body %}
 
-{% include 'flashMessages.html.twig' %}
+    {% include 'flashMessages.html.twig' %}
 
-<div class="row justify-content-center">
-    <div class="new-form-block col-11 col-md-10 col-lg-7 mt-3 p-2 ">
-        <div class="row justify-content-center p-1 p-md-3 pb-3">
-            <div class="col-12 col-sm-11 col-md-10">
-            {{ form_start(form) }}
-                {{ form_row(form.title,{ 'label' : 'Titre' })}}
-                {{ form_row(form.description,{ 'label' : 'Détails' })}}
-                {{ form_row(form.location,{ 'label' : 'Addresse' })}}
-                {{ form_row(form.eventDate,{ 'label' : 'Date et heure' })}}
-                {{ form_row(form.ville,{ 'label' : 'Ville' })}}
-                <div class="row justify-content-center">
-                    <img id="output">
+    <!-- Form to create a new event -->
+    <div class="row justify-content-center">
+        <div class="new-form-block col-11 col-md-10 col-lg-7 mt-3 p-2 ">
+            <div class="row justify-content-center p-1 p-md-3 pb-3">
+                <div class="col-12 col-sm-11 col-md-10">
+                {{ form_start(form) }}
+                    {{ form_row(form.title,{ 'label' : 'Titre' })}}
+                    {{ form_row(form.description,{ 'label' : 'Détails' })}}
+                    {{ form_row(form.location,{ 'label' : 'Addresse' })}}
+                    {{ form_row(form.eventDate,{ 'label' : 'Date et heure' })}}
+                    {{ form_row(form.ville,{ 'label' : 'Ville' })}}
+                    <div class="row justify-content-center">
+                        <img id="output">
+                    </div>
+                    {{ form_row(form.imageFile)}}
+                    <input type="submit" class="btn btn-block submit-button mt-4 mb-3" value="Enregistrer">
+                {{ form_end(form) }}
                 </div>
-                {{ form_row(form.imageFile)}}
-                <input type="submit" class="btn btn-block submit-button mt-4 mb-3" value="Enregistrer">
-            {{ form_end(form) }}
             </div>
         </div>
     </div>
-</div>
 
 {% endblock %}
 
 {% block javascripts %}
 
+    <!-- JS filereader to show the selected uploadable picture before submit  -->
     <script>
         var openFile = function(event) {
         var input = event.target;

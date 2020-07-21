@@ -1,8 +1,10 @@
+<!-- Template of on single event in the event's list -->
+
 <div class="event-block col-11 col-sm-10 mt-3 mb-3">
     <div class="row">
         <div class="col-12 col-lg-8">
             <div class="row justify-content-center justify-content-lg-start">
-                <!-- Afficher l'image lié à l'évènement si il y en a -->
+                <!-- Photo of the event if it has one -->
                 {% if event.image %}
                     <div class="col-12 col-md-4 mb-2">
                         <img class="event-image" src="{{ asset('upload/events/' ~ event.image ) }}" alt="Image">
@@ -10,22 +12,22 @@
                 {% endif %}
                 <div class="col-11 {% if event.image %}col-md-8{% endif %}">
                     <div class="row">
-                        <!-- Titre de l'évènement -->
+                        <!-- Event Title -->
                         <div class="col-10">
                             <a href="{{ path('single-event', {'id': event.id}) }}"><h4>{{ event.title }}</h4></a>
                         </div>
-                        <!-- Ville -->
+                        <!-- City -->
                         <div class="event-details col-10">
                             {{ event.ville.nom }}   
                         </div>
-                        <!-- La date de l'évènement -->
+                        <!-- Date -->
                         <div class="col-10 date">le {{ event.eventDate|date("d/m/Y à H:i") }}</div>
                     </div>
                 </div>
             </div>
             
         </div>
-        <!-- Le bloc qui affiche le nom et la photo de l'auteur -->
+        <!-- Name and photo of the person who published the event -->
         <div class="col-12 col-lg-4">
             <div class="row align-items-center mb-1 mt-2 mt-lg-5 mt-lg-0">
                 <div class="col-9 col-sm-10 col-lg-8 text-right pr-0">
@@ -34,7 +36,6 @@
                             <a href="{{ path('single-user',{'id' : event.postedBy.id}) }}" class="m-0">{{ event.postedBy.firstName }} {{ event.postedBy.lastName }}</a>
                         </div>
                     </div>
-                    
                 </div>
                 <div class="img-cadre ml-2">
                     {% if event.postedBy.image %}
@@ -44,6 +45,7 @@
                     {% endif %}
                 </div>
             </div>
+            <!-- Delete link -->
             <div class="row justify-content-end">
                 {% if is_granted('ROLE_SUPERADMIN') %}
                     <form class="mr-1 mr-sm-2 mr-md-3 pt-0 delete-form" method="POST" style="display:inline-block" action="{{ path('event-delete', {'id': event.id}) }}">
@@ -55,36 +57,34 @@
             </div>
         </div>                       
     </div>
-        <div class="row justify-content-center justify-content-lg-end align-items-end">
-            
-            <!-- Le nombre des personnes intéressées et le nombre des commentaires -->
-            <div class="col-12 col-lg-6 ">
-                <div class="row justify-content-center justify-content-md-start">
-                    <div class=" col-11">
-                        <a class="commentsAndUsers" href="{{ path('event-users', {'id': event.id}) }}">{{ interestedPersons(event.interestedUsers|length) }}</a>
-                    </div>
-                    <div class=" col-11">
-                        <a class="commentsAndUsers" href="{{ path('single-event', {'id': event.id}) }}">{{ pluralize(event.eventComments|length, 'Commentaire') }}</a>
-                    </div>
+    <div class="row justify-content-center justify-content-lg-end align-items-end">   
+        <!-- Number of interested persons and nulber of comments -->
+        <div class="col-12 col-lg-6 ">
+            <div class="row justify-content-center justify-content-md-start">
+                <div class=" col-11">
+                    <a class="commentsAndUsers" href="{{ path('event-users', {'id': event.id}) }}">{{ interestedPersons(event.interestedUsers|length) }}</a>
+                </div>
+                <div class=" col-11">
+                    <a class="commentsAndUsers" href="{{ path('single-event', {'id': event.id}) }}">{{ pluralize(event.eventComments|length, 'Commentaire') }}</a>
                 </div>
             </div>
-            
-            <div class="col-12 col-lg-6">
-                <div class="row justify-content-end">
-                    <!-- Liens pour enregistrer ou commenter l'évènement -->
-                    <div class="col-11 col-md-6 col-lg-6 m-2 m-2 text-right">
-                        {% if event in app.user.savedEvents %}
-                            <a class="btn save-button" href="{{ path('event-remove', {'id': event.id}) }}">SUPPRIMER DE MA LISTE</a>
-                        {% else %}
-                            <a class="btn save-button" href="{{ path('event-save', {'id': event.id}) }}">ENREGISTRER</a>
-                        {% endif %}
-                    </div>
-                    <!-- Lien vers la page de l'évènement -->
-                    <div class="col-11 col-md-6 col-lg-6 m-2">
-                        <a class="btn info-button" href="{{ path('single-event', {'id': event.id}) }}">INFO</a>
-                    </div>
-                </div>
-            </div> 
         </div>
-        <hr>
+        <div class="col-12 col-lg-6">
+            <div class="row justify-content-end">
+                <!-- Link to save events to the users list or to remove it from the list -->
+                <div class="col-11 col-md-6 col-lg-6 m-2 m-2 text-right">
+                    {% if event in app.user.savedEvents %}
+                        <a class="btn save-button" href="{{ path('event-remove', {'id': event.id}) }}">SUPPRIMER DE MA LISTE</a>
+                    {% else %}
+                        <a class="btn save-button" href="{{ path('event-save', {'id': event.id}) }}">ENREGISTRER</a>
+                    {% endif %}
+                </div>
+                <!-- Link to single event page -->
+                <div class="col-11 col-md-6 col-lg-6 m-2">
+                    <a class="btn info-button" href="{{ path('single-event', {'id': event.id}) }}">INFO</a>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <hr>
 </div>

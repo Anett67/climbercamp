@@ -19,22 +19,22 @@
     {% include 'topLinks.html.twig' %}    
     
     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
-    
-    <div class="row justify-content-center justify-content-lg-end">
-        <div class="club-block col-11 col-sm-10 col-lg-9 mt-3 p-3 text-center">
-            <a class="new-club-button btn" href="{{ path('club-new') }}">Ajouter une salle d'escalade</a>
-        </div>
-    </div>  
+    <!-- Button to add a new club -->
+        <div class="row justify-content-center justify-content-lg-end">
+            <div class="club-block col-11 col-sm-10 col-lg-9 mt-3 p-3 text-center">
+                <a class="new-club-button btn" href="{{ path('club-new') }}">Ajouter une salle d'escalade</a>
+            </div>
+        </div>  
     {% endif %}
     
     {% include 'flashMessages.html.twig' %}
 
-    <!-- La liste des salles d'escalade -->
+    <!-- The list of climbing clubs starts here -->
     {% for club in clubs %}
     <div class="row justify-content-center justify-content-lg-end">
         <div class="club-block col-11 col-sm-10 col-lg-9 mt-3 pt-2">
-
             <div class="row">
+                <!-- Photo of the club it has one -->
                 {% if club.image %}
                     <div class="col-lg-4">
                         <img class="club-image" src="{{ asset('upload/clubs/' ~  club.image) }}" alt="">
@@ -42,10 +42,10 @@
                 {% endif %}
                 <div class="col-lg-4">
                     
-                    <!-- Nom -->
+                    <!-- Name -->
                     <h4><a href="{{ path('single-club', {'id': club.id}) }}">{{ club.nom }}</a></h4>
                     
-                    <!-- Ville -->
+                    <!-- City -->
                     <p>{{ club.ville.nom }}</p>
                     
                     <!-- Categories -->
@@ -58,9 +58,11 @@
                 <div class="col">
                     <div class="row justify-content-end align-items-center">
                         {% if is_granted('ROLE_SUPERADMIN') %}
+                            <!-- Link to update page -->
                             <a class="update-club mr-3" href="{{ path('club-update', {'id': club.id }) }}">
                                 <i class="fas fa-edit m-3"></i>
                             </a>
+                            <!-- Link to delete Page -->
                             <form class="mr-3 delete-form" method="POST" style="display:inline-block" action="{{ path('club-delete', {'id': club.id}) }}">
                                 <input type="hidden" name="_method" value="delete">
                                 <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ club.id) }}">
@@ -70,31 +72,24 @@
                     </div>
                 </div>
             </div>
-                <!-- La photo de la salle d'escalade si il y en a -->
-                
             <div class="row align-items-center pb-2">
-                
-                <!-- Le nombre des personnes qui aiment cette salle -->
+                <!-- Number of interested persons -->
                 <div class="col-6">
                     <a class="users-link" href="{{ path('club-users', {'id': club.id}) }}">{{ clubUsers(club.users|length)}}</a>
                 </div>
 
-                <!-- Le lien vers la page de la salle d'escalade -->
+                <!-- The link to single club page -->
                 <div class="col-6 text-right">
                     <a class="btn info-button" href="{{ path('single-club', {'id': club.id}) }}">Plus d'info</a>
                 </div>
             </div>
         </div>
-
     </div>    
     {% endfor %}
-
+    <!-- Pagination links -->
     <div class="row justify-content-center justify-content-lg-end ml-lg-5">
         <div class="navigation">
             {{ knp_pagination_render(clubs) }}
         </div>
     </div>
-
-    
-
 {% endblock %}

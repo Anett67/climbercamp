@@ -1,76 +1,78 @@
-    <!-- Photo et nom de l'auteur, temps passé depuis a publication -->
-    <div class="row justify-content-center align-items-center p-2">
-        <div class="col-2 col-md-1">
-            <div class="img-cadre">
-                {% if comment.postedBy.image %}
-                    <img src="{{ asset('upload/users/' ~ comment.postedBy.image) }}" alt="" class="postedByImage">
-                {% else %}
-                    <img src="{{ asset('upload/default.png') }}" alt="" class="postedByImage">
-                {% endif %}
-            </div>
+<!-- Template of one single event comment -->
+
+<!-- Photo and name of the author  -->
+<div class="row justify-content-center align-items-center p-2">
+    <div class="col-2 col-md-1">
+        <div class="img-cadre">
+            {% if comment.postedBy.image %}
+                <img src="{{ asset('upload/users/' ~ comment.postedBy.image) }}" alt="" class="postedByImage">
+            {% else %}
+                <img src="{{ asset('upload/default.png') }}" alt="" class="postedByImage">
+            {% endif %}
         </div>
-        <div class="col-6 col-md-8 name">
-            <a class="name" href="{{ path('single-user', {'id': comment.postedBy.id}) }}">{{ comment.postedBy.firstName }} {{ comment.postedBy.lastName }}</a>
-        </div>
-        <div class="col-4 col-md-3 text-right p-2">
-            <span class="date">{{ comment.postedAt|ago }}</span>
-            
-            <!-- Lien de modification et suppression si l'utilisateur connecté est l'auteur du commentaire -->
-            
-                <div class="row justify-content-end comment-icons no-gutters">
-                    {% if comment.postedBy.id == app.user.id %}
-                        <div class="col-6">
-                            <a class="update-link" href="{{ path('event-comment-update', {'id' : comment.id }) }}"><i class="fas fa-edit m-2 m-md-3"></i></a>
-                        </div>
-                    {% endif %}
-                    {% if comment.postedBy.id == app.user.id or is_granted('ROLE_SUPERADMIN') %}
-                        <div class="col-6 col-md-4 text-right">
-                            <a href="{{ path('eventcomment-delete', {'id': comment.id}) }}" onclick="return confirm('Confirmer la suppression?')">
-                                <form method="POST" style="display:inline-block" action="{{ path('eventcomment-delete', {'id': comment.id}) }}">
-                                    <input type="hidden" name="_method" value="delete">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('comment_delete' ~ comment.id) }}">
-                                    <button type="submit" class ="comment-delete-btn"><i class="fas fa-trash-alt m-2 m-md-3"></i></button> 
-                                </form>
-                            </a>
-                        </div>
-                    {% endif %}
+    </div>
+    <div class="col-6 col-md-8 name">
+        <a class="name" href="{{ path('single-user', {'id': comment.postedBy.id}) }}">{{ comment.postedBy.firstName }} {{ comment.postedBy.lastName }}</a>
+    </div>
+    <div class="col-4 col-md-3 text-right p-2">
+        <!-- the time passed since creation -->
+        <span class="date">{{ comment.postedAt|ago }}</span>
+        <div class="row justify-content-end comment-icons no-gutters">
+            <!-- Update link -->
+            {% if comment.postedBy.id == app.user.id %}
+                <div class="col-6">
+                    <a class="update-link" href="{{ path('event-comment-update', {'id' : comment.id }) }}"><i class="fas fa-edit m-2 m-md-3"></i></a>
                 </div>
-        </div>   
+            {% endif %}
+            <!-- Delete link -->
+            {% if comment.postedBy.id == app.user.id or is_granted('ROLE_SUPERADMIN') %}
+                <div class="col-6 col-md-4 text-right">
+                    <a href="{{ path('eventcomment-delete', {'id': comment.id}) }}" onclick="return confirm('Confirmer la suppression?')">
+                        <form method="POST" style="display:inline-block" action="{{ path('eventcomment-delete', {'id': comment.id}) }}">
+                            <input type="hidden" name="_method" value="delete">
+                            <input type="hidden" name="_token" value="{{ csrf_token('comment_delete' ~ comment.id) }}">
+                            <button type="submit" class ="comment-delete-btn"><i class="fas fa-trash-alt m-2 m-md-3"></i></button> 
+                        </form>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>   
+</div>
+
+<!-- Text of the comment -->
+<div class="row">
+    <div class="col-11 ml-3 mr-3">
+        <p class="commentBody">{{ comment.body }}</p>
+    </div>
+</div>
+<div class="row justify-content-around align-items-center p-3">
+    
+    <!-- Number of likes and replies -->
+    <div class="col-12 col-md-6 commentLike-count">
+        <span class="like-count">{{ comment.eventCommentLikes|length }}</span>
+            J'aime | 
+        <span class="commentReplyCount">{{ comment.eventCommentReplies|length }}</span><span class="responses-label-js"> Réponse{% if comment.eventCommentReplies|length != 1 %}s{% endif %}</span>
     </div>
 
-    <!-- Texte du commentaire -->
-    <div class="row">
-        <div class="col-11 ml-3 mr-3">
-            <p class="commentBody">{{ comment.body }}</p>
-        </div>
-    </div>
-    <div class="row justify-content-around align-items-center p-3">
-        
-        <!-- Nombre de j'aimes et nombre des réponses -->
-        <div class="col-12 col-md-6 commentLike-count">
-            <span class="like-count">{{ comment.eventCommentLikes|length }}</span>
-                J'aime | 
-            <span class="commentReplyCount">{{ comment.eventCommentReplies|length }}</span><span class="responses-label-js"> Réponse{% if comment.eventCommentReplies|length != 1 %}s{% endif %}</span>
-        </div>
-
-        <!-- Bouton j'aime -->
-        <div class="col-12 col-md-3 text-right mt-2">
-            <a class="btn commentLike-button" href="{{ path('event-comment-like', {'id': comment.id}) }}">
-                <span class="{% if comment.isLikedByUser(app.user) %}liked{% endif %}">
-                    {% if comment.isLikedByUser(app.user) %}
-                        Je n'aime plus
-                    {% else %}
-                        J'aime
-                    {% endif %}
-                </span>  
-            </a>
-        </div>
-
-        <!-- Lien qui affiche les réponses au commentaire et le formulaire pour envoyer une nouvelle réponse -->
-        <div class="col-12 col-md-3 text-right mt-2">
-            <a href="{{ path('event-comment-replies', {'id': comment.id}) }}" class="btn reply-button w-100">Réponses</a>
-        </div>
+    <!-- Like button -->
+    <div class="col-12 col-md-3 text-right mt-2">
+        <a class="btn commentLike-button" href="{{ path('event-comment-like', {'id': comment.id}) }}">
+            <span class="{% if comment.isLikedByUser(app.user) %}liked{% endif %}">
+                {% if comment.isLikedByUser(app.user) %}
+                    Je n'aime plus
+                {% else %}
+                    J'aime
+                {% endif %}
+            </span>  
+        </a>
     </div>
 
-    <!-- Le conteneur ou les réponses apparaissent (AJAX) -->
-    <div class="comment-replies row"></div>
+    <!-- Button to show responses -->
+    <div class="col-12 col-md-3 text-right mt-2">
+        <a href="{{ path('event-comment-replies', {'id': comment.id}) }}" class="btn reply-button w-100">Réponses</a>
+    </div>
+</div>
+
+<!-- Container wher the replies will be loaded by AJAX -->
+<div class="comment-replies row"></div>

@@ -4,7 +4,7 @@
 
 {% block pageTitle %}
 
-    <!-- On vérifie si on afficher les publications d'une certaine ville ou d'un certain utilisateur -->
+    <!-- The title changes depending on what page the user is on -->
     {% if ville.nom is defined %}
         Les publications de {{ ville.nom }}
     {% elseif user is defined %}    
@@ -23,7 +23,7 @@
 
     {% if user is not defined %}
         
-        <!-- Formulaire pour créer une nouvelle publication -->
+        <!-- Form to create a new post -->
         <div class="row justify-content-center justify-content-lg-end">
             <div class="post-form-block col-11 col-sm-10 col-lg-9 mt-3 p-2 ">
                 <div class="row justify-content-center align-items-center p-2">
@@ -44,29 +44,26 @@
      {% endif %}
 
     {% if lastPage is defined %}
-        <!-- Last page of pagination -->
+        <!-- Hidden input containing the last page of the pagination -->
         <input class="posts-count" type="hidden" value="{{ lastPage }}">
     {% endif %}
-
     {% if posts|length > 0 %}
-
-        <!-- Liste des publications -->
+        <!-- List of posts -->
         {% include 'post/post.html.twig' %}
-
     {% else %}
-        <!-- Le bloc qui s'affiche quand on veut voir les publications d'un utilisateur et il n'en a aucune -->
+        <!-- Text shown if there is no post in the list  -->
         <div class="row justify-content-center justify-content-lg-end">
             <div class="post-form-block col-10 col-lg-9 mt-3 p-2 ">
-                <p class="p-2">L'utilisateur n'a aucune publication</p>
+                <p class="p-2">Il n'y a pas de publication à afficher</p>
             </div>
         </div>
-    
     {% endif %}
         
 {% endblock %}
 
 {% block javascripts %}
 
+    <!-- JS filereader to show the selected uploadable picture before submit  -->
     <script>
         var openFile = function(event) {
         var input = event.target;

@@ -11,12 +11,13 @@ Mes publications
 
 {% block body %}
 
-        {% include 'topLinks.html.twig' %}    
+    {% include 'topLinks.html.twig' %}    
 
-        {% include 'flashMessages.html.twig' %}
+    {% include 'flashMessages.html.twig' %}
 
-        {% if myPosts|length > 0 %}
-            {% for post in myPosts %}
+    {% if myPosts|length > 0 %}
+        <!-- List of the current user's posts -->
+        {% for post in myPosts %}
             <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
                 <div class="profil-block col-11 col-sm-10 col-lg-9 justify-content-center p-lg-3 pt-3 pb-3">
                     <div class="row justify-content-between align-items-center update-block">
@@ -24,18 +25,14 @@ Mes publications
                     </div>
                 </div>
             </div>
-            {% endfor %}
-            
-        {% else %}
-        
-        {# Le bloc qui s'affiche si la personne n'a pas de publication #}
-
+        {% endfor %}
+    {% else %}
+        {# Text shown if the current user does not have any posts #}
         <div class="row justify-content-center justify-content-lg-end">
             <div class="post-form-block col-10 col-lg-9 mt-3 p-2 ">
                 <p class="p-2">Vous n'avez aucune publication</p>
             </div>
         </div>
-
-        {% endif %}
+    {% endif %}
 
 {% endblock %}

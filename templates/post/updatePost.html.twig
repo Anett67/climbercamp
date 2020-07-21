@@ -1,3 +1,5 @@
+<!-- Template of the form to update a post -->
+
 <div class="cancel" data-url="{{ path('post-json', {'id': post.id }) }}">
     Annuler
 </div>
@@ -23,6 +25,7 @@
 
 {% block javascripts %}
 
+    <!-- JS filereader to show the selected uploadable picture before submit  -->
     <script>
         var openFile = function(event) {
         var input = event.target;

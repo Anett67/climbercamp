@@ -1,4 +1,6 @@
-{# Image de l'évènement #}
+<!-- Template of one single event on "My events" Page -->
+
+{# Event image #}
 <div class="col-md-3">
     {% if event.image %}
         <img src="{{ asset('upload/events/' ~ event.image) }}" class="w-100" alt="Photo liée à la publication">
@@ -6,32 +8,30 @@
         <img src="{{ asset('upload/placeholder-image.png') }}" class="w-100" alt="Placeholder image">
     {% endif %}
 </div>
-
-{# Titre et description #}
+{# Title and description #}
 <div class="col-md-5">
     <a href="{{ path('single-event', {'id': event.id}) }}"><h2>{{ event.title }}</h2></a>
     <p class="event-description p-0">{{ event.description }}</p>
 </div>
-
 <div class="col -6 col-md-2 date">
-    {# Date de l'évènement #}
+    {# Event Date #}
     <div>
         {{ event.eventDate|date("d/m/Y  H:i") }} 
     </div>
-    
     <div class="mt-2">
-        {# Nombre des commentaires et lien vers la page de l'évènement #}
+        {# Number of comments and interested users #}
         <a href="{{ path('single-event', {'id': event.id}) }}">
             Voir les commentaires ({{ event.eventComments|length }})
         </a>
         <a href="{{ path('event-users', {'id': event.id}) }}"><p class="event-description mt-2">{{ interestedPersons(event.interestedUsers|length) }}</p></a>
     </div>
 </div>
-
 <div class="col-6 col-md-2 icons text-right">
+    <!-- Update link -->
     <a class="update-link mr-3" href="{{ path('event-update', {'id': event.id }) }}">
         <i class="fas fa-edit m-3"></i>
     </a>
+    <!-- Delete link -->
     <form class="mr-3 delete-form" method="POST" style="display:inline-block" action="{{ path('event-delete', {'id': event.id}) }}">
         <input type="hidden" name="_method" value="delete">
         <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ event.id) }}">

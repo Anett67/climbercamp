@@ -1,5 +1,4 @@
-<!-- C'est le template qui affiche les réponses à une commentaire et sera chargé en AJAX quand on clique sur le bouton 'Réponses' -->
-
+<!-- The template that contains the responses of a comment -->
 
 <div class="col-12 mt-2 mb-3">
     <div class="row justify-content-center">
@@ -22,7 +21,7 @@
         </div>
     </div>
 
-    <!-- Formulaire pour répondre à un commentaire -->
+    <!-- Form to send a reply to the comment -->
     <div class="new-reply-form row justify-content-center mb-5">
         <div class="col-11">
             <h6>Répondre à ce commentaire</h6>
@@ -37,7 +36,7 @@
         </div>
     </div>
     
-    <!-- La liste des réponses -->
+    <!-- List of replies -->
     {% for reply in replies %}
         
         <div class="row justify-content-around align-items-center reply ">

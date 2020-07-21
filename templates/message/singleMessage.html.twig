@@ -1,46 +1,53 @@
 
-        <div class="row justify-content-between align-items-center p-2">
-            <div class="col-6 chat-users from-user">
-                <div class="row align-items-center">
-                    <div class="img-cadre">
-                        {% if message.fromUser.image %}
-                            <img class="from-user-image img-fluid" src="{{ asset('upload/users/' ~ message.fromUser.image) }}" alt="Photo de profile">
-                        {% else %}
-                            <img class="from-user-image img-fluid" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
-                        {% endif %}
-                    </div>
-                    <a class="name" href="{{ path('single-user', {'id': message.fromUser.id }) }}">{{ message.fromUser.username }}</a>
-                </div>
+<!-- Template of one message on messages Page -->
+
+<div class="row justify-content-between align-items-center p-2">
+    <!-- Photo and name of the person who sent the message -->
+    <div class="col-6 chat-users from-user">
+        <div class="row align-items-center">
+            <div class="img-cadre">
+                {% if message.fromUser.image %}
+                    <img class="from-user-image img-fluid" src="{{ asset('upload/users/' ~ message.fromUser.image) }}" alt="Photo de profile">
+                {% else %}
+                    <img class="from-user-image img-fluid" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
+                {% endif %}
             </div>
-            <div class="col-6 chat-users to-user">
-                <div class="row align-items-center justify-content-end">
-                    <a class="name" href="{{ path('single-user', {'id': message.toUser.id }) }}">à {{ message.toUser.username }}</a>
-                    <div class="img-cadre">
-                        {% if message.toUser.image %}
-                            <img class="from-user-image img-fluid" src="{{ asset('upload/users/' ~ message.toUser.image) }}" alt="Photo de profile">
-                        {% else %}
-                            <img class="from-user-image img-fluid" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>    
-        <div class="row justify-content-around">
-            <div class="col-7">
-                <p class="message-body">{{ message.body }}</p>
-            </div>   
-            <div class="col-5 text-right">
-                <div class="message-date">{{ message.sendDate|ago }}</div>
+            <a class="name" href="{{ path('single-user', {'id': message.fromUser.id }) }}">{{ message.fromUser.username }}</a>
+        </div>
+    </div>
+    <!-- Photo and name of the person who received the message -->
+    <div class="col-6 chat-users to-user">
+        <div class="row align-items-center justify-content-end">
+            <a class="name" href="{{ path('single-user', {'id': message.toUser.id }) }}">à {{ message.toUser.username }}</a>
+            <div class="img-cadre">
+                {% if message.toUser.image %}
+                    <img class="from-user-image img-fluid" src="{{ asset('upload/users/' ~ message.toUser.image) }}" alt="Photo de profile">
+                {% else %}
+                    <img class="from-user-image img-fluid" src="{{ asset('upload/default.png') }}" alt="Photo de profile">
+                {% endif %}
             </div>
         </div>
-        <a class="response-link"
-            {% if app.user.id is same as(message.fromUser.id)  %}
-                href="{{ path('conversation', {'id': message.toUser.id }) }}"
-            {% elseif app.user.id is same as(message.toUser.id)  %}
-                href="{{ path('conversation', {'id': message.fromUser.id }) }}"
-            {% endif %}
-        >Je réponds</a>
-        {% if not message.seen and message.fromUser.id != app.user.id %}
-            <a class="seen-link" href="{{ path('message-seen', {'id': message.id }) }}">Marquer comme lu</a>
-            <div class="nouveau-link">Nouveau</div>
-        {% endif %}
+    </div>
+</div>
+<!-- Text and sending date of the message     -->
+<div class="row justify-content-around">
+    <div class="col-7">
+        <p class="message-body">{{ message.body }}</p>
+    </div>   
+    <div class="col-5 text-right">
+        <div class="message-date">{{ message.sendDate|ago }}</div>
+    </div>
+</div>
+<!-- Link to conversation Page -->
+<a class="response-link"
+    {% if app.user.id is same as(message.fromUser.id)  %}
+        href="{{ path('conversation', {'id': message.toUser.id }) }}"
+    {% elseif app.user.id is same as(message.toUser.id)  %}
+        href="{{ path('conversation', {'id': message.fromUser.id }) }}"
+    {% endif %}
+>Je réponds</a>
+<!-- Link to label the message as "seen" -->
+{% if not message.seen and message.fromUser.id != app.user.id %}
+    <a class="seen-link" href="{{ path('message-seen', {'id': message.id }) }}">Marquer comme lu</a>
+    <div class="nouveau-link">Nouveau</div>
+{% endif %}

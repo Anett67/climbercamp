@@ -1,3 +1,5 @@
+<!-- Template used to show the posts of a user -->
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Publications{% endblock %}
@@ -9,20 +11,17 @@
     {% include 'topLinks.html.twig' %} 
 
     {% if posts|length > 0 %}
-
-        <!-- Liste des publications -->
+        <!-- Liste of posts -->
         {% include 'post/post.html.twig' %}
-
     {% else %}
-        <!-- Le bloc qui s'affiche quand on veut voir les publications d'un utilisateur et il n'en a aucune -->
+        <!-- Text shown if the user does not have any posts -->
         <div class="row justify-content-center justify-content-lg-end">
             <div class="post-form-block col-10 col-lg-9 mt-3 p-2 ">
                 <p class="p-2">L'utilisateur n'a aucune publication</p>
             </div>
         </div>
-    
     {% endif %}
-
+    <!-- Pagination -->
     <div class="row justify-content-center justify-content-lg-end mt-5 mb-5">
         <div class="navigation">
             {{ knp_pagination_render(posts) }}

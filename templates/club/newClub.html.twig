@@ -10,6 +10,7 @@
 
     {% include 'topLinks.html.twig' %}
     
+    <!-- Form to add a new club to the database -->
     <div class="row justify-content-center justify-content-lg-end">
         <div class="new-club-form col-11 col-sm-10 col-lg-9 mt-3">
             <div class="row justify-content-center pt-5 pb-3">
@@ -33,6 +34,7 @@
 
 {% block javascripts %}
 
+    <!-- JS filereader to show the selected uploadable picture before submit  -->
     <script>
         var openFile = function(event) {
         var input = event.target;

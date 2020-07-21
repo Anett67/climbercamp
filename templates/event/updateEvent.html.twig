@@ -1,3 +1,5 @@
+<!-- Form to update an event -->
+
 <div class="cancel" data-url="{{ path('event-json', {'id': event.id }) }}">
     Annuler
 </div>
@@ -18,6 +20,7 @@
 
 {% block javascripts %}
 
+    <!-- JS filereader to show the selected uploadable picture before submit  -->
     <script>
         var openFile = function(event) {
         var input = event.target;
