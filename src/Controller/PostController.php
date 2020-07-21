@@ -32,6 +32,7 @@ class PostController extends AbstractController
         $ville = $this->getUser()->getVille();
         $postsPerPage = 5;
 
+        //Checking if the user has defined a city on his profil or not
         if($ville){
             $totalPosts = count($repository->findLocalPosts($ville));
             $posts = $paginator->paginate(
@@ -85,6 +86,7 @@ class PostController extends AbstractController
         $ville = $this->getUser()->getVille();
         $postsPerPage = 5;
 
+        //Checking if the user has defined a city on his profil or not
         if($ville){
             $posts = $paginator->paginate(
                 $repository->findLocalPostsWithPagination($ville), /* query NOT result */
