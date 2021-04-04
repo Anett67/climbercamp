@@ -31,7 +31,6 @@ class PostController extends AbstractController
     {   
         $ville = $this->getUser()->getVille();
         $postsPerPage = 5;
-
         //Checking if the user has defined a city on his profil or not
         if($ville){
             $totalPosts = count($repository->findLocalPosts($ville));
@@ -48,10 +47,8 @@ class PostController extends AbstractController
                 $postsPerPage /*limit per page*/
             );
         }
-
         //Last page of pagination where the infinite scroll must stop
         $lastPage = ceil($totalPosts/$postsPerPage);
-        
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
@@ -65,11 +62,7 @@ class PostController extends AbstractController
             return $this->redirectToRoute('local-posts');
         }
 
-        return $this->render('post/posts.html.twig', [
-            'posts' => $posts,
-            'ville' => $ville,
-            'form' => $form->createView(),
-            'localPostsPage' => true, 
+        return $this->render('post/posts.html.twig', ['posts' => $posts,'ville' => $ville,'form' => $form->createView(),'localPostsPage' => true, 
             'lastPage' => $lastPage
         ]);
     }
