@@ -34,7 +34,8 @@ class UserType extends AbstractType
                 ]
             ])
             ->add('presentation', TextareaType::class, [
-                'label' => 'Présentation'
+                'label' => 'Présentation',
+                'required' => false
             ])
             ->add('ville', EntityType::class,[
                 'class' => Ville::class,
